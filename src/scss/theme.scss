@@ -1,0 +1,12 @@
+/*
+ * Theme Stylesheet - Main Entry Point
+ * 
+ * This file imports everything in the correct order:
+ * 1. User variables (can override defaults)
+ * 2. Theme variables (your theme's defaults)
+ * 3. Bootstrap (functions, variables, components)
+ * 4. Theme components (your customizations)
+ * 5. User styles (final overrides)
+ */
+
+@import "~bootstrap/scss/bootstrap";
