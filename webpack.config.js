@@ -1,10 +1,14 @@
 const path = require('path');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
     entry: './src/js/theme.js',
     plugins: [
         new HtmlWebpackPlugin(),
+        new MiniCssExtractPlugin({
+            filename: 'theme.css'
+        })
     ],
     module: {
         rules: [
@@ -13,8 +17,8 @@ module.exports = {
                 test: /\.(scss)$/,
                 use: [
                     {
-                        // inject CSS to page
-                        loader: 'style-loader'
+                        // Extract CSS to separate file (replaces style-loader)
+                        loader: MiniCssExtractPlugin.loader
                     }, {
                         // translates CSS into CommonJS modules
                         loader: 'css-loader'
