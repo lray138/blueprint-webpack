@@ -1,3 +1,4 @@
+const path = require('path');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
@@ -7,6 +8,7 @@ module.exports = {
     ],
     module: {
         rules: [
+            { test: /\.ejs$/i, use: [ { loader: 'ejs-easy-loader' } ] },
             {
                 test: /\.(scss)$/,
                 use: [
@@ -35,20 +37,30 @@ module.exports = {
                         // compiles Sass to CSS
                         loader: 'sass-loader',
                         options: {
-    sassOptions: {
-    // Optional: Silence Sass deprecation warnings. See note below.
-    silenceDeprecations: [
-        //'mixed-decls',
-        'color-functions',
-        'global-builtin',
-        'import'
-    ],
-    quietDeps: true,
-    }
-}
+                            sassOptions: {
+                            // Optional: Silence Sass deprecation warnings. See note below.
+                            silenceDeprecations: [
+                                //'mixed-decls',
+                                'color-functions',
+                                'global-builtin',
+                                'import'
+                            ],
+                            quietDeps: true,
+                            }
+                        }
                     }
                 ]
             }
         ]
-    }
+    },
+    resolve: {
+      roots: [
+         path.resolve(__dirname, 'src'),
+         path.resolve(__dirname, 'node_modules')
+      ]
+   },
+   devServer: {
+        watchFiles: 'src/**/*',
+        //hot: true
+    },
 };

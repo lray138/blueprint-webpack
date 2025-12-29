@@ -14,6 +14,7 @@
   "devDependencies": {
     "autoprefixer": "^10.4.23",
     "css-loader": "^7.1.2",
+    "ejs-easy-loader": "^0.1.4",
     "html-webpack-plugin": "^5.6.5",
     "postcss-loader": "^8.2.0",
     "sass": "^1.97.1",
