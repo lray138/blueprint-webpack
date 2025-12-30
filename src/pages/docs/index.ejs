@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Documentation | Webpack + Bootstrap</title>
+    </head>
+    <body class="d-flex flex-column min-vh-100">
+        <!-- Header -->
+        <div class="container-fluid">
+            <%- require("/partials/header.ejs")() %>
+        </div>
+        
+        <!-- Docs Content -->
+        <section>
+            <div class="container-fluid">
+                <div class="row">
+                    
+                    <!-- Left Sidebar Navigation -->
+                    <%- require("/partials/docs/sidebar.ejs")() %>
+                    
+                    <!-- Main Content -->
+                    <div class="col-12 col-lg-6 col-xl-8 py-7 py-lg-9 px-lg-7">
+                        <!-- Page Title -->
+                        <h1 class="mb-1">Documentation</h1>
+                        <p class="fs-lg text-muted mb-5">Welcome to the documentation</p>
+                        
+                        <!-- Content Sections -->
+                        <h3 id="section1" class="fw-bold">Section 1</h3>
+                        <p>Content for section 1 goes here...</p>
+                        
+                        <hr class="my-6">
+                        
+                        <h3 id="section2" class="fw-bold">Section 2</h3>
+                        <p>Content for section 2 goes here...</p>
+                        
+                        <hr class="my-6">
+                        
+                        <h3 id="section3" class="fw-bold">Section 3</h3>
+                        <p>Content for section 3 goes here...</p>
+                    </div>
+                    
+                    <!-- Right "Jump to" Sidebar -->
+                    <div class="col-12 col-lg-3 col-xl-2 d-none d-lg-block px-lg-0">
+                        <div class="my-7 my-lg-9 px-lg-7 border-start-lg border-secondary">
+                                                        <!-- Heading -->
+                            <h6 class="text-uppercase fw-bold">Jump to</h6>
+                            
+                            <!-- Links -->
+                            <ul class="list mb-0">
+                                <li class="list-item">
+                                    <a class="list-link" href="#section1" data-scroll>Section 1</a>
+                                </li>
+                                <li class="list-item">
+                                    <a class="list-link" href="#section2" data-scroll>Section 2</a>
+                                </li>
+                                <li class="list-item">
+                                    <a class="list-link" href="#section3" data-scroll>Section 3</a>
+                                </li>
+                            </ul>
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <div class="container mt-auto">
+            <%- require("/partials/footer.ejs")() %>
+        </div>
+        <%- require("/partials/svg-icons.ejs")() %>
+    </body>
+</html>

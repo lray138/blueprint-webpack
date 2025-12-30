@@ -1,15 +1,22 @@
 const path = require('path');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { getSitePages } = require('./src/utils/filesystem');
 
 module.exports = {
     entry: './src/js/theme.js',
     plugins: [
-        new HtmlWebpackPlugin(),
+        ...getSitePages('./src/pages').map(page => {
+            const pageName = page.replace('.ejs', '').replace('src/pages/', '');
+            return new HtmlWebpackPlugin({
+                template: page,
+                filename: `./${pageName}.html`
+            });
+        }),
         new MiniCssExtractPlugin({
             filename: 'theme.css'
         })
-    ],
+    ],  
     module: {
         rules: [
             { test: /\.ejs$/i, use: [ { loader: 'ejs-easy-loader' } ] },
