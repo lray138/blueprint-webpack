@@ -17,6 +17,7 @@
     "ejs-easy-loader": "^0.1.4",
     "html-webpack-plugin": "^5.6.5",
     "mini-css-extract-plugin": "^2.9.4",
+    "monaco-editor-webpack-plugin": "^7.1.1",
     "postcss-loader": "^8.2.0",
     "sass": "^1.97.1",
     "sass-loader": "^16.0.6",
@@ -26,6 +27,7 @@
     "webpack-dev-server": "^5.2.2"
   },
   "dependencies": {
-    "bootstrap": "^5.3.8"
+    "bootstrap": "^5.3.8",
+    "monaco-editor": "^0.55.1"
   }
 }

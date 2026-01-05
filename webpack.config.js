@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { getSitePages } = require('./src/utils/filesystem');
+//const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
 module.exports = {
     entry: './src/js/theme.js',
@@ -15,11 +16,12 @@ module.exports = {
         }),
         new MiniCssExtractPlugin({
             filename: 'theme.css'
-        })
+        }),
     ],  
     module: {
         rules: [
             { test: /\.ejs$/i, use: [ { loader: 'ejs-easy-loader' } ] },
+            
             {
                 test: /\.(scss)$/,
                 use: [
