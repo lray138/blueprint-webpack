@@ -1,0 +1,6 @@
+<%
+    var text = typeof text !== "undefined" ? text : "";
+    var attrs = typeof attrs !== "undefined" ? attrs : {};
+    var attrsString = Object.entries(attrs).map(([key, value]) => `${key}="${value}"`).join(" ");
+%>
+<p <%- attrsString %>><%- text %></p>

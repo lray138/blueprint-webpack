@@ -1,0 +1,5 @@
+<% 
+    var class_name = active ? "active" : "";
+    var aria_current = active ? "true" : "false";
+%>
+<button type="button" data-bs-target="#<%= carousel_id %>" data-bs-slide-to="<%= index %>" class="<%= class_name %>" aria-current="<%= aria_current %>" aria-label="Slide <%= index + 1 %>"></button>

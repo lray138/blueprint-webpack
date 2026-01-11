@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { getSitePages } = require('./src/utils/filesystem');
+const CopyPlugin = require('copy-webpack-plugin');
 //const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
 module.exports = {
@@ -17,11 +18,25 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: 'theme.css'
         }),
+        new CopyPlugin({
+            patterns: [
+              {
+                from: './src/img',
+                to: './img',
+              }
+            ],
+          }),
     ],  
     module: {
         rules: [
             { test: /\.ejs$/i, use: [ { loader: 'ejs-easy-loader' } ] },
-            
+            {
+                test: /\.(png|svg|jpg|jpeg|gif)$/i,
+                type: 'asset/resource',
+                generator: {
+                  emit: false,
+                }
+              },
             {
                 test: /\.(scss)$/,
                 use: [
@@ -63,7 +78,14 @@ module.exports = {
                         }
                     }
                 ]
-            }
+            },
+            // {
+            //     test: /\.(woff2?|ttf|eot|svg)$/,
+            //     type: 'asset/resource',
+            //     generator: {
+            //        filename: "../fonts/[name][ext]"
+            //     }
+            //   }
         ]
     },
     resolve: {

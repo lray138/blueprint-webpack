@@ -1,0 +1,11 @@
+<%
+    var icon = "Y";
+    var text = typeof text !== "undefined" ? text : "";
+    var icon_wrap_class_names = typeof icon_wrap_class_names !== "undefined" 
+        ? icon_wrap_class_names 
+        : ""; //  badge-rounded-circle text-bg-success 
+%>
+<div class="d-flex align-items-center">
+    <span class="badge mt-0 me-3 <%= icon_wrap_class_names %>" style="font-size:1.2em; padding: .75em"><%- icon %></span>
+    <%- text %>
+</div>

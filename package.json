@@ -13,6 +13,7 @@
   "description": "",
   "devDependencies": {
     "autoprefixer": "^10.4.23",
+    "copy-webpack-plugin": "^13.0.1",
     "css-loader": "^7.1.2",
     "ejs-easy-loader": "^0.1.4",
     "html-webpack-plugin": "^5.6.5",
@@ -28,6 +29,7 @@
   },
   "dependencies": {
     "bootstrap": "^5.3.8",
+    "bootstrap-icons": "^1.13.1",
     "monaco-editor": "^0.55.1"
   }
 }

@@ -1,6 +1,9 @@
 <% 
-  var __level__ = __level__ || 2;
+  var __level__ = typeof level !== "undefined" ? level : 2;
   var __heading_attributes__ = '';
-  var text = "";
+  var text = typeof text !== "undefined" ? text : "";
+  var attrs = typeof attrs !== "undefined" ? attrs : {};
+  var attrsString = Object.entries(attrs).map(([key, value]) => `${key}="${value}"`).join(" ");
+  __heading_attributes__ = attrsString ? ` ${attrsString}` : "";
 %>
 <h<%- __level__ %> <%- __heading_attributes__ %>><%- text %></h<%- __level__ %>>

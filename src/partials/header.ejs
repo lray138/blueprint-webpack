@@ -1,62 +1,118 @@
-<header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom"> <div class="col-md-3 mb-2 mb-md-0"> <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">Blueprint</a> </div> <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0"> <li><a href="#" class="nav-link px-2 link-secondary">Home</a></li> <li><a href="#" class="nav-link px-2">Features</a></li> <li><a href="#" class="nav-link px-2">Pricing</a></li> <li><a href="#" class="nav-link px-2">FAQs</a></li> <li><a href="#" class="nav-link px-2">About</a></li> <li><a href="/docs/index.html" class="nav-link px-2">Docs</a></li> </ul> 
-    <div class="col-md-3 text-end d-flex align-items-center justify-content-end gap-2"> 
-      <div class="dropdown">
-        <button class="btn btn-outline-secondary dropdown-toggle d-flex align-items-center justify-content-center py-2 px-3" 
+<% 
+    var nav_links = require('/partials/components/list/index.ejs')({
+        list_type: 'ul',
+        class_names: 'nav col-12 col-md-auto mb-2 justify-content-center mb-md-0',
+        list_items: [{
+            text: 'Home',
+            href: '/index.html',
+            class_names: 'nav-link px-2 link-secondary'
+        }, {
+            text: 'Features',
+            href: '/features/',
+            class_names: 'nav-link px-2'
+        },
+        {
+            text: 'Pricing',
+            href: '/pricing/',
+            class_names: 'nav-link px-2'
+        },
+        {
+            text: 'FAQs',
+            href: '/faqs/',
+            class_names: 'nav-link px-2'
+        },
+        {
+            text: 'About',
+            href: '/about/',
+            class_names: 'nav-link px-2'
+        }
+    ]
+        .map(item => {
+            return require('/partials/elements/list-item/index.ejs')({
+                content: require('/partials/components/anchor/index.ejs')({
+                    text: item.text,
+                    href: item.href,
+                    class_names: item.class_names
+                })
+            })
+        }).join('')
+    });
+
+    var site_name_anchor = require('/partials/components/anchor/index.ejs')({
+        text: "Blueprint",
+        href: "/index.html",
+        class_names: 'd-inline-flex link-body-emphasis text-decoration-none'
+    });
+
+    var flex_end_content = `<div class="dropdown">
+			<button class="btn btn-outline-secondary dropdown-toggle d-flex align-items-center justify-content-center py-2 px-3" 
                 id="bd-theme" 
                 type="button" 
                 aria-expanded="false" 
                 data-bs-toggle="dropdown" 
                 data-bs-display="static" 
                 aria-label="Toggle theme (light)">
-          <svg class="bi theme-icon-active" aria-hidden="true" width="16" height="16">
-            <use href="#sun-fill"></use>
-          </svg>
-        </button>
-        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-theme">
-          <li>
-            <button type="button" 
+				<svg class="bi theme-icon-active" aria-hidden="true" width="16" height="16">
+					<use href="#sun-fill"></use>
+				</svg>
+			</button>
+			<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-theme">
+				<li>
+					<button type="button" 
                     class="dropdown-item d-flex align-items-center" 
                     data-bs-theme-value="light" 
                     aria-pressed="false">
-              <svg class="bi me-2 opacity-50" aria-hidden="true" width="16" height="16">
-                <use href="#sun-fill"></use>
-              </svg>
+						<svg class="bi me-2 opacity-50" aria-hidden="true" width="16" height="16">
+							<use href="#sun-fill"></use>
+						</svg>
               Light
-              <svg class="bi ms-auto d-none" aria-hidden="true" width="16" height="16">
-                <use href="#check2"></use>
-              </svg>
-            </button>
-          </li>
-          <li>
-            <button type="button" 
+              
+						<svg class="bi ms-auto d-none" aria-hidden="true" width="16" height="16">
+							<use href="#check2"></use>
+						</svg>
+					</button>
+				</li>
+				<li>
+					<button type="button" 
                     class="dropdown-item d-flex align-items-center" 
                     data-bs-theme-value="dark" 
                     aria-pressed="false">
-              <svg class="bi me-2 opacity-50" aria-hidden="true" width="16" height="16">
-                <use href="#moon-stars-fill"></use>
-              </svg>
+						<svg class="bi me-2 opacity-50" aria-hidden="true" width="16" height="16">
+							<use href="#moon-stars-fill"></use>
+						</svg>
               Dark
-              <svg class="bi ms-auto d-none" aria-hidden="true" width="16" height="16">
-                <use href="#check2"></use>
-              </svg>
-            </button>
-          </li>
-          <li>
-            <button type="button" 
+              
+						<svg class="bi ms-auto d-none" aria-hidden="true" width="16" height="16">
+							<use href="#check2"></use>
+						</svg>
+					</button>
+				</li>
+				<li>
+					<button type="button" 
                     class="dropdown-item d-flex align-items-center" 
                     data-bs-theme-value="auto" 
                     aria-pressed="false">
-              <svg class="bi me-2 opacity-50" aria-hidden="true" width="16" height="16">
-                <use href="#circle-half"></use>
-              </svg>
+						<svg class="bi me-2 opacity-50" aria-hidden="true" width="16" height="16">
+							<use href="#circle-half"></use>
+						</svg>
               Auto
-              <svg class="bi ms-auto d-none" aria-hidden="true" width="16" height="16">
-                <use href="#check2"></use>
-              </svg>
-            </button>
-          </li>
-        </ul>
-      </div>
-      <button type="button" class="btn btn-outline-primary">Login</button>
-      <button type="button" class="btn btn-primary">Sign-up</button>
-    </div> </header>
+              
+						<svg class="bi ms-auto d-none" aria-hidden="true" width="16" height="16">
+							<use href="#check2"></use>
+						</svg>
+					</button>
+				</li>
+			</ul>
+		</div>
+		<a href="/login/" class="btn btn-outline-primary">Login</a>
+		<a href="/sign-up/" class="btn btn-primary">Sign-up</a>`;
+%>
+<header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+	<div class="col-md-3 mb-2 mb-md-0">
+		<%- site_name_anchor %>
+	</div>
+	<%- nav_links %>
+	<div class="col-md-3 text-end d-flex align-items-center justify-content-end gap-2">
+		<%- flex_end_content %>
+	</div>
+</header>
