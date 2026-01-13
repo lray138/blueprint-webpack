@@ -5,3 +5,4 @@ import "./components/jump-to.js";
 //import 'bootstrap';
 import 'bootstrap/dist/js/bootstrap.bundle';  // Includes Popper
 
+import "./vendor/css-scope-inline.js";

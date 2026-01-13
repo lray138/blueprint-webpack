@@ -9,13 +9,92 @@
         <div class="container">
             <%- require("/partials/header.ejs")() %>
         </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <h1>Pricing</h1>
+        <main>
+            <section class="pricing">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 mb-4 text-center">
+                            <h1 class="text-center">Pricing</h1>
+                            <p class="fs-5 text-body-secondary">Choose the plan that's right for you.</p>
+                        </div>
+                    </div>
+                  <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+                    <div class="col">
+                       <%- require("/partials/components/card/price.ejs")({
+                            badge_text: "Free",
+                            badge_type: "warning",
+                            price: "0",
+                            price_suffix: "mo",
+                            features: [
+                                {
+                                    icon_name: 'check',
+                                    text: "10 users included",
+                                },
+                                {
+                                    icon_name: 'check',
+                                    text: "2 GB of storage",
+                                },
+                                {
+                                    icon_name: 'check',
+                                    text: "Email support",
+                                },
+                            ].map(feature => require("/partials/components/icon-text/index.ejs")(feature)).join(''),
+                            button_text: "Sign up for free",
+                            button_type: "outline-primary",
+                       }) %>
+                    </div>
+                    <div class="col">
+                      <%- require("/partials/components/card/price.ejs")({
+                            badge_text: "Pro",
+                            badge_type: "primary",
+                            price: "48",
+                            price_suffix: "mo",
+                            features: [
+                                {
+                                    icon_name: 'check',
+                                    text: "10 users included",
+                                },
+                                {
+                                    icon_name: 'check',
+                                    text: "2 GB of storage",
+                                },
+                                {
+                                    icon_name: 'check',
+                                    text: "Email support",
+                                },
+                            ].map(feature => require("/partials/components/icon-text/index.ejs")(feature)).join(''),
+                            button_text: "Take advantage",
+                            button_type: "primary",
+                       }) %>
+                    </div>
+                    <div class="col">
+                        <%- require("/partials/components/card/price.ejs")({
+                              badge_text: "Standard",
+                              badge_type: "success",
+                              price: "23",
+                              price_suffix: "mo",
+                              features: [
+                                  {
+                                      icon_name: 'check',
+                                      text: "10 users included",
+                                  },
+                                  {
+                                      icon_name: 'check',
+                                      text: "2 GB of storage",
+                                  },
+                                  {
+                                      icon_name: 'check',
+                                      text: "Email support",
+                                  },
+                              ].map(feature => require("/partials/components/icon-text/index.ejs")(feature)).join(''),
+                              button_text: "Get started",
+                              button_type: "outline-primary",
+                         }) %>
+                      </div>
+                  </div>
                 </div>
-            </div>
-        </div>
+              </section>
+        </main>
         <div class="container mt-auto">
             <%- require("/partials/footer.ejs")() %>
         </div>

@@ -15,12 +15,12 @@
         <section>
             <div class="container-fluid">
                 <div class="row">
-                    
                     <!-- Left Sidebar Navigation -->
                     <%- require("/partials/docs/sidebar.ejs")() %>
-                    
+
                     <!-- Main Content -->
-                    <div class="col-12 col-lg-6 col-xl-8 py-7 py-lg-9 px-lg-7">
+                    <div id="doc-content" class="col-12 col-lg-6 col-xl-8 py-7 py-lg-9 px-lg-7">
+                        
                         <!-- Page Title -->
                         <h1 class="mb-1">Accordion</h1>
                         <p class="fs-lg text-muted mb-5">Build vertically collapsing accordions in combination with our Collapse JavaScript plugin.  See full documentation
@@ -449,23 +449,42 @@
                             </div>
                         </div>
 
+                        <section class=""><div class="container"><h2 id="s1_p0">Standard</h2><div><p>Here is an example of an <code>Accordion</code> component with the default settings:</p>
+                        </div></div></section>
+
                     </div>
 
                     
                     <!-- Right "Jump to" Sidebar -->
-                    <div class="col-12 col-lg-3 col-xl-2 d-none d-lg-block px-lg-0">
+                    <div class="col-12 col-lg-3 col-xl-2 d-none d-lg-block px-lg-0 jump-to-col">
                         <div class="my-7 my-lg-9 px-lg-7 border-start-lg border-secondary">
                             
                             <!-- Heading -->
                             <h6 class="text-uppercase fw-bold">Jump to</h6>
                             
-                            <!-- Links -->
-                            <ul class="list mb-0">
-                                <!-- <li class="list-item">
-                                    <a class="list-link" href="#section1" data-scroll>Section 1</a>
-                                </li> -->
+                
+                            <ul class="list mb-0 list-unstyled" id="jump-to">
+                            <!-- <li class="list-item">
+                                <a class="list-link" href="#section1" data-scroll>Section 1</a>
+                            </li> -->
+                                
                             </ul>
+
+                            <style>
+                                me a.list-link {
+                                    text-decoration: none;
+                                    font-size: 14px;
+                                    color: var(--wp--preset--color--base);
+                                }
+                                
+                                .jump-to-col {
+                                    position: sticky;
+                                    top: 2rem;
+                                    align-self: flex-start;
+                                }
+                            </style>
                             
+                            <!-- Links -->
                         </div>
                     </div>
                     

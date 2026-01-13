@@ -1,9 +1,7 @@
-<div class="col-12 col-lg-3 col-xl-2 px-lg-0 border-end-lg border-secondary">
-    <div class="collapse d-lg-block" id="docsNavCollapse">
-        <div class="py-7 py-lg-9 px-3">
-            
-            <!-- Section Heading -->
-            <h6 class="text-uppercase fw-bold">Getting Started</h6>
+<% 
+
+var content_static = `<!-- Section Heading -->
+            <a href="/docs/" class="section-heading"><h6 class="text-uppercase fw-bold">Welcome</h6></a>
             
             <!-- Links -->
             <ul class="list mb-6 ps-3">
@@ -14,12 +12,12 @@
                     <a class="list-link" href="/docs/terminology.html">Terminology</a>
                 </li>
                 <li class="list-item">
-                    <a class="list-link" href="docs.html#setup">Setup</a>
+                    <a class="list-link" href="docs.html#setup">Project Setup</a>
                 </li>
             </ul>
             
             <!-- Section Heading -->
-            <h6 class="text-uppercase fw-bold">Components</h6>
+            <a href="/docs/components/" class="section-heading"><h6 class="text-uppercase fw-bold">Components</h6></a>
             
             <!-- Links -->
             <ul class="list mb-6 ps-3">
@@ -132,15 +130,44 @@
 
 
             <!-- Section Heading -->
-            <h6 class="text-uppercase fw-bold">Inspiration</h6>
+            <a href="/docs/inspiration/" class="section-heading"><h6 class="text-uppercase fw-bold">Inspiration</h6></a>
+            `;
+
+    var sections = require('/partials/docs/sidebar/section.ejs')({
+        section_href: "/docs/",
+        section_title: "Welcome",
+        list_items: [
+            {
+                text: "Introduction",
+                href: "/docs/"
+            },
+            {
+                text: "Terminology",
+                href: "/docs/terminology/"
+            },
+            {
+                text: "Project Setup",
+                href: "/docs/setup/"
+            }
+        ]
+    });
+%>
+<div class="col-12 col-lg-3 col-xl-2 px-lg-0 border-end-lg border-secondary">
+    <div class="collapse d-lg-block" id="docsNavCollapse">
+        <div class="py-7 py-lg-9 px-3">
+
+            <style>
+                me a.section-heading {
+                    text-decoration: none;
+                    color: inherit;
+                }
+
+                me a.section-heading:hover {
+                    text-decoration: underline;
+                }
+            </style>
             
-            <!-- Links -->
-            <ul class="list mb-6 ps-3">
-                <li class="list-item">
-                    <a class="list-link" href="/docs/inspiration.html">Inspiration</a>
-                </li>
-            </ul>
-            
+            <%- sections %>
         </div>
     </div>
 </div> 

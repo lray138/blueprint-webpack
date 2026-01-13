@@ -106,13 +106,27 @@
 		</div>
 		<a href="/login/" class="btn btn-outline-primary">Login</a>
 		<a href="/sign-up/" class="btn btn-primary">Sign-up</a>`;
+        var header_class_extras = 'mb-4 border-bottom';
 %>
-<header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-	<div class="col-md-3 mb-2 mb-md-0">
-		<%- site_name_anchor %>
-	</div>
-	<%- nav_links %>
-	<div class="col-md-3 text-end d-flex align-items-center justify-content-end gap-2">
-		<%- flex_end_content %>
-	</div>
-</header>
+<section class="header">
+    <div class="container">
+        <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 <%= header_class_extras %>">
+            <div class="col-md-3 mb-2 mb-md-0">
+                <%- site_name_anchor %>
+            </div>
+            <%- nav_links %>
+            <div class="col-md-3 text-end d-flex align-items-center justify-content-end gap-2">
+                <%- flex_end_content %>
+            </div>
+        </header>
+    </div>
+    <style>
+        me.absolute-top {
+            position: absolute; top: 0; left: 0; width: 100%; z-index: 100;
+        }
+
+        me.fixed-top {
+            position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
+        }
+    </style>
+</section>

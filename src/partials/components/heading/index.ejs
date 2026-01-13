@@ -4,6 +4,6 @@
   var text = typeof text !== "undefined" ? text : "";
   var attrs = typeof attrs !== "undefined" ? attrs : {};
   var attrsString = Object.entries(attrs).map(([key, value]) => `${key}="${value}"`).join(" ");
-  __heading_attributes__ = attrsString ? ` ${attrsString}` : "";
+  __attributes__ = attrsString ? ` ${attrsString}` : "";
 %>
-<h<%- __level__ %> <%- __heading_attributes__ %>><%- text %></h<%- __level__ %>>
+<h<%- __level__ %> <%- __attributes__ %>><%- text %></h<%- __level__ %>>

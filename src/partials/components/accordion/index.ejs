@@ -9,7 +9,7 @@
     var classNames = base_class + " " + modifiers;
     var id = typeof id !== 'undefined' && id ? id : "accordionExample";
 %>
-<div class="<%= classNames %>" id="<%= id %>">
+<div class="<%= classNames %>" id="<%= id %>" <%- __attributes__ %>>
     <%- items %>    
 </div>
 

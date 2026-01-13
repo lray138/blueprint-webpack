@@ -7,16 +7,19 @@
     'use strict';
 
     function generateJumpToLinks() {
-        const jumpToContainer = document.getElementById('jumpToLinks');
+        const jumpToContainer = document.getElementById('jump-to');
         if (!jumpToContainer) return;
 
         // Find main content area (adjust selector as needed)
-        const mainContent = document.querySelector('.col-12.col-lg-6.col-xl-8');
+        // const mainContent = document.querySelector('.col-12.col-lg-6.col-xl-8');
+        const mainContent = document.getElementById('doc-content');
         if (!mainContent) return;
 
         // Find all h2 and h3 elements
-        const headings = mainContent.querySelectorAll('h2, h3');
-        
+        const headingsScoped = mainContent.querySelectorAll(':scope section > div > h2, :scope section > div > h3');
+        const headingsAll = mainContent.querySelectorAll(':scope > h2, :scope > h3');
+        const headings = Array.from(new Set([...headingsScoped, ...headingsAll]));
+
         if (headings.length === 0) {
             jumpToContainer.innerHTML = '';
             return;
@@ -68,4 +71,3 @@
         generateJumpToLinks();
     });
 })();
-

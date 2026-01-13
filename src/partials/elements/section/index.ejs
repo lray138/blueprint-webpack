@@ -1,0 +1,5 @@
+<% 
+    var __attributes__ = Object.entries(attrs).map(([key, value]) => `${key}="${value}"`).join(" ");
+    var fluid = fluid ? "-fluid" : "";
+%>
+<section <%- __attributes__ %>><div <%- __container_attributes__ %>><%- content %></div></section>

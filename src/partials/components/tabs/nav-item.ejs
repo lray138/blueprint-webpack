@@ -1,0 +1,18 @@
+<%
+    var is_selected = typeof is_selected !== 'undefined' 
+        ? (is_selected ? `true` : `false`)
+        : `false`;
+    var active = is_selected == `true`? `active` : ``;
+%>
+<li class="nav-item" role="presentation">
+    <button class="nav-link <%= active %>" 
+        id="<%= id %>-tab" 
+        data-bs-toggle="tab" 
+        data-bs-target="#<%= id %>" 
+        type="button" 
+        role="tab" 
+        aria-controls="<%= id %>" 
+        aria-selected="<%= is_selected %>">
+        <%- text %>
+    </button>
+</li>
