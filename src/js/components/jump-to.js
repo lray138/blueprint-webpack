@@ -20,9 +20,27 @@
         const headingsAll = mainContent.querySelectorAll(':scope > h2, :scope > h3');
         const headings = Array.from(new Set([...headingsScoped, ...headingsAll]));
 
+        const jumpToColumn = jumpToContainer.closest('.jump-to-col');
+        const jumpToHeading = jumpToContainer.closest('div')?.querySelector('h6');
+
         if (headings.length === 0) {
             jumpToContainer.innerHTML = '';
+            jumpToContainer.hidden = true;
+            if (jumpToHeading) {
+                jumpToHeading.hidden = true;
+            }
+            if (jumpToColumn) {
+                jumpToColumn.hidden = true;
+            }
             return;
+        }
+
+        jumpToContainer.hidden = false;
+        if (jumpToHeading) {
+            jumpToHeading.hidden = false;
+        }
+        if (jumpToColumn) {
+            jumpToColumn.hidden = false;
         }
 
         // Clear existing links
