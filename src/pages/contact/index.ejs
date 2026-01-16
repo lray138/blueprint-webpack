@@ -9,16 +9,53 @@
         <div class="container">
             <%- require("/partials/header.ejs")() %>
         </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <h1>Contact</h1>
+        <section class="py-4">   
+            <div class="container"> 
+                <div class="row">
+                    <div class="col-6 mx-auto">
+                        <div class="text-center mb-5">
+                            <h1 class="display-4 pb-1">Contact</h1>
+                            <p class="lead">Please fill out the form below.</p>
+                            <p class="help-text"><em>All fields are required.</em></p>
+                        </div>
+                        <form class="">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="mb-3">
+                                        <label for="name" class="form-label">Name</label>
+                                        <input type="text" class="form-control" id="name" name="name">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="mb-3">
+                                        <label for="email" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="email" placeholder="" name="email">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row mb-3">
+                                <div class="col-12">
+                                    <div class="mb-3">
+                                        <label for="message" class="form-label">Message</label>
+                                        <textarea class="form-control" id="message" name="message" rows="5"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6 mx-auto">
+                                    <div class="mb-3 text-center">
+                                        <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="container mt-auto">
-            <%- require("/partials/footer.ejs")() %>
-        </div>
+        </section>
+        <%- require("/partials/footer.ejs")() %>
         <%- require("/partials/svg-icons.ejs")() %>
     </body>
 </html>

@@ -12,34 +12,13 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <%- require("/partials/components/tabs/index.ejs")({
-                        items: [
-                            {
-                                id: "home",
-                                text: "Home",
-                                is_selected: true,
-                                content: "Home Content"
-                            },
-                            {
-                                id: "profile",
-                                text: "Profile",
-                                is_selected: false,
-                                content: "Profile Content"
-                            },
-                            {
-                                id: "contact",
-                                text: "Contact",
-                                is_selected: false,
-                                content: "Contact Content"
-                            }
-                        ]
+                    <%- require("/partials/patterns/hero/index.ejs")({
+                        image: "/docs/5.3/assets/brand/bootstrap-logo.svg"
                     }) %>
                 </div>
             </div>
         </div>
-        <div class="container mt-auto">
-            <%- require("/partials/footer.ejs")() %>
-        </div>
+        <%- require("/partials/footer.ejs")() %>
         <%- require("/partials/svg-icons.ejs")() %>
     </body>
 </html>

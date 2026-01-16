@@ -16,9 +16,17 @@
         if (!mainContent) return;
 
         // Find all h2 and h3 elements
-        const headingsScoped = mainContent.querySelectorAll(':scope section > div > h2, :scope section > div > h3');
-        const headingsAll = mainContent.querySelectorAll(':scope > h2, :scope > h3');
-        const headings = Array.from(new Set([...headingsScoped, ...headingsAll]));
+        const headings = mainContent.querySelectorAll(`
+            :scope > section > div > h2, :scope section > div > h3, 
+            :scope > h2, :scope > h3, 
+            :scope > div > h2, :scope > div > h3`
+        );
+        // const headingsAll = mainContent.querySelectorAll(':scope > h2, :scope > h3');
+        // const headingsFirstDiv = mainContent.querySelectorAll(':scope > div > h2, :scope > div > h3');
+        
+        // const headings = Array.from(
+        //     new Set([...headingsScoped, ...headingsAll, ...headingsFirstDiv])
+        // );
 
         const jumpToColumn = jumpToContainer.closest('.jump-to-col');
         const jumpToHeading = jumpToContainer.closest('div')?.querySelector('h6');

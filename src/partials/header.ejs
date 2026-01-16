@@ -39,76 +39,16 @@
     });
 
     var site_name_anchor = require('/partials/components/anchor/index.ejs')({
-        text: "Blueprint",
+        text: `<span class="fw-bold text-body-emphasis" style="font-size: 1.5em;">Blueprint</span>`,    
         href: "/index.html",
         class_names: 'd-inline-flex link-body-emphasis text-decoration-none'
     });
 
-    var flex_end_content = `<div class="dropdown">
-			<button class="btn btn-outline-secondary dropdown-toggle d-flex align-items-center justify-content-center py-2 px-3" 
-                id="bd-theme" 
-                type="button" 
-                aria-expanded="false" 
-                data-bs-toggle="dropdown" 
-                data-bs-display="static" 
-                aria-label="Toggle theme (light)">
-				<svg class="bi theme-icon-active" aria-hidden="true" width="16" height="16">
-					<use href="#sun-fill"></use>
-				</svg>
-			</button>
-			<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-theme">
-				<li>
-					<button type="button" 
-                    class="dropdown-item d-flex align-items-center" 
-                    data-bs-theme-value="light" 
-                    aria-pressed="false">
-						<svg class="bi me-2 opacity-50" aria-hidden="true" width="16" height="16">
-							<use href="#sun-fill"></use>
-						</svg>
-              Light
-              
-						<svg class="bi ms-auto d-none" aria-hidden="true" width="16" height="16">
-							<use href="#check2"></use>
-						</svg>
-					</button>
-				</li>
-				<li>
-					<button type="button" 
-                    class="dropdown-item d-flex align-items-center" 
-                    data-bs-theme-value="dark" 
-                    aria-pressed="false">
-						<svg class="bi me-2 opacity-50" aria-hidden="true" width="16" height="16">
-							<use href="#moon-stars-fill"></use>
-						</svg>
-              Dark
-              
-						<svg class="bi ms-auto d-none" aria-hidden="true" width="16" height="16">
-							<use href="#check2"></use>
-						</svg>
-					</button>
-				</li>
-				<li>
-					<button type="button" 
-                    class="dropdown-item d-flex align-items-center" 
-                    data-bs-theme-value="auto" 
-                    aria-pressed="false">
-						<svg class="bi me-2 opacity-50" aria-hidden="true" width="16" height="16">
-							<use href="#circle-half"></use>
-						</svg>
-              Auto
-              
-						<svg class="bi ms-auto d-none" aria-hidden="true" width="16" height="16">
-							<use href="#check2"></use>
-						</svg>
-					</button>
-				</li>
-			</ul>
-		</div>
-		<a href="/login/" class="btn btn-outline-primary">Login</a>
-		<a href="/sign-up/" class="btn btn-primary">Sign-up</a>`;
+    var flex_end_content = `<a href="/contact/" class="btn btn-primary btn-lg">Contact</a>`;
         var header_class_extras = 'mb-4 border-bottom';
+        var section_extra_classes = typeof pin_top !== 'undefined' && pin_top ? 'pin-top' : '';
 %>
-<section class="header">
+<section class="header <%= section_extra_classes %>">
     <div class="container">
         <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 <%= header_class_extras %>">
             <div class="col-md-3 mb-2 mb-md-0">
@@ -121,8 +61,8 @@
         </header>
     </div>
     <style>
-        me.absolute-top {
-            position: absolute; top: 0; left: 0; width: 100%; z-index: 100;
+        me.pin-top {
+            position: absolute; top: 0; left: 0; width: 100%; z-index: 100; z-index: 1030;
         }
 
         me.fixed-top {

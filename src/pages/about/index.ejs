@@ -9,16 +9,15 @@
         <div class="container">
             <%- require("/partials/header.ejs")() %>
         </div>
-        <div class="container">
+        <div class="container bg-dark py-4 px-4">
             <div class="row">
-                <div class="col-12">
-                    <h1>About</h1>
+                <div class="col-6">
+                    <%- require("/partials/components/input/search-no-label.ejs")() %>
+                    <a class="btn btn-primary" data-bigpicture="{&quot;ytSrc&quot;: &quot;9I-Y6VQ6tyI&quot;}" >Open Big Picture</a>
                 </div>
             </div>
         </div>
-        <div class="container mt-auto">
-            <%- require("/partials/footer.ejs")() %>
-        </div>
+        <%- require("/partials/footer.ejs")() %>
         <%- require("/partials/svg-icons.ejs")() %>
     </body>
 </html>
