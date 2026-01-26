@@ -50,7 +50,7 @@
 %>
 <section class="header <%= section_extra_classes %>">
     <div class="container">
-        <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 <%= header_class_extras %>">
+        <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-3 border-bottom <%= header_class_extras %>">
             <div class="col-md-3 mb-2 mb-md-0">
                 <%- site_name_anchor %>
             </div>
@@ -60,13 +60,4 @@
             </div>
         </header>
     </div>
-    <style>
-        me.pin-top {
-            position: absolute; top: 0; left: 0; width: 100%; z-index: 100; z-index: 1030;
-        }
-
-        me.fixed-top {
-            position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
-        }
-    </style>
 </section>

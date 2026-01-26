@@ -1,9 +1,6 @@
 <% 
     var __attributes__ = Object.entries(attrs).map(([key, value]) => `${key}="${value}"`).join(" ");
     var fluid = fluid ? "-fluid" : "";
+    var element = typeof element !== "undefined" ? element : "div";
 %>
-<section <%- __attributes__ %>>
-    <%- inner_wrap_start %>
-    <%- content %>
-    <%- inner_wrap_end %>
-</section>
+<<%- element %> <%- __attributes__ %>><%- content %></<%- element %>>

@@ -31,6 +31,7 @@
     "bigpicture": "^2.6.4",
     "bootstrap": "^5.3.8",
     "bootstrap-icons": "^1.13.1",
+    "flickity": "^3.0.0",
     "monaco-editor": "^0.55.1"
   }
 }

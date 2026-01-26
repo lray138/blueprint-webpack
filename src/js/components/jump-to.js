@@ -19,6 +19,7 @@
         const headings = mainContent.querySelectorAll(`
             :scope > section > div > h2, :scope section > div > h3, 
             :scope > h2, :scope > h3, 
+            :scope > section > h2, :scope > section > h3, 
             :scope > div > h2, :scope > div > h3`
         );
         // const headingsAll = mainContent.querySelectorAll(':scope > h2, :scope > h3');
@@ -94,6 +95,7 @@
 
     // Initialize on page load
     document.addEventListener('DOMContentLoaded', function() {
+        console.log('Jump to DOMContentLoaded');
         generateJumpToLinks();
     });
 })();
