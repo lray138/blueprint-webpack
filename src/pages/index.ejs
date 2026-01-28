@@ -9,15 +9,8 @@
         <div class="container">
             <%- require("/partials/header.ejs")() %>
         </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <%- require("/partials/patterns/hero/index.ejs")({
-                        image: "/docs/5.3/assets/brand/bootstrap-logo.svg"
-                    }) %>
-                </div>
-            </div>
-        </div>
+        <%- require('/partials/patterns/two-col-quotes/index.ejs')({}) %>
+        
         <%- require("/partials/footer.ejs")() %>
         <%- require("/partials/svg-icons.ejs")() %>
     </body>
