@@ -79,13 +79,14 @@ module.exports = {
                     }
                 ]
             },
-            {
-                test: /\.(woff2?|ttf|eot|svg)$/,
-                type: 'asset/resource',
-                generator: {
-                   filename: "../fonts/[name][ext]"
-                }
-              }
+            // need for production
+            // {
+            //     test: /\.(woff2?|ttf|eot|svg)$/,
+            //     type: 'asset/resource',
+            //     generator: {
+            //        filename: "../fonts/[name][ext]"
+            //     }
+            //   }
         ]
     },
     resolve: {

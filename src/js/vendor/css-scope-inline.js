@@ -13,3 +13,4 @@ window.cssScope ??= new MutationObserver(mutations => { // Allow 1 observer.
 		node.setAttribute('ready', '')
 	})
 }).observe(document.documentElement, {childList: true, subtree: true})
+

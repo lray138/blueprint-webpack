@@ -9,7 +9,6 @@ import "./vendor/bigpicture";
 //import 'bootstrap';
 import 'bootstrap/dist/js/bootstrap.bundle';  // Includes Popper
 
-import "./vendor/css-scope-inline.js";
 
 
 import Flickity from 'flickity';
@@ -19,3 +18,5 @@ window.Flickity = Flickity;
 
 document.documentElement.setAttribute('data-bs-theme', 'light');
 localStorage.removeItem('theme');
+
+import "./vendor/css-scope-inline.js";
