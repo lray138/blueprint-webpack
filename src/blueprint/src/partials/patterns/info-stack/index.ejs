@@ -1,9 +1,0 @@
-<%
-    var content = require("/partials/components/heading/index.ejs")(heading)
-        + require("/partials/components/paragraph/index.ejs")(paragraph)
-        + require("/partials/components/anchor/index.ejs")((typeof anchor !== "undefined" ? anchor : {}));
-
-%>
-<div data-pattern="info-stack">
-    <%- content %>
-</div>
