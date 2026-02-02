@@ -10,7 +10,7 @@ const ROOT = __dirname;
 const IS_FRAMEWORK = ROOT.includes(path.join('blueprint', 'webpack'));
 
 module.exports = {
-  // ✅ In framework mode, build only blueprint. Otherwise build app (as before).
+  // ✅ In framework mode, build only blueprint. Otherwise build site (as before).
   entry: IS_FRAMEWORK ? './src/blueprint/js/theme.js' : './src/js/theme.js',
 
   plugins: [
@@ -30,10 +30,10 @@ module.exports = {
           });
         });
       })(),      
-    // ✅ Only generate App pages when NOT in framework mode
+    // ✅ Only generate Site pages when NOT in framework mode
     ...(!IS_FRAMEWORK ? (() => {
-      const appBase = path.resolve(__dirname, 'src/app/pages');
-      return getSitePages('./src/app/pages').map(page => {
+      const appBase = path.resolve(__dirname, 'src/site/pages');
+      return getSitePages('./src/site/pages').map(page => {
         const rel = path.relative(appBase, page).replace(/\\/g, '/');
         const pageName = rel.replace(/\.ejs$/i, '');
         return new HtmlWebpackPlugin({
@@ -47,7 +47,7 @@ module.exports = {
       filename: 'theme.css'
     }),
 
-    // ✅ If you want to ignore app assets in framework mode, keep only blueprint copy.
+    // ✅ If you want to ignore site assets in framework mode, keep only blueprint copy.
     // If your images are shared (and you still want them), keep this as-is.
     new CopyPlugin({
       patterns: [
@@ -109,10 +109,10 @@ module.exports = {
   },
 
   resolve: {
-    // ✅ Helpful aliases. In framework mode, importing @app will fail fast.
+    // ✅ Helpful aliases. In framework mode, importing @site will fail fast.
     alias: {
       '@blueprint': path.resolve(__dirname, 'src/blueprint'),
-      '@app': IS_FRAMEWORK ? false : path.resolve(__dirname, 'src/app'),
+      '@site': IS_FRAMEWORK ? false : path.resolve(__dirname, 'src/site'),
     },
     roots: [
       path.resolve(__dirname, 'src'),
