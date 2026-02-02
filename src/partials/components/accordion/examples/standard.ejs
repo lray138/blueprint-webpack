@@ -1,0 +1,29 @@
+
+<div><%- require("/partials/components/accordion/index.ejs")({
+    flush: false,
+    items: [
+        {
+            button_text: "Accordion Item Example #1",
+            target_id: "collapseOne",
+            parent_id: "accordionExample",
+            expanded: true,
+            always_open: true,
+            content: "This is the first item's accordion body. It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow."
+        },
+        {
+            button_text: "Accordion Item #2",
+            target_id: "collapseTwo",
+            parent_id: "accordionExample",
+            always_open: true,
+            content: "This is the second item's accordion body. It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow."
+        },
+        {
+            button_text: "Accordion Item #3",
+            target_id: "collapseThree", 
+            parent_id: "accordionExample",
+            always_open: true,
+            content: "This is the third item's accordion body. It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow."
+        }
+    ]
+}) %>
+</div>
