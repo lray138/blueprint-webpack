@@ -166,6 +166,27 @@ git subtree pull --prefix=build/webpack webpack-shared main --squash</code></pre
       <pre class="bg-light border rounded p-3"><code>git add build/webpack
 git commit -m "Change shared webpack stack"
 git subtree push --prefix=build/webpack webpack-shared main</code></pre>
+
+
+<section>
+  <h2>Git Subtree Pull / Push (Quick Commands)</h2>
+
+  <h3>Pull updates from the canonical webpack repo into this project</h3>
+  <pre><code>git fetch webpack-canon
+git subtree pull --prefix=webpack webpack-canon main --squash</code></pre>
+
+  <h3>Push changes from this project back to the canonical webpack repo</h3>
+  <pre><code>git add webpack
+git commit -m "Update shared webpack stack"
+git subtree push --prefix=webpack webpack-canon main</code></pre>
+
+  <p><strong>Notes:</strong></p>
+  <ul>
+    <li>Replace <code>main</code> with <code>master</code> if your canonical repo uses <code>master</code>.</li>
+    <li><code>--prefix=webpack</code> assumes the subtree lives in a folder named <code>webpack/</code> in this project.</li>
+  </ul>
+</section>
+
     </main>
   </body>
 </html>
