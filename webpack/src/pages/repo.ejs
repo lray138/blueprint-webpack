@@ -187,6 +187,83 @@ git subtree push --prefix=webpack webpack-canon main</code></pre>
   </ul>
 </section>
 
+<section>
+  <h2>Fix A (Recommended): Use a Bare “Central” Repo on Your Mac</h2>
+
+  <p>
+    This fixes the error <code>refusing to update checked out branch</code> by creating a proper
+    <strong>bare Git remote</strong> on your machine (like a local GitHub), and pushing/pulling against that.
+  </p>
+
+  <h3>1) Create a bare repo (the central remote)</h3>
+  <pre><code>mkdir -p /Users/lray/Sites/blueprint/_remotes
+git init --bare /Users/lray/Sites/blueprint/_remotes/webpack.git</code></pre>
+
+  <h3>2) Push your canonical webpack repo into the bare remote (one-time setup)</h3>
+  <pre><code>cd /Users/lray/Sites/blueprint/webpack
+git remote add origin /Users/lray/Sites/blueprint/_remotes/webpack.git
+git push -u origin main</code></pre>
+
+  <p><strong>Note:</strong> If your branch is <code>master</code>, replace <code>main</code> with <code>master</code>.</p>
+
+  <h3>3) Point each consumer project at the bare remote</h3>
+  <pre><code>cd /Users/lray/Sites/blueprint-portfolio
+git remote set-url webpack-canon /Users/lray/Sites/blueprint/_remotes/webpack.git
+git fetch webpack-canon</code></pre>
+
+  <h3>4) Subtree push/pull (now works cleanly)</h3>
+
+  <h4>Pull updates from canonical into a project</h4>
+  <pre><code>git fetch webpack-canon
+git subtree pull --prefix=webpack webpack-canon main --squash</code></pre>
+
+  <h4>Push improvements from a project back to canonical</h4>
+  <pre><code>git add webpack
+git commit -m "Update shared webpack stack"
+git subtree push --prefix=webpack webpack-canon main</code></pre>
+
+  <p><strong>Reminder:</strong> Replace <code>main</code> with <code>master</code> if needed.</p>
+</section>
+
+<section>
+  <h2>Fix A (Recommended): Use a Bare “Central” Repo on Your Mac</h2>
+
+  <p>
+    This fixes the error <code>refusing to update checked out branch</code> by creating a proper
+    <strong>bare Git remote</strong> on your machine (like a local GitHub), and pushing/pulling against that.
+  </p>
+
+  <h3>1) Create a bare repo (the central remote)</h3>
+  <pre><code>mkdir -p /Users/lray/Sites/blueprint/_remotes
+git init --bare /Users/lray/Sites/blueprint/_remotes/webpack.git</code></pre>
+
+  <h3>2) Push your canonical webpack repo into the bare remote (one-time setup)</h3>
+  <pre><code>cd /Users/lray/Sites/blueprint/webpack
+git remote add origin /Users/lray/Sites/blueprint/_remotes/webpack.git
+git push -u origin main</code></pre>
+
+  <p><strong>Note:</strong> If your branch is <code>master</code>, replace <code>main</code> with <code>master</code>.</p>
+
+  <h3>3) Point each consumer project at the bare remote</h3>
+  <pre><code>cd /Users/lray/Sites/blueprint-portfolio
+git remote set-url webpack-canon /Users/lray/Sites/blueprint/_remotes/webpack.git
+git fetch webpack-canon</code></pre>
+
+  <h3>4) Subtree push/pull (now works cleanly)</h3>
+
+  <h4>Pull updates from canonical into a project</h4>
+  <pre><code>git fetch webpack-canon
+git subtree pull --prefix=webpack webpack-canon main --squash</code></pre>
+
+  <h4>Push improvements from a project back to canonical</h4>
+  <pre><code>git add webpack
+git commit -m "Update shared webpack stack"
+git subtree push --prefix=webpack webpack-canon main</code></pre>
+
+  <p><strong>Reminder:</strong> Replace <code>main</code> with <code>master</code> if needed.</p>
+</section>
+
+
     </main>
   </body>
 </html>
