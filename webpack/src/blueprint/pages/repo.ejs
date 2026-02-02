@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <title>Bare Central Repo + Git Subtree Workflow</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <main class="container py-5">
+      <h1 class="display-6 mb-4">Bare central repo + git subtree “push/pull” workflow</h1>
+
+      <p class="lead">
+        This setup gives you:
+      </p>
+      <ul class="mb-4">
+        <li>a central “remote” on your Mac (like your own local GitHub)</li>
+        <li>each project vendors the shared webpack folder (self-contained)</li>
+        <li>you can pull updates into each project and push improvements back to central</li>
+      </ul>
+
+      <h2 class="h4 mt-4">0) Decide where the shared code will live inside each project</h2>
+      <p>
+        The examples below assume the shared code will live at:
+      </p>
+      <ul>
+        <li><code>build/webpack/</code></li>
+      </ul>
+      <p>
+        If you prefer <code>tools/webpack/</code> (or similar), replace the prefix in the commands.
+      </p>
+
+      <h2 class="h4 mt-4">1) Create the bare “central remote” repo on your Mac</h2>
+      <pre class="bg-light border rounded p-3"><code>mkdir -p ~/repos/remotes
+cd ~/repos/remotes
+git init --bare webpack-shared.git</code></pre>
+
+      <p>
+        Central remote path:
+        <code>~/repos/remotes/webpack-shared.git</code>
+      </p>
+
+      <h2 class="h4 mt-4">2) Create a “working” clone to author the shared code</h2>
+      <p>
+        A bare repo can’t be edited directly, so you clone it to a working directory:
+      </p>
+
+      <pre class="bg-light border rounded p-3"><code>mkdir -p ~/repos/work
+cd ~/repos/work
+git clone ~/repos/remotes/webpack-shared.git webpack-shared
+cd webpack-shared</code></pre>
+
+      <p>
+        Create an initial branch (choose one: <code>main</code> or <code>master</code>):
+      </p>
+      <pre class="bg-light border rounded p-3"><code>git switch -c main</code></pre>
+
+      <p>
+        Add your shared webpack code to this repo, for example:
+      </p>
+      <pre class="bg-light border rounded p-3"><code>mkdir -p webpack
+# put your shared files in here, e.g.
+# webpack/webpack.config.js
+# webpack/parts/*.js
+# webpack/loaders/*.js
+# webpack/plugins/*.js</code></pre>
+
+      <p>Commit and push:</p>
+      <pre class="bg-light border rounded p-3"><code>git add -A
+git commit -m "Initial shared webpack stack"
+git push -u origin main</code></pre>
+
+      <p>
+        Central remote now has the shared repo history.
+      </p>
+
+      <h2 class="h4 mt-4">3) Add the shared repo into each project as a subtree</h2>
+      <p>
+        In each project repo (e.g. <code>site-a</code>, <code>site-b</code>, <code>site-c</code>):
+      </p>
+
+      <h3 class="h5 mt-3">3a) Add the central remote as a named remote</h3>
+      <pre class="bg-light border rounded p-3"><code>git remote add webpack-shared ~/repos/remotes/webpack-shared.git
+git fetch webpack-shared</code></pre>
+
+      <h3 class="h5 mt-3">3b) Add the subtree into <code>build/webpack</code></h3>
+      <p>
+        If <code>build/webpack</code> does <strong>not</strong> exist yet:
+      </p>
+      <pre class="bg-light border rounded p-3"><code>git subtree add --prefix=build/webpack webpack-shared main --squash</code></pre>
+
+      <p>
+        If that folder already exists with local files you want to replace, the easiest approach is
+        to move it aside once, commit, then add the subtree:
+      </p>
+      <pre class="bg-light border rounded p-3"><code>git mv build/webpack build/webpack_old
+git commit -m "Move old webpack folder aside"
+git subtree add --prefix=build/webpack webpack-shared main --squash</code></pre>
+
+      <p>
+        Now the project contains the shared code, but it still has its own independent git repo.
+      </p>
+
+      <h2 class="h4 mt-4">4) Pull updates from central into a project (the “pull” workflow)</h2>
+      <p>
+        After updating the shared repo, in each project run:
+      </p>
+      <pre class="bg-light border rounded p-3"><code>git fetch webpack-shared
+git subtree pull --prefix=build/webpack webpack-shared main --squash</code></pre>
+
+      <h2 class="h4 mt-4">5) Push improvements from a project back to central (the “push” workflow)</h2>
+      <p>
+        If you modify files inside <code>build/webpack</code> in a project and want to contribute them back:
+      </p>
+
+      <ol class="mb-4">
+        <li class="mb-3">
+          Commit normally in the project:
+          <pre class="bg-light border rounded p-3"><code>git add build/webpack
+git commit -m "Improve shared webpack config"</code></pre>
+        </li>
+        <li>
+          Push just the subtree folder back to central:
+          <pre class="bg-light border rounded p-3"><code>git subtree push --prefix=build/webpack webpack-shared main</code></pre>
+        </li>
+      </ol>
+
+      <p>
+        Other projects can then <code>subtree pull</code> to receive the change.
+      </p>
+
+      <h2 class="h4 mt-4">6) The one rule that keeps this sane</h2>
+      <p>
+        Treat <code>build/webpack</code> as “owned by central.” Avoid project-specific hacks inside that folder.
+        Put project-specific config in something like:
+      </p>
+      <ul>
+        <li><code>build/webpack.project.js</code></li>
+        <li><code>config/webpack.project.json</code></li>
+      </ul>
+      <p>
+        …and have the shared config read that file / accept options. That way subtree updates don’t fight
+        your per-project needs.
+      </p>
+
+      <h2 class="h4 mt-4">Quick cheat sheet</h2>
+      <p>Inside any project:</p>
+
+      <h3 class="h5 mt-3">First time</h3>
+      <pre class="bg-light border rounded p-3"><code>git remote add webpack-shared ~/repos/remotes/webpack-shared.git
+git fetch webpack-shared
+git subtree add --prefix=build/webpack webpack-shared main --squash</code></pre>
+
+      <h3 class="h5 mt-3">Update from central</h3>
+      <pre class="bg-light border rounded p-3"><code>git fetch webpack-shared
+git subtree pull --prefix=build/webpack webpack-shared main --squash</code></pre>
+
+      <h3 class="h5 mt-3">Contribute back to central</h3>
+      <pre class="bg-light border rounded p-3"><code>git add build/webpack
+git commit -m "Change shared webpack stack"
+git subtree push --prefix=build/webpack webpack-shared main</code></pre>
+
+
+<section>
+  <h2>Git Subtree Pull / Push (Quick Commands)</h2>
+
+  <h3>Pull updates from the canonical webpack repo into this project</h3>
+  <pre><code>git fetch webpack-canon
+git subtree pull --prefix=webpack webpack-canon main --squash</code></pre>
+
+  <h3>Push changes from this project back to the canonical webpack repo</h3>
+  <pre><code>git add webpack
+git commit -m "Update shared webpack stack"
+git subtree push --prefix=webpack webpack-canon main</code></pre>
+
+  <p><strong>Notes:</strong></p>
+  <ul>
+    <li>Replace <code>main</code> with <code>master</code> if your canonical repo uses <code>master</code>.</li>
+    <li><code>--prefix=webpack</code> assumes the subtree lives in a folder named <code>webpack/</code> in this project.</li>
+  </ul>
+</section>
+
+<section>
+    <h2>Blueprint Webpack Update Process (Bare Remote + Subtree)</h2>
+  
+    <p><strong>Roles</strong></p>
+    <ul>
+      <li><code>/Users/lray/Sites/blueprint/_remotes/webpack.git</code> = <strong>bare remote (source of truth)</strong></li>
+      <li><code>/Users/lray/Sites/blueprint/webpack</code> = <strong>canonical working copy</strong> (edit-friendly)</li>
+      <li><code>/Users/lray/Sites/blueprint-portfolio</code> = <strong>consumer project</strong> (subtree)</li>
+    </ul>
+  
+    <hr />
+  
+    <h3>A) If you changed the framework in <code>blueprint/webpack</code></h3>
+    <p><strong>1) Commit + push to the bare remote</strong></p>
+    <pre><code>cd /Users/lray/Sites/blueprint/webpack
+  git add -A
+  git commit -m "Framework update"
+  git push origin main</code></pre>
+  
+    <p><strong>2) Pull those updates into the consumer (portfolio)</strong></p>
+    <pre><code>cd /Users/lray/Sites/blueprint-portfolio
+  git fetch webpack-canon
+  git subtree pull --prefix=webpack webpack-canon main --squash</code></pre>
+  
+    <hr />
+  
+    <h3>B) If you changed the framework inside <code>blueprint-portfolio</code></h3>
+    <p><strong>1) Commit + subtree-push to the bare remote</strong></p>
+    <pre><code>cd /Users/lray/Sites/blueprint-portfolio
+  git add webpack
+  git commit -m "Improve framework from portfolio"
+  git subtree push --prefix=webpack webpack-canon main</code></pre>
+  
+    <p><strong>2) Pull those updates into the canonical working copy</strong></p>
+    <pre><code>cd /Users/lray/Sites/blueprint/webpack
+  git pull --rebase origin main</code></pre>
+  
+    <hr />
+  
+    <h3>Consumer refresh (any time you want the latest in a project)</h3>
+    <pre><code>cd /Users/lray/Sites/blueprint-portfolio
+  git fetch webpack-canon
+  git subtree pull --prefix=webpack webpack-canon main --squash</code></pre>
+  
+    <p><strong>Notes</strong></p>
+    <ul>
+      <li>Replace <code>main</code> with <code>master</code> if your repos use <code>master</code>.</li>
+      <li><code>--prefix=webpack</code> assumes the subtree lives in a folder named <code>webpack/</code> in the consumer repo.</li>
+      <li>If Git opens an editor for a merge message during subtree pull, save and quit to finish the update.</li>
+    </ul>
+  </section>
+  
+    </main>
+  </body>
+</html>
