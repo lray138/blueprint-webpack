@@ -1,15 +1,39 @@
-# Ignore everything
-*
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
 
-# Allow directories
-!*/
+# Build output
+dist/
+build/
+*.log
 
-# Allow this file
-!.gitignore
+# Environment variables
+.env
+.env.local
+.env.*.local
 
-# Allow webpack folder
-!webpack/
-!webpack/**
+# IDE and editor files
+.vscode/
+.idea/
+.history/
+*.swp
+*.swo
+*~
 
-wp-content/
-webpack-old/
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+move.php 
+phtml.php
+
+node_modules/
+
+# app code is not part of the framework
+src/app/
