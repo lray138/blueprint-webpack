@@ -1,0 +1,5 @@
+<% 
+    var class_names = typeof class_names !== "undefined" ? class_names : "";
+    var __attributes__ = Object.entries(attrs).map(([key, value]) => `${key}="${value}"`).join(" ");
+%>
+<i <%- __attributes__ %>></i>
