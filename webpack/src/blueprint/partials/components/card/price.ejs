@@ -1,7 +1,7 @@
 <% 
     var badge = typeof badge !== 'undefined' 
         ? badge 
-        : require("/partials/components/badge/index.ejs")({
+        : require("/blueprint/partials/components/badge/index.ejs")({
             text: badge_text,
             class_names: `bg-${badge_type}-subtle text-${badge_type}-emphasis`,
             style: "font-size: 1rem; font-weight: 600;",

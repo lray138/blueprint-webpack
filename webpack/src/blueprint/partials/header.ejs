@@ -1,5 +1,5 @@
 <% 
-    var nav_links = require('/partials/components/list/index.ejs')({
+    var nav_links = require('/blueprint/partials/components/list/index.ejs')({
         list_type: 'ul',
         class_names: 'nav col-12 col-md-auto mb-2 justify-content-center mb-md-0',
         list_items: [{
@@ -28,8 +28,8 @@
         }
     ]
         .map(item => {
-            return require('/partials/elements/list-item/index.ejs')({
-                content: require('/partials/components/anchor/index.ejs')({
+            return require('/blueprint/partials/elements/list-item/index.ejs')({
+                content: require('/blueprint/partials/components/anchor/index.ejs')({
                     text: item.text,
                     href: item.href,
                     class_names: item.class_names
@@ -38,7 +38,7 @@
         }).join('')
     });
 
-    var site_name_anchor = require('/partials/components/anchor/index.ejs')({
+    var site_name_anchor = require('/blueprint/partials/components/anchor/index.ejs')({
         text: `<span class="fw-bold text-body-emphasis" style="font-size: 1.5em;">Blueprint</span>`,    
         href: "/index.html",
         class_names: 'd-inline-flex link-body-emphasis text-decoration-none'

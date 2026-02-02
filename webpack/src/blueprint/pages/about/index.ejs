@@ -7,17 +7,17 @@
     </head>
     <body class="d-flex flex-column min-vh-100">
         <div class="container">
-            <%- require("/partials/header.ejs")() %>
+            <%- require("/blueprint/partials/header.ejs")() %>
         </div>
         <div class="container bg-dark py-4 px-4">
             <div class="row">
                 <div class="col-6">
-                    <%- require("/partials/components/input/search-no-label.ejs")() %>
+                    <%- require("/blueprint/partials/components/input/search-no-label.ejs")() %>
                     <a class="btn btn-primary" data-bigpicture="{&quot;ytSrc&quot;: &quot;9I-Y6VQ6tyI&quot;}" >Open Big Picture</a>
                 </div>
             </div>
         </div>
-        <%- require("/partials/footer.ejs")() %>
-        <%- require("/partials/svg-icons.ejs")() %>
+        <%- require("/blueprint/partials/footer.ejs")() %>
+        <%- require("/blueprint/partials/svg-icons.ejs")() %>
     </body>
 </html>

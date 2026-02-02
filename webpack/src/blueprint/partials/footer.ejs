@@ -1,6 +1,6 @@
 <% 
 
-    var section_1 = require("/partials/footer/section.ejs")({
+    var section_1 = require("/blueprint/partials/footer/section.ejs")({
         heading: "Features",
         list_items: [
             {
@@ -15,10 +15,10 @@
                 text: "Layouts",
                 href: "/features/layouts/"
             },
-        ].map(item => require("/partials/footer/nav-item.ejs")(item)).join("")
+        ].map(item => require("/blueprint/partials/footer/nav-item.ejs")(item)).join("")
     });
 
-    var section_2 = require("/partials/footer/section.ejs")({
+    var section_2 = require("/blueprint/partials/footer/section.ejs")({
         heading: "Pricing",
         list_items: [
             {
@@ -33,7 +33,7 @@
                 text: "Premium",
                 href: "/features/patterns/"
             },
-        ].map(item => require("/partials/footer/nav-item.ejs")(item)).join("")
+        ].map(item => require("/blueprint/partials/footer/nav-item.ejs")(item)).join("")
     });
 
     var section_3 = "";
