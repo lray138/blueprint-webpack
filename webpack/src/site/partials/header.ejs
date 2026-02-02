@@ -1,0 +1,114 @@
+<% 
+    var nav_links = require('/blueprint/partials/components/list/index.ejs')({
+        list_type: 'ul',
+        class_names: 'nav col-12 col-md-auto mb-2 justify-content-center mb-md-0',
+        list_items: [{
+            text: 'Home',
+            href: '/index.html',
+            class_names: 'nav-link px-2 link-secondary'
+        }, {
+            text: 'Features',
+            href: '/features/',
+            class_names: 'nav-link px-2'
+        },
+        {
+            text: 'Pricing',
+            href: '/pricing/',
+            class_names: 'nav-link px-2'
+        },
+        {
+            text: 'FAQs',
+            href: '/faqs/',
+            class_names: 'nav-link px-2'
+        },
+        {
+            text: 'About',
+            href: '/about/',
+            class_names: 'nav-link px-2'
+        }
+    ]
+        .map(item => {
+            return require('/blueprint/partials/elements/list-item/index.ejs')({
+                content: require('/blueprint/partials/components/anchor/index.ejs')({
+                    text: item.text,
+                    href: item.href,
+                    class_names: item.class_names
+                })
+            })
+        }).join('')
+    });
+
+    var site_name_anchor = require('/blueprint/partials/components/anchor/index.ejs')({
+        text: `<span class="fw-bold text-body-emphasis" style="font-size: 1.5em;">Blueprint</span>`,    
+        href: "/index.html",
+        class_names: 'd-inline-flex link-body-emphasis text-decoration-none'
+    });
+
+    var flex_end_content = `<a href="/contact/" class="btn btn-primary btn-lg">Contact</a>`;
+        var header_class_extras = 'mb-4 border-bottom';
+        var section_extra_classes = typeof pin_top !== 'undefined' && pin_top ? 'pin-top' : '';
+%>
+
+<nav class="navbar navbar-expand-lg py-0" aria-label="Offcanvas navbar large">
+    <div class="container border-bottom py-3 mb-3">
+        <div class="col-md-3 mb-2 mb-md-0">
+                    <%- site_name_anchor %>
+                </div>
+                
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar2" aria-controls="offcanvasNavbar2" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar2" aria-labelledby="offcanvasNavbar2Label">
+            <div class="offcanvas-header">
+                <%- site_name_anchor %>
+                <!-- <h5 class="offcanvas-title" id="offcanvasNavbar2Label">Blueprint</h5> -->
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body d-flex flex-wrap align-items-center text-center">
+                
+                <ul class="nav list-group list-group-sm col-12 col-md-auto mb-2 mb-md-0 flex-grow-1 pe-3 "> <!-- align-items-center justify-content-center justify-content-md-between -->
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Docs</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Dropdown </a>
+                        <ul class="dropdown-menu start-50 translate-middle-x">
+                            <li>
+                                <a class="dropdown-item" href="#">Action</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">Another action</a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <div class="col-md-3 text-end mx-auto">
+                    <%- flex_end_content %>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+        ul.nav a {
+            color: rgb(23, 23, 23);
+        }
+
+        ul.nav a:hover {
+            color: rgb(94, 94, 94);
+        }
+    </style>
+</nav>
+

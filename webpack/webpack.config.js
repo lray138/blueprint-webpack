@@ -1,4 +1,5 @@
 const path = require('path');
+const fs = require('fs');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { getSitePages } = require('./src/utils/filesystem');
@@ -8,10 +9,21 @@ const CopyPlugin = require('copy-webpack-plugin');
 // ✅ Detect “framework mode” when this config is running from /blueprint/webpack
 const ROOT = __dirname;
 const IS_FRAMEWORK = ROOT.includes(path.join('blueprint', 'webpack'));
+const APP_ENTRY = path.resolve(__dirname, 'src/app/js/theme.js');
+const HAS_APP_ENTRY = (() => {
+  try {
+    return fs.statSync(APP_ENTRY).isFile();
+  } catch (err) {
+    return false;
+  }
+})();
+const BLUEPRINT_ENTRY = './src/blueprint/js/theme.js';
 
 module.exports = {
   // ✅ In framework mode, build only blueprint. Otherwise build app (as before).
-  entry: IS_FRAMEWORK ? './src/blueprint/js/theme.js' : './src/js/theme.js',
+  entry: IS_FRAMEWORK
+    ? BLUEPRINT_ENTRY
+    : (HAS_APP_ENTRY ? [BLUEPRINT_ENTRY, './src/app/js/theme.js'] : BLUEPRINT_ENTRY),
 
   plugins: [
     // ✅ Always generate Blueprint pages
@@ -33,6 +45,9 @@ module.exports = {
     // ✅ Only generate App pages when NOT in framework mode
     ...(!IS_FRAMEWORK ? (() => {
       const appBase = path.resolve(__dirname, 'src/app/pages');
+      if (!fs.existsSync(appBase)) {
+        return [];
+      }
       return getSitePages('./src/app/pages').map(page => {
         const rel = path.relative(appBase, page).replace(/\\/g, '/');
         const pageName = rel.replace(/\.ejs$/i, '');
