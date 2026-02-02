@@ -8,7 +8,7 @@
     <body class="d-flex flex-column min-vh-100">
         <!-- Header -->
         <div class="container-fluid">
-            <%- require("/partials/header.ejs")() %>
+            <%- require("/blueprint/partials/header.ejs")() %>
         </div>
         
         <!-- Docs Content -->
@@ -17,7 +17,7 @@
                 <div class="row">
                     
                     <!-- Left Sidebar Navigation -->
-                    <%- require("/partials/docs/sidebar.ejs")() %>
+                    <%- require("/blueprint/partials/docs/sidebar.ejs")() %>
                     
                     <!-- Main Content -->
                     <div class="col-12 col-lg-6 col-xl-8 py-7 py-lg-9 px-lg-7">
@@ -451,9 +451,9 @@
         
         <!-- Footer -->
         <div class="container mt-auto">
-            <%- require("/partials/footer.ejs")() %>
+            <%- require("/blueprint/partials/footer.ejs")() %>
         </div>
         
-        <%- require("/partials/svg-icons.ejs")() %>
+        <%- require("/blueprint/partials/svg-icons.ejs")() %>
     </body>
 </html>

@@ -18,7 +18,7 @@
     tab_content = tab_content_static;
 
     nav_items = items.map((item) => {
-        return require("/partials/components/tabs/nav-item.ejs")({
+        return require("/blueprint/partials/components/tabs/nav-item.ejs")({
             id: item.id,
             text: item.text,
             is_selected: item.is_selected
@@ -26,7 +26,7 @@
     }).join('');
 
     tab_content = items.map((item) => {
-        return require("/partials/components/tabs/tab-pane.ejs")({
+        return require("/blueprint/partials/components/tabs/tab-pane.ejs")({
             id: item.id,
             content: item.content,
             is_active: item.is_selected
