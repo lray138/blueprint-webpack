@@ -8,13 +8,28 @@ const CopyPlugin = require('copy-webpack-plugin');
 module.exports = {
     entry: './src/js/theme.js',
     plugins: [
-        ...getSitePages('./src/pages').map(page => {
-            const pageName = page.replace('.ejs', '').replace('src/pages/', '');
-            return new HtmlWebpackPlugin({
-                template: page,
-                filename: `./${pageName}.html`
+        ...(() => {
+            const blueprintBase = path.resolve(__dirname, 'src/blueprint/pages');
+            return getSitePages('./src/blueprint/pages').map(page => {
+                const rel = path.relative(blueprintBase, page).replace(/\\/g, '/');
+                const pageName = rel.replace(/\.ejs$/i, '');
+                return new HtmlWebpackPlugin({
+                    template: page,
+                    filename: `./blueprint/${pageName}.html`
+                });
             });
-        }),
+        })(),
+        ...(() => {
+            const appBase = path.resolve(__dirname, 'src/app/pages');
+            return getSitePages('./src/app/pages').map(page => {
+                const rel = path.relative(appBase, page).replace(/\\/g, '/');
+                const pageName = rel.replace(/\.ejs$/i, '');
+                return new HtmlWebpackPlugin({
+                    template: page,
+                    filename: `./${pageName}.html`
+                });
+            });
+        })(),
         new MiniCssExtractPlugin({
             filename: 'theme.css'
         }),

@@ -32,3 +32,8 @@ Thumbs.db
 
 move.php 
 phtml.php
+
+node_modules/
+
+# app code is not part of the framework
+src/app/
