@@ -20,10 +20,15 @@ const HAS_APP_ENTRY = (() => {
 const BLUEPRINT_ENTRY = './src/blueprint/js/theme.js';
 
 module.exports = {
+<<<<<<< HEAD
   // ✅ In framework mode, build only blueprint. Otherwise build app (as before).
   entry: IS_FRAMEWORK
     ? BLUEPRINT_ENTRY
     : (HAS_APP_ENTRY ? [BLUEPRINT_ENTRY, './src/app/js/theme.js'] : BLUEPRINT_ENTRY),
+=======
+  // ✅ In framework mode, build only blueprint. Otherwise build site (as before).
+  entry: IS_FRAMEWORK ? './src/blueprint/js/theme.js' : './src/js/theme.js',
+>>>>>>> ec689c7294a73c0eb8514acc55d054e8e6af4350
 
   plugins: [
     // ✅ Always generate Blueprint pages
@@ -42,13 +47,18 @@ module.exports = {
           });
         });
       })(),      
-    // ✅ Only generate App pages when NOT in framework mode
+    // ✅ Only generate Site pages when NOT in framework mode
     ...(!IS_FRAMEWORK ? (() => {
+<<<<<<< HEAD
       const appBase = path.resolve(__dirname, 'src/app/pages');
       if (!fs.existsSync(appBase)) {
         return [];
       }
       return getSitePages('./src/app/pages').map(page => {
+=======
+      const appBase = path.resolve(__dirname, 'src/site/pages');
+      return getSitePages('./src/site/pages').map(page => {
+>>>>>>> ec689c7294a73c0eb8514acc55d054e8e6af4350
         const rel = path.relative(appBase, page).replace(/\\/g, '/');
         const pageName = rel.replace(/\.ejs$/i, '');
         return new HtmlWebpackPlugin({
@@ -62,7 +72,7 @@ module.exports = {
       filename: 'theme.css'
     }),
 
-    // ✅ If you want to ignore app assets in framework mode, keep only blueprint copy.
+    // ✅ If you want to ignore site assets in framework mode, keep only blueprint copy.
     // If your images are shared (and you still want them), keep this as-is.
     new CopyPlugin({
       patterns: [
@@ -124,10 +134,10 @@ module.exports = {
   },
 
   resolve: {
-    // ✅ Helpful aliases. In framework mode, importing @app will fail fast.
+    // ✅ Helpful aliases. In framework mode, importing @site will fail fast.
     alias: {
       '@blueprint': path.resolve(__dirname, 'src/blueprint'),
-      '@app': IS_FRAMEWORK ? false : path.resolve(__dirname, 'src/app'),
+      '@site': IS_FRAMEWORK ? false : path.resolve(__dirname, 'src/site'),
     },
     roots: [
       path.resolve(__dirname, 'src'),
