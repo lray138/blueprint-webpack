@@ -10,3 +10,6 @@
 # Allow webpack folder
 !webpack/
 !webpack/**
+
+wp-content/
+webpack-old/
