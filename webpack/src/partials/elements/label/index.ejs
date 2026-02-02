@@ -1,0 +1,4 @@
+<% 
+    var __attributes__ = Object.entries(attrs).map(([key, value]) => `${key}="${value}"`).join(" ");
+%>
+<label <%- __attributes__ %>><%- content %></label>

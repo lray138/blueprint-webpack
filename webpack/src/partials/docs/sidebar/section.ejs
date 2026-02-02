@@ -1,0 +1,43 @@
+<% 
+
+var anchor = require('/partials/components/anchor/index.ejs')({
+    class_names: "section-heading",
+    href: section_href,
+    text: require("/partials/components/heading/index.ejs")({
+        text: section_title,
+        level: 6,
+        attrs: {
+            class: "text-uppercase fw-bold"
+        }
+    }),
+});
+
+var list = require('/partials/components/list/index.ejs')({
+    list_type: "ul",
+    // attrs: {
+    //     class: "list mb-6 ps-34"
+    // },
+    class_names: "list mb-6 ps-0 list-unstyled",
+    list_items: list_items.map((item) => 
+        require('/partials/elements/list-item/index.ejs')({
+            content: require('/partials/components/anchor/index.ejs')({
+                text: item.text,
+                href: item.href,
+                class_names: item.class_names
+            })
+        })
+    ).join(''),
+});
+%>
+<%- anchor %>
+<%- list %>
+<style>
+    me a.section-heading {
+        text-decoration: none;
+    }
+
+    me ul li a {
+        text-decoration: none;
+        color: var(--wp--preset--color--base);
+    }
+</style>
