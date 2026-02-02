@@ -170,3 +170,64 @@ header.text-dark ul li a {
 .htmx-request .label {
   opacity: 0.6;
 }
+
+
+
+////
+
+/* ---------- MOBILE (default) = list-group ---------- */
+
+ul.nav.list-group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: stretch;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Make nav-items behave like list-group-items */
+ul.nav.list-group > .nav-item {
+  width: 100%;
+//   border-bottom: 1px solid var(--bs-list-group-border-color);
+}
+
+/* Flush = no outer border, only dividers */
+ul.nav.list-group.list-group-flush > .nav-item:last-child {
+  border-bottom: 0;
+}
+
+ul.nav.list-group > .nav-item > .nav-link {
+  display: block;
+  width: 100%;
+  padding: var(--bs-list-group-item-padding-y)
+           var(--bs-list-group-item-padding-x);
+}
+
+/* Smaller feel for list-group-sm */
+ul.nav.list-group.list-group-sm > .nav-item > .nav-link {
+  padding: .375rem .75rem;
+}
+
+/* ---------- DESKTOP (md+) = classic nav ---------- */
+
+@media (min-width: 768px) {
+
+  ul.nav.list-group {
+    flex-direction: row;
+    width: auto;
+    align-items: center;
+  }
+
+  ul.nav.list-group > .nav-item {
+    width: auto;
+    border: 0;
+  }
+
+  ul.nav.list-group > .nav-item > .nav-link {
+    width: auto;
+    padding: .5rem .75rem;
+  }
+
+}
+
