@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Documentation | Webpack + Bootstrap</title>
+    </head>
+    <body class="d-flex flex-column min-vh-100">
+        <!-- Header -->
+        <div class="container-fluid">
+            <%- require("/partials/header.ejs")() %>
+        </div>
+        
+        <!-- Docs Content -->
+        <section>
+            <div class="container-fluid">
+                <div class="row">
+                    
+                    <!-- Left Sidebar Navigation -->
+                    <%- require("/partials/docs/sidebar.ejs")() %>
+                    
+                    <!-- Main Content -->
+                    <div class="col-12 col-lg-6 col-xl-8 py-7 py-lg-9 px-lg-7">
+                        <!-- Page Title -->
+                        <h1 class="mb-1">References</h1>
+                        
+                        Bootstrap of course, Landkit,  
+
+                        <h2>REferences</h2>
+
+                        https://carbondesignsystem.com/
+
+                        primer 
+
+                        https://medium.com/@broccolini/design-systems-at-github-c8e5378d2542
+
+                        uikit 
+
+                        foundation 
+
+                        material design-systems-at-github-c8e5378d2542
+
+                    </div>
+
+                    <!-- Right "Jump to" Sidebar -->
+                    <div class="col-12 col-lg-3 col-xl-2 d-none d-lg-block px-lg-0">
+                        <div class="my-7 my-lg-9 px-lg-7 border-start-lg border-secondary">
+                            
+                            <!-- Heading -->
+                            <h6 class="text-uppercase fw-bold">Jump to</h6>
+                            
+                            <!-- Links -->
+                            <ul class="list mb-0">
+                                <!-- <li class="list-item">
+                                    <a class="list-link" href="#section1" data-scroll>Section 1</a>
+                                </li> -->
+                            </ul>
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <div class="container mt-auto">
+            <%- require("/partials/footer.ejs")() %>
+        </div>
+        
+        
+        <%- require("/partials/svg-icons.ejs")() %>
+    </body>
+</html>

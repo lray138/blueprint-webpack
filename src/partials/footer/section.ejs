@@ -1,0 +1,13 @@
+<% 
+    var heading = require('/partials/components/heading/index.ejs')({
+        text: heading,
+        level: 5
+    });
+
+    var list_items = require('/partials/components/list/index.ejs')({
+        list_items,
+        class_names: 'list-unstyled'
+    });
+%>
+<%- heading %>
+<%- list_items %>
