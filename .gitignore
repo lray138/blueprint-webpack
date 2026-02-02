@@ -36,4 +36,5 @@ phtml.php
 node_modules/
 
 # app code is not part of the framework
+src/site/
 src/app/
