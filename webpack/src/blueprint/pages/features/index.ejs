@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Webpack + Bootstrap</title>
+    </head>
+    <body class="d-flex flex-column min-vh-100">
+        
+        <%- require("/blueprint/partials/header.ejs")() %>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <%- require("/blueprint/partials/patterns/hero/index.ejs")({
+                        image: "/docs/5.3/assets/brand/bootstrap-logo.svg"
+                    }) %>
+                </div>
+            </div>
+        </div>
+
+        <section class="features bg-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h2>Features</h2>
+                        <p>asdf</p>
+                        <p>asdf</p>
+                        <p>asdf</p>
+     
+                        <p>asdf</p>
+                    </div>
+                </div>
+            </div>
+          </section>
+        <%- require("/blueprint/partials/footer.ejs")({
+            border_top: true,
+        }) %>
+        <%- require("/blueprint/partials/svg-icons.ejs")() %>
+    </body>
+</html>
