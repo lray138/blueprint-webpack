@@ -7,7 +7,7 @@
     </head>
     <body class="d-flex flex-column min-vh-100">
         <div class="container">
-            <%- require("/partials/header.ejs")() %>
+            <%- require("/blueprint/partials/header.ejs")() %>
         </div>
         <main>
             <section class="pricing">
@@ -20,7 +20,7 @@
                     </div>
                   <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
                     <div class="col">
-                       <%- require("/partials/components/card/price.ejs")({
+                       <%- require("/blueprint/partials/components/card/price.ejs")({
                             badge_text: "Free",
                             badge_type: "warning",
                             price: "0",
@@ -38,13 +38,13 @@
                                     icon_name: 'check',
                                     text: "Email support",
                                 },
-                            ].map(feature => require("/partials/components/icon-text/index.ejs")(feature)).join(''),
+                            ].map(feature => require("/blueprint/partials/components/icon-text/index.ejs")(feature)).join(''),
                             button_text: "Sign up for free",
                             button_type: "outline-primary",
                        }) %>
                     </div>
                     <div class="col">
-                      <%- require("/partials/components/card/price.ejs")({
+                      <%- require("/blueprint/partials/components/card/price.ejs")({
                             badge_text: "Pro",
                             badge_type: "primary",
                             price: "48",
@@ -62,13 +62,13 @@
                                     icon_name: 'check',
                                     text: "Email support",
                                 },
-                            ].map(feature => require("/partials/components/icon-text/index.ejs")(feature)).join(''),
+                            ].map(feature => require("/blueprint/partials/components/icon-text/index.ejs")(feature)).join(''),
                             button_text: "Take advantage",
                             button_type: "primary",
                        }) %>
                     </div>
                     <div class="col">
-                        <%- require("/partials/components/card/price.ejs")({
+                        <%- require("/blueprint/partials/components/card/price.ejs")({
                               badge_text: "Standard",
                               badge_type: "success",
                               price: "23",
@@ -86,7 +86,7 @@
                                       icon_name: 'check',
                                       text: "Email support",
                                   },
-                              ].map(feature => require("/partials/components/icon-text/index.ejs")(feature)).join(''),
+                              ].map(feature => require("/blueprint/partials/components/icon-text/index.ejs")(feature)).join(''),
                               button_text: "Get started",
                               button_type: "outline-primary",
                          }) %>
@@ -96,8 +96,8 @@
               </section>
         </main>
         <div class="container mt-auto">
-            <%- require("/partials/footer.ejs")() %>
+            <%- require("/blueprint/partials/footer.ejs")() %>
         </div>
-        <%- require("/partials/svg-icons.ejs")() %>
+        <%- require("/blueprint/partials/svg-icons.ejs")() %>
     </body>
 </html>

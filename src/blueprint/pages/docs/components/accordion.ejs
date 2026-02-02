@@ -8,7 +8,7 @@
     <body class="d-flex flex-column min-vh-100">
         <!-- Header -->
         <div class="container-fluid">
-            <%- require("/partials/header.ejs")() %>
+            <%- require("/blueprint/partials/header.ejs")() %>
         </div>
         
         <!-- Docs Content -->
@@ -16,12 +16,12 @@
             <div class="container-fluid">
                 <div class="row">
                     <!-- Left Sidebar Navigation -->
-                    <%- require("/partials/docs/sidebar.ejs")() %>
+                    <%- require("/blueprint/partials/docs/sidebar.ejs")() %>
 
                     <!-- Main Content -->
                     <div id="doc-content" class="col-12 col-lg-6 col-xl-8 py-7 py-lg-9 px-lg-7">
                         
-                        <%- require("/partials/components/breadcrumbs/index.ejs")() %>
+                        <%- require("/blueprint/partials/components/breadcrumbs/index.ejs")() %>
                         <!-- Page Title -->
                         <h1 class="mb-1">Accordion</h1>
                         <p class="fs-lg text-muted mb-5">Build vertically collapsing accordions in combination with our Collapse JavaScript plugin.  See full documentation
@@ -477,9 +477,9 @@
         
         <!-- Footer -->
         <div class="container mt-auto">
-            <%- require("/partials/footer.ejs")() %>
+            <%- require("/blueprint/partials/footer.ejs")() %>
         </div>
         
-        <%- require("/partials/svg-icons.ejs")() %>
+        <%- require("/blueprint/partials/svg-icons.ejs")() %>
     </body>
 </html>

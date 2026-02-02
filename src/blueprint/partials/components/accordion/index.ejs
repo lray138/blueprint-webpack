@@ -3,7 +3,7 @@
     var modifiers = typeof flush !== 'undefined' && flush ? "accordion-flush" : "";
 
     var items = items
-        .map(item => require('/partials/components/accordion/item.ejs')(item))
+        .map(item => require('/blueprint/partials/components/accordion/item.ejs')(item))
         .join('');
 
     var classNames = base_class + " " + modifiers;

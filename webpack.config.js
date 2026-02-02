@@ -5,113 +5,124 @@ const { getSitePages } = require('./src/utils/filesystem');
 const CopyPlugin = require('copy-webpack-plugin');
 //const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
+// ✅ Detect “framework mode” when this config is running from /blueprint/webpack
+const ROOT = __dirname;
+const IS_FRAMEWORK = ROOT.includes(path.join('blueprint', 'webpack'));
+
 module.exports = {
-    entry: './src/js/theme.js',
-    plugins: [
-        ...(() => {
-            const blueprintBase = path.resolve(__dirname, 'src/blueprint/pages');
-            return getSitePages('./src/blueprint/pages').map(page => {
-                const rel = path.relative(blueprintBase, page).replace(/\\/g, '/');
-                const pageName = rel.replace(/\.ejs$/i, '');
-                return new HtmlWebpackPlugin({
-                    template: page,
-                    filename: `./blueprint/${pageName}.html`
-                });
-            });
-        })(),
-        ...(() => {
-            const appBase = path.resolve(__dirname, 'src/app/pages');
-            return getSitePages('./src/app/pages').map(page => {
-                const rel = path.relative(appBase, page).replace(/\\/g, '/');
-                const pageName = rel.replace(/\.ejs$/i, '');
-                return new HtmlWebpackPlugin({
-                    template: page,
-                    filename: `./${pageName}.html`
-                });
-            });
-        })(),
-        new MiniCssExtractPlugin({
-            filename: 'theme.css'
-        }),
-        new CopyPlugin({
-            patterns: [
-              {
-                from: './src/img',
-                to: './img',
-              }
-            ],
-          }),
-    ],  
-    module: {
-        rules: [
-            { test: /\.ejs$/i, use: [ { loader: 'ejs-easy-loader' } ] },
-            {
-                test: /\.(png|svg|jpg|jpeg|gif)$/i,
-                type: 'asset/resource',
-                generator: {
-                  emit: false,
+  // ✅ In framework mode, build only blueprint. Otherwise build app (as before).
+  entry: IS_FRAMEWORK ? './src/blueprint/js/theme.js' : './src/js/theme.js',
+
+  plugins: [
+    // ✅ Always generate Blueprint pages
+    ...(() => {
+        const blueprintBase = path.resolve(__dirname, 'src/blueprint/pages');
+      
+        return getSitePages('./src/blueprint/pages').map(page => {
+          const rel = path.relative(blueprintBase, page).replace(/\\/g, '/');
+          const pageName = rel.replace(/\.ejs$/i, '');
+      
+          return new HtmlWebpackPlugin({
+            template: page,
+            filename: IS_FRAMEWORK
+              ? `./${pageName}.html`            // ✅ framework: treat blueprint as root
+              : `./blueprint/${pageName}.html`  // ✅ normal: blueprint is namespaced
+          });
+        });
+      })(),      
+    // ✅ Only generate App pages when NOT in framework mode
+    ...(!IS_FRAMEWORK ? (() => {
+      const appBase = path.resolve(__dirname, 'src/app/pages');
+      return getSitePages('./src/app/pages').map(page => {
+        const rel = path.relative(appBase, page).replace(/\\/g, '/');
+        const pageName = rel.replace(/\.ejs$/i, '');
+        return new HtmlWebpackPlugin({
+          template: page,
+          filename: `./${pageName}.html`
+        });
+      });
+    })() : []),
+
+    new MiniCssExtractPlugin({
+      filename: 'theme.css'
+    }),
+
+    // ✅ If you want to ignore app assets in framework mode, keep only blueprint copy.
+    // If your images are shared (and you still want them), keep this as-is.
+    new CopyPlugin({
+      patterns: [
+        {
+          from: './src/blueprint/img',
+          to: './blueprint/img',
+        }
+      ],
+    }),
+  ],
+
+  module: {
+    rules: [
+      { test: /\.ejs$/i, use: [{ loader: 'ejs-easy-loader' }] },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
+        generator: {
+          emit: false,
+        }
+      },
+      {
+        test: /\.(scss)$/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader
+          },
+          {
+            loader: 'css-loader'
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                plugins: function () {
+                  return [
+                    require('autoprefixer')
+                  ];
                 }
-              },
-            {
-                test: /\.(scss)$/,
-                use: [
-                    {
-                        // Extract CSS to separate file (replaces style-loader)
-                        loader: MiniCssExtractPlugin.loader
-                    }, {
-                        // translates CSS into CommonJS modules
-                        loader: 'css-loader'
-                    }, {
-                        // Run postcss actions
-                        loader: 'postcss-loader',
-                        options: {
-                            // `postcssOptions` is needed for postcss 8.x;
-                            // if you use postcss 7.x skip the key
-                            postcssOptions: {
-                                // postcss plugins, can be exported to postcss.config.js
-                                plugins: function () {
-                                    return [
-                                        require('autoprefixer')
-                                    ];
-                                }
-                            }
-                        }
-                    }, {
-                        // compiles Sass to CSS
-                        loader: 'sass-loader',
-                        options: {
-                            sassOptions: {
-                            // Optional: Silence Sass deprecation warnings. See note below.
-                            silenceDeprecations: [
-                                //'mixed-decls',
-                                'color-functions',
-                                'global-builtin',
-                                'import'
-                            ],
-                            quietDeps: true,
-                            }
-                        }
-                    }
-                ]
-            },
-            // need for production
-            // {
-            //     test: /\.(woff2?|ttf|eot|svg)$/,
-            //     type: 'asset/resource',
-            //     generator: {
-            //        filename: "../fonts/[name][ext]"
-            //     }
-            //   }
+              }
+            }
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              sassOptions: {
+                silenceDeprecations: [
+                  'color-functions',
+                  'global-builtin',
+                  'import'
+                ],
+                quietDeps: true,
+              }
+            }
+          }
         ]
+      },
+    ]
+  },
+
+  resolve: {
+    // ✅ Helpful aliases. In framework mode, importing @app will fail fast.
+    alias: {
+      '@blueprint': path.resolve(__dirname, 'src/blueprint'),
+      '@app': IS_FRAMEWORK ? false : path.resolve(__dirname, 'src/app'),
     },
-    resolve: {
-      roots: [
-         path.resolve(__dirname, 'src'),
-         path.resolve(__dirname, 'node_modules')
-      ]
-   },
-   devServer: {
-        watchFiles: 'src/**/*',
-        //hot: true
-    },
+    roots: [
+      path.resolve(__dirname, 'src'),
+      path.resolve(__dirname, 'node_modules')
+    ]
+  },
+
+  devServer: {
+    // ✅ Watch only blueprint in framework mode; otherwise watch everything (as before)
+    watchFiles: IS_FRAMEWORK ? 'src/blueprint/**/*' : 'src/**/*',
+    //hot: true
+  },
 };
