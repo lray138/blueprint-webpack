@@ -1,0 +1,12 @@
+# Ignore everything
+*
+
+# Allow directories
+!*/
+
+# Allow this file
+!.gitignore
+
+# Allow webpack folder
+!webpack/
+!webpack/**
