@@ -1,7 +1,7 @@
 <%
-    var sidebar = require("/blueprint/partials/docs/sidebar.ejs")();
+    var sidebar = typeof sidebar !== "undefined" ? sidebar : "provide sidebar";
     var content = content;
-    var jump_to_sidebar = require("/blueprint/partials/docs/jump-to.ejs")();
+    var jump_to_sidebar = typeof jump_to_sidebar !== "undefined" ? jump_to_sidebar : "";
 %>
 <main>
     <div class="container-fluid">

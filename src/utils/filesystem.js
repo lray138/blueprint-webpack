@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const { marked } = require('marked');
 
 // Function to recursively get all .ejs files (site pages)
 const getSitePages = (dir) => {
@@ -20,6 +21,24 @@ const getSitePages = (dir) => {
     return results;
 };
 
+const readMarkdown = (filePath) => {
+    const resolvedPath = path.resolve(__dirname, '..', filePath);
+    try {
+        const raw = fs.readFileSync(resolvedPath, 'utf8');
+        return {
+            content: marked.parse(raw)
+        };
+    } catch (err) {
+        if (err.code === 'ENOENT') {
+            return { content: 'Markdown file not found' }; // make it obvious if the path is wrong
+        } else {
+            console.log(err);
+            return { content: '' }; // Return empty string for other errors
+        }
+    }
+};
+
 module.exports = {
-    getSitePages
+    getSitePages,
+    readMarkdown
 };

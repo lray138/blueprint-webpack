@@ -2,7 +2,7 @@ const path = require('path');
 const fs = require('fs');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const { getSitePages } = require('./src/utils/filesystem');
+const { getSitePages, readMarkdown } = require('./src/utils/filesystem');
 const CopyPlugin = require('copy-webpack-plugin');
 //const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
@@ -48,7 +48,10 @@ module.exports = {
         const pageName = rel.replace(/\.ejs$/i, '');
         return new HtmlWebpackPlugin({
           template: page,
-          filename: `./${pageName}.html`
+          filename: `./${pageName}.html`,
+          templateParameters: {
+            readMarkdown
+          }
         });
       });
     })() : []),
@@ -63,7 +66,21 @@ module.exports = {
       patterns: [
         {
           from: './src/blueprint/img',
+          to: './img/blueprint',
+        },
+        {
+          from: './src/blueprint/img',
           to: './blueprint/img',
+        },
+        {
+          from: './src/site/img',
+          to: './img/site',
+          noErrorOnMissing: true,
+        },
+        {
+          from: './src/site/img',
+          to: './site/img',
+          noErrorOnMissing: true,
         }
       ],
     }),
@@ -73,7 +90,7 @@ module.exports = {
     rules: [
       { test: /\.ejs$/i, use: [{ loader: 'ejs-easy-loader' }] },
       {
-        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        test: /\.(png|svg|jpg|jpeg|gif|JPG)$/i,
         type: 'asset/resource',
         generator: {
           emit: false,

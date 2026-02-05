@@ -1,0 +1,62 @@
+<%
+    var content = typeof content !== "undefined" ? content : "";
+    var header = require("/site/partials/header.ejs")();
+    var footer = require("/blueprint/partials/footer.ejs")();
+    content = header + content + footer;
+
+    var meta_title = typeof meta_title !== "undefined" ? meta_title : "Webpack + Bootstrap";
+    var meta_description = typeof meta_description !== "undefined" ? meta_description : "";
+    var meta_image = typeof meta_image !== "undefined" ? meta_image : "";
+    var meta_url = typeof meta_url !== "undefined" ? meta_url : "";
+    var meta_type = typeof meta_type !== "undefined" ? meta_type : "website";
+    var meta_site_name = typeof meta_site_name !== "undefined" ? meta_site_name : "";
+    var twitter_card = typeof twitter_card !== "undefined" ? twitter_card : "summary_large_image";
+    var twitter_site = typeof twitter_site !== "undefined" ? twitter_site : "";
+%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Webpack + Bootstrap</title>
+        <% if (meta_description) { %>
+            <meta name="description" content="<%- meta_description %>">
+        <% } %>
+        <% if (meta_url) { %>
+            <meta property="og:url" content="<%- meta_url %>">
+        <% } %>
+        <% if (meta_type) { %>
+            <meta property="og:type" content="<%- meta_type %>">
+        <% } %>
+        <% if (meta_title) { %>
+            <meta property="og:title" content="<%- meta_title %>">
+        <% } %>
+        <% if (meta_description) { %>
+            <meta property="og:description" content="<%- meta_description %>">
+        <% } %>
+        <% if (meta_image) { %>
+            <meta property="og:image" content="<%- meta_image %>">
+        <% } %>
+        <% if (meta_site_name) { %>
+            <meta property="og:site_name" content="<%- meta_site_name %>">
+        <% } %>
+        <% if (twitter_card) { %>
+            <meta name="twitter:card" content="<%- twitter_card %>">
+        <% } %>
+        <% if (twitter_site) { %>
+            <meta name="twitter:site" content="<%- twitter_site %>">
+        <% } %>
+        <% if (meta_title) { %>
+            <meta name="twitter:title" content="<%- meta_title %>">
+        <% } %>
+        <% if (meta_description) { %>
+            <meta name="twitter:description" content="<%- meta_description %>">
+        <% } %>
+        <% if (meta_image) { %>
+            <meta name="twitter:image" content="<%- meta_image %>">
+        <% } %>
+    </head>
+    <body class="d-flex flex-column min-vh-100">
+        <%- content %>
+    </body>
+</html>
