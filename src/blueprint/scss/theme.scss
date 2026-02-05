@@ -10,7 +10,7 @@
  */
 
 // 1. User variables (first - highest priority)
-@import "user-variables";
+@import "site-variables";
 
 // 2. Theme configuration
 @import "variables";
@@ -67,6 +67,6 @@
 @import "components";  // Uncomment when you add content
 
 // 7. User styles (last - final override)
-@import "user";
+@import "site";
 
 @import "bootstrap-icons/font/bootstrap-icons.css";
