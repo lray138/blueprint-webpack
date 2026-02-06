@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Webpack + Bootstrap</title>
+    </head>
+    <body class="d-flex flex-column min-vh-100">
+        
+        <%- require("/blueprint/partials/header.ejs")() %>
+
+        <section class="menu">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-4 menu-inner-section">
+                        
+                            <h2 class="">Hot</h2>
+                  
+                            <div class="menu-item">
+                                <div class="item-name-and-price is-flex">
+                                    <span class="item-name">hassleback sweet potato</span>
+                                    <span class="item-price">12</span>
+                                </div>
+                                <span class="item-description">
+                                    <p>tahni, labneh, olives, pickled veg, <br> zatar, sumac, fresh herbs </p>
+                                </span>
+                            </div>
+                            
+                    </div>
+                    <div class="col-12 col-md-4 menu-inner-section">
+                        
+                        <h2 class="">Hot</h2>
+              
+                        <div class="menu-item">
+                            <div class="item-name-and-price has-leader leader-dots">
+                                <span class="item-name">hassleback sweet potato</span>
+                                <span class="item-leader" aria-hidden="true"></span>
+                                <span class="item-price">12</span>
+                            </div>
+                            <span class="item-description">
+                                <p>tahni, labneh, olives, pickled veg, <br> zatar, sumac, fresh herbs </p>
+                            </span>
+                        </div>
+                        
+                </div>
+                <div class="col-12 col-md-4 menu-inner-section">
+                        
+                    <h2 class="">Hot</h2>
+          
+                    <div class="menu-item">
+                        <div class="item-name-and-price no-flex">
+                            <span class="item-name">hassleback sweet potato</span>
+                            <span class="item-price">12</span>
+                        </div>
+                        <span class="item-description">
+                            <p>tahni, labneh, olives, pickled veg, <br> zatar, sumac, fresh herbs </p>
+                        </span>
+                    </div>
+                    
+            </div>
+                </div>
+
+            </div>
+        </section>
+
+        <%- require("/blueprint/partials/footer.ejs")({
+            border_top: true,
+        }) %>
+        <%- require("/blueprint/partials/svg-icons.ejs")() %>
+    </body>
+</html>

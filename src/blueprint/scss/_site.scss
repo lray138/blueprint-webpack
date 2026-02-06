@@ -35,6 +35,51 @@ header.text-dark ul li a {
     display: none !important;
 }
 
+.item-name-and-price.is-flex {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.item-name-and-price.has-leader {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+}
+
+.item-name-and-price.has-leader .item-leader {
+    flex: 1 1 auto;
+    border-bottom: 1px solid currentColor;
+    height: 1em;
+    align-self: baseline;
+    opacity: 0.35;
+}
+
+.item-name-and-price.has-leader.leader-solid .item-leader {
+    border-bottom-style: solid;
+}
+
+.item-name-and-price.has-leader.leader-dashed .item-leader {
+    border-bottom-style: dashed;
+}
+
+.item-name-and-price.has-leader.leader-dots .item-leader {
+    border-bottom: 0;
+    background-image: radial-gradient(currentColor 1px, transparent 1px);
+    background-size: 6px 2px;
+    background-repeat: repeat-x;
+    background-position: left bottom;
+}
+
+.item-name-and-price.no-flex .item-price {
+    margin-left: 1.25rem;
+}
+
+.menu {
+    padding-top: 1.5rem;
+}
+
 @import 'flickity/dist/flickity.min.css';
 // @import 'flickity-fade/flickity-fade.css';
 
