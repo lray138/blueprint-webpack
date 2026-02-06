@@ -35,36 +35,34 @@ header.text-dark ul li a {
     display: none !important;
 }
 
-.item-name-and-price.is-flex {
+.menu.flex-clear .item-name-and-price {
     display: flex;
     align-items: baseline;
     justify-content: space-between;
     gap: 0.5rem;
 }
 
-.item-name-and-price.has-leader {
+.menu.flex-dotted .item-name-and-price {
     display: flex;
     align-items: baseline;
     gap: 0.5rem;
 }
 
-.item-name-and-price.has-leader .item-leader {
+.menu.flex-dotted .item-name {
+    order: 0;
+}
+
+.menu.flex-dotted .item-price {
+    order: 2;
+}
+
+.menu.flex-dotted .item-name-and-price::after {
+    content: "";
+    order: 1;
     flex: 1 1 auto;
-    border-bottom: 1px solid currentColor;
     height: 1em;
     align-self: baseline;
     opacity: 0.35;
-}
-
-.item-name-and-price.has-leader.leader-solid .item-leader {
-    border-bottom-style: solid;
-}
-
-.item-name-and-price.has-leader.leader-dashed .item-leader {
-    border-bottom-style: dashed;
-}
-
-.item-name-and-price.has-leader.leader-dots .item-leader {
     border-bottom: 0;
     background-image: radial-gradient(currentColor 1px, transparent 1px);
     background-size: 6px 2px;
@@ -72,7 +70,7 @@ header.text-dark ul li a {
     background-position: left bottom;
 }
 
-.item-name-and-price.no-flex .item-price {
+.menu:not(.flex-clear):not(.flex-dotted) .item-price {
     margin-left: 1.25rem;
 }
 
