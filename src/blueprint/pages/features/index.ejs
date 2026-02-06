@@ -9,30 +9,31 @@
         
         <%- require("/blueprint/partials/header.ejs")() %>
 
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <%- require("/blueprint/partials/patterns/hero/index.ejs")({
-                        image: "/docs/5.3/assets/brand/bootstrap-logo.svg"
-                    }) %>
-                </div>
-            </div>
-        </div>
+        <%- require('/blueprint/partials/components/wrap/section-one-col.ejs')({
+            content: require("/blueprint/partials/patterns/hero/index.ejs")({
+                        heading: "We believe",
+                        content: `<p class="lead mb-4"></p>
+                        <p class="lead mb-4">The internet has always been about communication. 
 
-        <section class="features bg-light">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <h2>Features</h2>
-                        <p>asdf</p>
-                        <p>asdf</p>
-                        <p>asdf</p>
-     
-                        <p>asdf</p>
-                    </div>
-                </div>
-            </div>
-          </section>
+Not just publishing content—but sharing ideas, telling stories, organizing information, and building communities.
+
+</p><p>Blueprint is built around that same principle.
+
+It’s a composable content management framework designed to make content easier to structure, reuse, and evolve over time—without locking you into brittle themes, page builders, or one-off hacks.
+
+Blueprint gives you a clean system for building websites that can grow with you.
+
+</p><p class="lead">We believe in the long game.</p>
+                        `
+                    })
+        }) %>
+<!-- 
+<div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+    <a class="btn btn-primary btn-lg px-4 gap-3">Primary button</a>
+    <a class="btn btn-outline-secondary btn-lg px-4">Secondary</a>
+</div>
+         -->
+
         <%- require("/blueprint/partials/footer.ejs")({
             border_top: true,
         }) %>

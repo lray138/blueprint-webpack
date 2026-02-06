@@ -49,24 +49,36 @@
 				</form>
 			</div>`;
 
-    var section_5 = `<p>"Designed for the long game."</p>
+    var section_5 = `<p>© 2025 Company, Inc. All rights reserved.</p>
 			<ul class="list-unstyled d-flex social-icon-links">
 				<li class="ms-3">
 					<a class="link-body-emphasis" href="#" aria-label="Instagram">
-						<i class="bi bi-discord"></i>
+						<i class="bi bi-instagram"></i>
 					</a>
 				</li>
 			</ul>`;
 
             var footer_class_extras = "";
             if (typeof border_top === 'undefined' || border_top !== false) {
-                footer_class_extras += " ";
+                footer_class_extras += " border-top";
             }
 
 %>
-<footer class="mt-auto mt-1 <%= footer_class_extras %>">
+<footer class="mt-auto py-5 pb-3 mt-3 <%= footer_class_extras %>">
     <div class="container">
         <div class="row">
+            <div class="col-6 col-md-2 mb-3">
+                <%- section_1 %>
+            </div>
+            <div class="col-6 col-md-2 mb-3">
+                <%- section_2 %>
+            </div>
+            <div class="col-6 col-md-2 mb-3">
+                <%- section_3 %>
+            </div>
+            <div class="col-md-5 offset-md-0 mb-3">
+                <%- section_4 %>
+            </div>
             <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top pb-0 mb-0">
                 <%- section_5 %>
             </div>

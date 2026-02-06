@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Docs | Blueprint</title>
+    <script src="https://cdn.jsdelivr.net/gh/gnat/css-scope-inline@main/script.js"></script>
     </head>
     <body class="d-flex flex-column min-vh-100">
         <!-- Header -->
@@ -42,21 +43,9 @@
                         <h3 id="section3" class="fw-bold">Section 3</h3>
                         <p>Content for section 3 goes here...</p>
 
-                        <div class="nav-pager">
-
-                            <a class="card nav-pager-item">
-                                <div class="card-body">
-                                    <h5 class="card-title">Previous</h5>
-                                    <p class="card-text">Previous section</p>
-                                </div>
-                            </a>
-                            <a class="card nav-pager-item">
-                                <div class="card-body">
-                                    <h5 class="card-title">Next</h5>
-                                    <p class="card-text">Next section</p>
-                                </div>
-                            </a>
-                        </div>
+                        <%- require("/blueprint/partials/components/nav-pager/index.ejs")({
+                            next: "<a href='/tutorials/webpack-html/project-setup/index.html' class='nav-pager-item'><div class='text-uppercase small text-muted'>Next</div><p class='mb-0'>Welcome (to the Jungle)</p></a>"
+                        }) %>
                     </div>
                     
                     <!-- Right "Jump to" Sidebar -->
