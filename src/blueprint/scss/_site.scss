@@ -74,6 +74,38 @@ header.text-dark ul li a {
     margin-left: 1.25rem;
 }
 
+.item-day-name-and-price {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+}
+
+.item-day-name-and-price .item-day {
+    flex: 0 0 30%;
+}
+
+.item-day-name-and-price .item-name {
+    flex: 0 0 48%;
+    text-align: left;
+}
+
+.item-day-name-and-price .item-price {
+    flex: 1 1 auto;
+    text-align: right;
+}
+
+.item-description {
+    font-size: 0.85rem;
+}
+
+.item-name {
+    font-size: 1rem;
+}
+
+.menu-item {
+    margin-bottom: 0.5rem;
+}
+
 .menu {
     padding-top: 1.5rem;
 }
