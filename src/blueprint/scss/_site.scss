@@ -80,6 +80,28 @@ header.text-dark ul li a {
     padding-top: 1.5rem;
 }
 
+.menu-sections {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.menu-inner-section {
+    flex: 0 0 100%;
+}
+
+@media (min-width: 768px) {
+    .menu-inner-section {
+        flex-basis: calc(50% - 0.75rem);
+    }
+}
+
+@media (min-width: 992px) {
+    .menu-inner-section {
+        flex-basis: calc(33.333% - 1rem);
+    }
+}
+
 @import 'flickity/dist/flickity.min.css';
 // @import 'flickity-fade/flickity-fade.css';
 
