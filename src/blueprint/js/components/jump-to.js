@@ -72,10 +72,11 @@
 
             // Create list item and link
             const listItem = document.createElement('li');
-            listItem.className = 'list-item';
+            const isSubheading = heading.tagName.toLowerCase() === 'h3';
+            listItem.className = `list-item${isSubheading ? ' ms-2' : ''}`;
             
             const link = document.createElement('a');
-            link.className = 'list-link';
+            link.className = `list-link${isSubheading ? ' small' : ''}`;
             link.href = '#' + id;
             link.textContent = heading.textContent.trim();
             

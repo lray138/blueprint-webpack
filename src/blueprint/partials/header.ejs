@@ -48,10 +48,12 @@
     var flex_end_content = `<a href="${base_url}/contact/" class="btn btn-primary btn-lg">Contact</a>`;
         var header_class_extras = 'mb-4 border-bottom';
         var section_extra_classes = typeof pin_top !== 'undefined' && pin_top ? 'pin-top' : '';
+
+    var container_class = typeof fluid !== 'undefined' && fluid ? 'container-fluid' : 'container';
 %>
 
 <nav class="navbar navbar-expand-lg py-0" aria-label="Offcanvas navbar large">
-    <div class="container border-bottom py-3 mb-3">
+    <div class="<%= container_class %> border-bottom py-3 mb-3">
         <div class="col-md-3 mb-2 mb-md-0">
                     <%- site_name_anchor %>
                 </div>
