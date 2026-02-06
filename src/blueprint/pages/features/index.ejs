@@ -7,7 +7,9 @@
     </head>
     <body class="d-flex flex-column min-vh-100">
         
-        <%- require("/blueprint/partials/header.ejs")() %>
+        <%- require("/blueprint/partials/header.ejs")({
+            base_url: base_url
+        }) %>
 
         <%- require('/blueprint/partials/components/wrap/section-one-col.ejs')({
             content: require("/blueprint/partials/patterns/hero/index.ejs")({

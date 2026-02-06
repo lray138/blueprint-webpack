@@ -34,6 +34,10 @@ module.exports = {
       
           return new HtmlWebpackPlugin({
             template: page,
+            templateParameters: {
+                readMarkdown,
+                base_url: IS_FRAMEWORK ? '' : '/blueprint'
+            },
             filename: IS_FRAMEWORK
               ? `./${pageName}.html`            // ✅ framework: treat blueprint as root
               : `./blueprint/${pageName}.html`  // ✅ normal: blueprint is namespaced
@@ -51,7 +55,7 @@ module.exports = {
           filename: `./${pageName}.html`,
           templateParameters: {
             readMarkdown
-          }
+          }``
         });
       });
     })() : []),
