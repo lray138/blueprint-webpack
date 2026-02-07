@@ -3,22 +3,31 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Webpack + Bootstrap</title>
+        <title>Blog | Blueprint</title>
         <script src="https://cdn.jsdelivr.net/gh/gnat/css-scope-inline@main/script.js"></script>
     </head>
     <body class="d-flex flex-column min-vh-100">
-        <div class="container">
-            <%- require("/blueprint/partials/header.ejs")() %>
-        </div>
-        <section class="py-4">   
-            <div class="container"> 
-                <div class="row">
-                    <div class="col-6 mx-auto">
-                        <%- require("/blueprint/partials/components/card/bg-cover-blog.ejs")() %>
-                    </div>
-                </div>
-            </div>
-        </section>
+
+        <%- require("/blueprint/partials/header.ejs")({
+            base_url: base_url
+        }) %>
+        
+        <%- require("/blueprint/partials/components/wrap/section-one-col.ejs")({
+            content: require("/blueprint/partials/patterns/page-header/index.ejs")({
+                heading: "Blog",
+                text: "Sharing is caring"
+            })
+            + 
+            require("/blueprint/partials/components/list/ul.ejs")({
+                items: [
+                    {
+                        title: "Blog",
+                        content: "test"
+                    }
+                ]
+            })
+        }) %>
+
         <%- require("/blueprint/partials/footer.ejs")() %>
         <%- require("/blueprint/partials/svg-icons.ejs")() %>
     </body>

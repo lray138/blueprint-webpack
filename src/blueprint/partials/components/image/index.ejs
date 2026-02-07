@@ -1,4 +1,10 @@
-<% 
-    var src = '';
+<%
+    var attrs = typeof attrs !== "undefined" ? attrs : {};
+    var src = typeof attrs.src !== "undefined" ? attrs.src : "";
+    var attrsWithoutSrc = Object.assign({}, attrs);
+    delete attrsWithoutSrc.src;
+    var __attributes__ = Object.entries(attrsWithoutSrc)
+        .map(([key, value]) => `${key}="${value}"`)
+        .join(" ");
 %>
-<img src="<%= src %>" <%- __attributes__%>/>
+<img src="<%= src %>" <%- __attributes__ %>/>

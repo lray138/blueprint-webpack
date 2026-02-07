@@ -3,14 +3,32 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Webpack + Bootstrap</title>
+        <title>Blueprint Theme</title>
     </head>
     <body class="d-flex flex-column min-vh-100">
-        <%- require("/blueprint/partials/header.ejs")() %>
- 
+        <%- require("/blueprint/partials/header.ejs")({
+            base_url: base_url
+        }) %>
 
+        <%- require("/blueprint/partials/components/wrap/section-one-col.ejs")({
+            content: require("/blueprint/partials/components/image/index.ejs")({
+                attrs: {
+                    src: "/img/blueprint/covers/get-in-loser.jpg",
+                    alt: "Hero Image",
+                    class: "img-fluid",
+                }
+            }),
+            class_names: "pb-3"
+        }) %>
 
-        <%- require('/blueprint/partials/patterns/two-col-quotes/index.ejs')({}) %>
+        <%- require("/blueprint/partials/components/wrap/section-one-col.ejs")({
+            class_names: "text-center w-50 mx-auto",
+            content: require("/blueprint/partials/patterns/page-header/index.ejs")({
+                heading: "Tired of the grind?",
+                text: "I am too",
+            })
+        }) %>
+
         <%- require("/blueprint/partials/footer.ejs")() %>
         <%- require("/blueprint/partials/svg-icons.ejs")() %>
     </body>

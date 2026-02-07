@@ -150,6 +150,12 @@ var content_static = `<!-- Section Heading -->
                 href: "/docs/setup/"
             }
         ]
+    })
+    + 
+    require("/blueprint/partials/docs/sidebar/section.ejs")({
+        section_href: "/docs/github/",
+        section_title: "GitHub",
+        list_items: []
     });
 %>
 <div class="col-12 col-lg-3 col-xl-2 px-lg-0 border-end-lg border-secondary">
@@ -164,6 +170,10 @@ var content_static = `<!-- Section Heading -->
 
                 me a.section-heading:hover {
                     text-decoration: underline;
+                }
+
+                me ul li a { 
+                    text-decoration: none;
                 }
             </style>
             

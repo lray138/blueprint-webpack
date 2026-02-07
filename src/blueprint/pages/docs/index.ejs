@@ -3,12 +3,15 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Documentation | Webpack + Bootstrap</title>
+    <title>Docs | Blueprint</title>
+    <script src="https://cdn.jsdelivr.net/gh/gnat/css-scope-inline@main/script.js"></script>
     </head>
     <body class="d-flex flex-column min-vh-100">
         <!-- Header -->
         <div class="container-fluid">
-            <%- require("/blueprint/partials/header.ejs")() %>
+            <%- require("/blueprint/partials/header.ejs")({
+                base_url: base_url
+            }) %>
         </div>
         
         <!-- Docs Content -->
@@ -41,6 +44,10 @@
                         
                         <h3 id="section3" class="fw-bold">Section 3</h3>
                         <p>Content for section 3 goes here...</p>
+
+                        <%- require("/blueprint/partials/components/nav-pager/index.ejs")({
+                            next: "<a href='/tutorials/webpack-html/project-setup/index.html' class='nav-pager-item'><div class='text-uppercase small text-muted'>Next</div><p class='mb-0'>Welcome (to the Jungle)</p></a>"
+                        }) %>
                     </div>
                     
                     <!-- Right "Jump to" Sidebar -->

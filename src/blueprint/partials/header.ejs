@@ -1,4 +1,5 @@
 <% 
+    var base_url = typeof base_url !== "undefined" ? base_url : "";
     var nav_links = require('/blueprint/partials/components/list/index.ejs')({
         list_type: 'ul',
         class_names: 'nav col-12 col-md-auto mb-2 justify-content-center mb-md-0',
@@ -40,17 +41,19 @@
 
     var site_name_anchor = require('/blueprint/partials/components/anchor/index.ejs')({
         text: `<span class="fw-bold text-body-emphasis" style="font-size: 1.5em;">Blueprint</span>`,    
-        href: "/index.html",
+        href: `${base_url}/index.html`,
         class_names: 'd-inline-flex link-body-emphasis text-decoration-none'
     });
 
-    var flex_end_content = `<a href="/contact/" class="btn btn-primary btn-lg">Contact</a>`;
+    var flex_end_content = `<a href="${base_url}/contact/" class="btn btn-primary btn-lg">Contact</a>`;
         var header_class_extras = 'mb-4 border-bottom';
         var section_extra_classes = typeof pin_top !== 'undefined' && pin_top ? 'pin-top' : '';
+
+    var container_class = typeof fluid !== 'undefined' && fluid ? 'container-fluid' : 'container';
 %>
 
 <nav class="navbar navbar-expand-lg py-0" aria-label="Offcanvas navbar large">
-    <div class="container border-bottom py-3 mb-3">
+    <div class="<%= container_class %> border-bottom py-3 mb-3">
         <div class="col-md-3 mb-2 mb-md-0">
                     <%- site_name_anchor %>
                 </div>
@@ -68,13 +71,16 @@
                 
                 <ul class="nav list-group list-group-sm col-12 col-md-auto mb-2 mb-md-0 flex-grow-1 pe-3 "> <!-- align-items-center justify-content-center justify-content-md-between -->
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">About</a>
+                        <a class="nav-link" href="<%= base_url %>/about/">About</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Blog</a>
+                        <a class="nav-link active" aria-current="page" href="<%= base_url %>/features/">Features</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Docs</a>
+                        <a class="nav-link" href="<%= base_url %>/blog/">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<%= base_url %>/docs">Docs</a>
                     </li>
                     <!-- <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Dropdown </a>
@@ -101,14 +107,6 @@
             </div>
         </div>
     </div>
-    <style>
-        ul.nav a {
-            color: rgb(23, 23, 23);
-        }
 
-        ul.nav a:hover {
-            color: rgb(94, 94, 94);
-        }
-    </style>
 </nav>
 

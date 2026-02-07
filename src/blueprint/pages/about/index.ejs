@@ -3,21 +3,36 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Webpack + Bootstrap</title>
+        <title>Features | Blueprint</title>
     </head>
     <body class="d-flex flex-column min-vh-100">
-        <div class="container">
-            <%- require("/blueprint/partials/header.ejs")() %>
-        </div>
-        <div class="container bg-dark py-4 px-4">
-            <div class="row">
-                <div class="col-6">
-                    <%- require("/blueprint/partials/components/input/search-no-label.ejs")() %>
-                    <a class="btn btn-primary" data-bigpicture="{&quot;ytSrc&quot;: &quot;9I-Y6VQ6tyI&quot;}" >Open Big Picture</a>
-                </div>
-            </div>
-        </div>
-        <%- require("/blueprint/partials/footer.ejs")() %>
+        
+        <%- require("/blueprint/partials/header.ejs")({
+            base_url: base_url
+        }) %>
+
+        <%- require('/blueprint/partials/components/wrap/section-one-col.ejs')({
+            content: require("/blueprint/partials/patterns/hero/index.ejs")({
+                        heading: "We believe",
+                        content: `<p class="lead mb-4"></p>
+                        <p class="lead mb-4">The internet has always been about communication. 
+
+Not just publishing content—but sharing ideas, telling stories, organizing information, and building communities.
+
+</p><p>Blueprint is built around that same principle.
+
+It’s a composable content management framework designed to make content easier to structure, reuse, and evolve over time—without locking you into brittle themes, annoying page builders, or one-off hacks.
+
+Blueprint gives you a clean system for building websites that can grow with you.
+
+</p><p class="lead">Blueprint isn't just a content framework, it's a communication strategy designed for the long game.</p>
+                        `
+                    })
+        }) %>
+
+        <%- require("/blueprint/partials/footer.ejs")({
+            border_top: true,
+        }) %>
         <%- require("/blueprint/partials/svg-icons.ejs")() %>
     </body>
 </html>
