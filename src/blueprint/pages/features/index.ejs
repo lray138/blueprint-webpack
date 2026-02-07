@@ -11,6 +11,10 @@
             base_url: base_url
         }) %>
 
+        <%- require("/blueprint/partials/components/wrap/section-one-col.ejs")({
+            content: '<a href="/features/menu.html">Menu</a>'
+        }) %>
+
         <%- require("/blueprint/partials/footer.ejs")({
             border_top: true,
         }) %>
