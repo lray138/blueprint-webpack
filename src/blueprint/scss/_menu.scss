@@ -159,7 +159,7 @@
 .menu-sections {
     display: flex;
     flex-wrap: wrap;
-    gap: 1.5rem;
+    gap: 2rem;
 }
 
 .menu-inner-section {
@@ -168,12 +168,12 @@
 
 @media (min-width: 768px) {
     .menu-inner-section {
-        flex-basis: calc(50% - 0.75rem);
+        flex-basis: calc(50% - 1.5rem);
     }
 }
 
 @media (min-width: 992px) {
     .menu-inner-section {
-        flex-basis: calc(33.333% - 1rem);
+        flex-basis: calc(33.333% - 1.5rem);
     }
 }
