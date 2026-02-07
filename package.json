@@ -5,7 +5,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --mode=production",
-    "server": "webpack serve --mode=development --open"
+    "build:portfolio": "SITE_DIR=portfolio webpack --mode=production",
+    "server": "webpack serve --mode=development --open",
+    "server:portfolio": "SITE_DIR=portfolio webpack serve --mode=development --open"
   },
   "keywords": [],
   "author": "",
