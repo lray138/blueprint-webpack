@@ -1,23 +1,14 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Github - Blueprint Docs</title>
-    <script src="https://cdn.jsdelivr.net/gh/gnat/css-scope-inline@main/script.js"></script>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Hero Pattern | Documentation | Webpack + Bootstrap</title>
     </head>
     <body class="d-flex flex-column min-vh-100">
-        <%
-            var escapeHtml = require("/blueprint/utils/escape-html");
-            var heroExample = require("/blueprint/pages/docs/patterns/hero/centered.ejs")();
-            var heroExampleEscaped = escapeHtml(heroExample.trimStart());
-        %>
         <!-- Header -->
         <div class="container-fluid">
-            <%- require("/blueprint/partials/header.ejs")({
-                base_url: base_url,
-                fluid: true
-            }) %>
+            <%- require("/blueprint/partials/header.ejs")() %>
         </div>
         
         <!-- Docs Content -->
@@ -29,16 +20,20 @@
                     <%- require("/blueprint/partials/docs/sidebar.ejs")() %>
                     
                     <!-- Main Content -->
-                    <div class="col-12 col-lg-6 col-xl-8 py-7 py-lg-9 px-lg-7" id="doc-content">
+                    <div class="col-12 col-lg-6 col-xl-8 py-7 py-lg-9 px-lg-7">
                         <!-- Page Title -->
-                        <h1 class="mb-2">Hero</h1>
-
+                        <h1 class="mb-1">Hero</h1>
                         <p class="fs-lg text-muted mb-5">A hero section is a large banner image, prominently placed on a web page, generally front and center. See Bootstrap examples
-                            <a href="https://getbootstrap.com/docs/5.3/examples/heroes/" target="_blank">https://getbootstrap.com/docs/5.3/examples/heroes/</a>.</p>
-
+                             <a href="https://getbootstrap.com/docs/5.3/examples/heroes/" target="_blank">https://getbootstrap.com/docs/5.3/examples/heroes/</a>.</p>
+                        
+                        <h2>Centered Hero</h2>
+                        <!-- Tabs Navigation -->
                         <ul class="nav nav-tabs mb-0" id="heroTabs" role="tablist">
+                            <!-- <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="preview-tab" data-bs-toggle="tab" data-bs-target="#preview" type="button" role="tab" aria-controls="preview" aria-selected="true">Preview</button>
+                            </li> -->
 
-                            <%- require("/blueprint/partials/docs/code-tabs/tab-nav-item.ejs")({
+                            <!-- <%- require("/blueprint/partials/docs/code-tabs/tab-nav-item.ejs")({
                                 id: 'preview',
                                 text: 'Preview',
                                 selected: true
@@ -48,33 +43,37 @@
                                 id: 'html',
                                 text: 'HTML',
                             }); %>
-                         
+                             -->
                         </ul>
                         
-                        <!-- Tab Panes (Tab Content)  -->
+                        <!-- Tab Content -->
                         <div class="tab-content border-start border-end border-bottom rounded-bottom rounded-top-end p-3" id="heroTabContent">
-     
+                            <!-- Preview Tab -->
+                            <!-- <div class="tab-pane fade show active" id="preview" role="tabpanel" aria-labelledby="preview-tab">
+                                <div class="bd-example m-0 border-0">
+                                   
+                                </div>
+                            </div> -->
+
+
                             <%- require("/blueprint/partials/docs/code-tabs/tab-pane.ejs")({
                                 id: 'preview', 
-                                content: heroExample,
+                                content: 'temp',
                                 aria_labelledby: 'preview-tab',
                                 is_active: true
                             }); %>
 
                             <%- require("/blueprint/partials/docs/code-tabs/tab-pane.ejs")({
-                                id: 'html',  
-                                content: `<pre class="mb-0 bg-light p-3 rounded"><code class="language-html">${heroExampleEscaped}</code></pre>`,
+                                id: 'html', 
+                                content: 'temp',
                                 aria_labelledby: 'html-tab',
                             }); %>
-         
+
+                            
                         </div>
 
-                        <hr class="my-4"/>
-                        
-                        <%- require("/blueprint/partials/components/nav-pager/index.ejs")({
-                            next: "<a href='/tutorials/webpack-html/project-setup/index.html' class='nav-pager-item'><div class='text-uppercase small text-muted'>Next</div><p class='mb-0'>Welcome (to the Jungle)</p></a>"
-                        }) %>
                     </div>
+
                     
                     <!-- Right "Jump to" Sidebar -->
                     <%- require("/blueprint/partials/docs/jump-to.ejs")() %>
@@ -87,6 +86,7 @@
         <div class="container mt-auto">
             <%- require("/blueprint/partials/footer.ejs")() %>
         </div>
+        
         <%- require("/blueprint/partials/svg-icons.ejs")() %>
     </body>
 </html>

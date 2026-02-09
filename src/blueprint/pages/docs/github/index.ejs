@@ -29,12 +29,12 @@
                         <h1 class="mb-2">Github</h1>
                         <p class="fs-lg text-muted mb-3">Reference for local dev.</p>
                         
-                        <!-- Content Sections -->
-                        <h2 id="" class="fw-bold">Subtree Push</h2>
+                        <!-- Github Scenarios -->
+                        <h2>Subtree Push</h2>
 
                         <pre><code class="language-bash">git subtree push --prefix=webpack webpack-origin main</code></pre>
 
-                        <h2 id="" class="fw-bold">Subtree Pull</h2>
+                        <h2>Subtree Pull</h2>
 
                         <pre><code class="language-bash">git subtree pull --prefix=webpack webpack-origin main --squash</code></pre>
 
@@ -45,6 +45,17 @@
                         <pre><code class="language-bash">git checkout --theirs webpack/src/blueprint/pages/features/index.ejs
 git add webpack/src/blueprint/pages/features/index.ejs
 git commit</code></pre>
+
+                        <!-- ------------------------------------------------------------------- -->
+                         <h2>Stash</h2>
+                        <p>If you want to stash all changes:</p>
+
+                        <pre><code class="language-bash">git stash push -u -m "stash all changes"</code></pre>
+
+                        <p>To retreive:</p>
+
+                        <pre><code class="language-bash">git stash pop</code></pre>
+
 
                         <hr class="my-4"/>
                         

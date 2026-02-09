@@ -1,0 +1,14 @@
+<%
+    var id = id || 'tab-pane';
+    var content = content || '';
+    var aria_labelledby = aria_labelledby || (id + '-tab');
+    var class_names = class_names || '';
+    var is_active = is_active || false;
+    if(is_active) {
+        class_names += ' show active';
+    }
+%>
+<div class="tab-pane fade position-relative <%= class_names %>" 
+    id="<%= id %>" 
+    role="tabpanel" 
+    aria-labelledby="<%= aria_labelledby %>"><%- content %></div>

@@ -55,7 +55,7 @@ module.exports = {
           filename: `./${pageName}.html`,
           templateParameters: {
             readMarkdown
-          }``
+          }
         });
       });
     })() : []),

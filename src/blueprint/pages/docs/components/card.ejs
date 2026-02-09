@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Documentation | Webpack + Bootstrap</title>
+    </head>
+    <body class="d-flex flex-column min-vh-100">
+        <!-- Header -->
+        <div class="container-fluid">
+            <%- require("/blueprint/partials/header.ejs")() %>
+        </div>
+        
+        <!-- Docs Content -->
+        <section>
+            <div class="container-fluid">
+                <div class="row">
+                    
+                    <!-- Left Sidebar Navigation -->
+                    <%- require("/blueprint/partials/docs/sidebar.ejs")() %>
+                    
+                    <!-- Main Content -->
+                    <div class="col-12 col-lg-6 col-xl-8 py-7 py-lg-9 px-lg-7">
+                        <!-- Page Title -->
+                        <h1 class="mb-1">Card</h1>
+                        <p class="fs-lg text-muted">A card is a flexible and extensible content container: <a href="https://getbootstrap.com/docs/5.3/components/card/" target="_blank">https://getbootstrap.com/docs/5.3/components/card/</a>.</p>
+                        
+                        <h2>Examples</h2>
+
+                        <p>Different examples of cards.</p>
+
+                        <h3>Image with Heading, Paragraph, and Button</h3>
+
+                        <%- require("/blueprint/partials/docs/code-preview-block.ejs")({
+                            code_example: `<div class="row g-3">
+  <div class="col-12 col-md-4">
+    <div class="card"><img src="/img/blueprint/covers/get-in-loser.jpg" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-md-4">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
+        <a href="#" class="card-link">Card link</a>
+        <a href="#" class="card-link">Another link</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-md-4">
+    <div class="card h-100 d-flex flex-column" style="min-height: 30px; background-image: linear-gradient(rgba(0,0,0,.0), rgba(0,0,0,.38)), url('/img/blueprint/covers/get-in-loser.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat;" href="#">
+      <div class="card-footer mt-auto border-0 py-2 py-2">
+       
+          <span style="font-size: 1.2em; font-weight: bold; color: #ffffff;">Card Title</span> 
+        
+      </div>
+    </div>
+  </div>
+</div>`
+                    }) %>
+                    </div>
+
+                    <!-- Right "Jump to" Sidebar -->
+                    <div class="col-12 col-lg-3 col-xl-2 d-none d-lg-block px-lg-0">
+                        <div class="my-7 my-lg-9 px-lg-7 border-start-lg border-secondary">
+                            
+                            <!-- Heading -->
+                            <h6 class="text-uppercase fw-bold">Jump to</h6>
+                            
+                            <!-- Links -->
+                            <ul class="list mb-0">
+                                <!-- <li class="list-item">
+                                    <a class="list-link" href="#section1" data-scroll>Section 1</a>
+                                </li> -->
+                            </ul>
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <div class="container mt-auto">
+            <%- require("/blueprint/partials/footer.ejs")() %>
+        </div>
+        
+        <%- require("/blueprint/partials/svg-icons.ejs")() %>
+    </body>
+</html>
