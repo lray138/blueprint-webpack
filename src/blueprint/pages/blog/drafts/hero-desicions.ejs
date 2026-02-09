@@ -1,0 +1,34 @@
+esentially we get to this point:
+
+<%- require("/blueprint/partials/docs/code-tabs/index.ejs")({
+    nav_items: [
+        {
+            id: 'preview',
+            text: 'Preview',
+            selected: true
+        },
+        {
+            id: 'html',
+            text: 'HTML',
+        }
+    ],
+    tab_items: [
+
+            {
+                id: 'preview',
+                content: require("/blueprint/pages/docs/components/card/stash.ejs")(),
+                selected: true
+            },
+            {
+                id: 'html',
+                content: '',
+            }
+    ]
+}) %>
+
+and we are now faced witht he fact this is still a little oto much overhead and we need ot 
+pass in one object per tab item.
+
+awesome I'm glad we did this we get to MEMOIZATION!  (cracking up thinking about Oprah audience clapping)... what if we fed AI every eisode of
+Oprah and ... or JErry springer... 
+

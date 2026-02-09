@@ -31,43 +31,31 @@
                     <!-- Main Content -->
                     <div class="col-12 col-lg-6 col-xl-8 py-7 py-lg-9 px-lg-7" id="doc-content">
                         <!-- Page Title -->
-                        <h1 class="mb-2">Hero</h1>
 
-                        <p class="fs-lg text-muted mb-5">A hero section is a large banner image, prominently placed on a web page, generally front and center. See Bootstrap examples
-                            <a href="https://getbootstrap.com/docs/5.3/examples/heroes/" target="_blank">https://getbootstrap.com/docs/5.3/examples/heroes/</a>.</p>
-
-                        <ul class="nav nav-tabs mb-0" id="heroTabs" role="tablist">
-
-                            <%- require("/blueprint/partials/docs/code-tabs/tab-nav-item.ejs")({
-                                id: 'preview',
-                                text: 'Preview',
-                                selected: true
-                            }); %>
-
-                            <%- require("/blueprint/partials/docs/code-tabs/tab-nav-item.ejs")({
-                                id: 'html',
-                                text: 'HTML',
-                            }); %>
-                         
-                        </ul>
+                        <section class="intro">
+                            <h1 class="mb-2">Hero</h1>
+                            <p class="fs-lg text-muted">A hero section is a large banner image, prominently placed on a web page, generally front and center. See official Bootstrap examples
+                                <a href="https://getbootstrap.com/docs/5.3/examples/heroes/" target="_blank">https://getbootstrap.com/docs/5.3/examples/heroes/</a>.
+                            </p>
+                        </section>
                         
-                        <!-- Tab Panes (Tab Content)  -->
-                        <div class="tab-content border-start border-end border-bottom rounded-bottom rounded-top-end p-3" id="heroTabContent">
-     
-                            <%- require("/blueprint/partials/docs/code-tabs/tab-pane.ejs")({
-                                id: 'preview', 
-                                content: heroExample,
-                                aria_labelledby: 'preview-tab',
-                                is_active: true
-                            }); %>
-
-                            <%- require("/blueprint/partials/docs/code-tabs/tab-pane.ejs")({
-                                id: 'html',  
-                                content: `<pre class="mb-0 bg-light p-3 rounded"><code class="language-html">${heroExampleEscaped}</code></pre>`,
-                                aria_labelledby: 'html-tab',
-                            }); %>
-         
-                        </div>
+                        <h2>Centered Hero</h2>
+                        <p>A centered hero is a hero section that is centered on the page. It is a large banner image, prominently placed on a web page, generally front and center.</p>
+                        <%- require("/blueprint/partials/docs/code-tabs/index.ejs")({
+                            items: [
+                                {
+                                    id: 'preview',
+                                    text: 'Preview',
+                                    selected: true,
+                                    content: heroExample
+                                },
+                                {
+                                    id: 'html',
+                                    text: 'HTML',
+                                    content: `<pre class="mb-0 bg-light p-3 rounded"><code class="language-html">${heroExampleEscaped}</code></pre>`
+                                }
+                            ]
+                        }) %>
 
                         <hr class="my-4"/>
                         

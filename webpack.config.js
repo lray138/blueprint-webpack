@@ -3,6 +3,7 @@ const fs = require('fs');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { getSitePages, readMarkdown } = require('./src/utils/filesystem');
+const curryRequire = require('./src/utils/require-curried');
 const CopyPlugin = require('copy-webpack-plugin');
 //const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
@@ -36,6 +37,7 @@ module.exports = {
             template: page,
             templateParameters: {
                 readMarkdown,
+                curryRequire,
                 base_url: IS_FRAMEWORK ? '' : '/blueprint'
             },
             filename: IS_FRAMEWORK
@@ -54,7 +56,8 @@ module.exports = {
           template: page,
           filename: `./${pageName}.html`,
           templateParameters: {
-            readMarkdown
+            readMarkdown,
+            curryRequire
           }
         });
       });
