@@ -33,13 +33,13 @@
                                 <button class="nav-link active" id="preview-tab" data-bs-toggle="tab" data-bs-target="#preview" type="button" role="tab" aria-controls="preview" aria-selected="true">Preview</button>
                             </li> -->
 
-                            <!-- <%- require("/blueprint/partials/docs/code-tabs/tab-nav-item.ejs")({
+                            <!-- <%- require("/blueprint/partials/components/tabs/tab-nav-item.ejs")({
                                 id: 'preview',
                                 text: 'Preview',
                                 selected: true
                             }); %>
 
-                            <%- require("/blueprint/partials/docs/code-tabs/tab-nav-item.ejs")({
+                            <%- require("/blueprint/partials/components/tabs/tab-nav-item.ejs")({
                                 id: 'html',
                                 text: 'HTML',
                             }); %>
@@ -56,14 +56,14 @@
                             </div> -->
 
 
-                            <%- require("/blueprint/partials/docs/code-tabs/tab-pane.ejs")({
+                            <%- require("/blueprint/partials/components/tabs/tab-panel.ejs")({
                                 id: 'preview', 
                                 content: 'temp',
                                 aria_labelledby: 'preview-tab',
                                 is_active: true
                             }); %>
 
-                            <%- require("/blueprint/partials/docs/code-tabs/tab-pane.ejs")({
+                            <%- require("/blueprint/partials/components/tabs/tab-panel.ejs")({
                                 id: 'html', 
                                 content: 'temp',
                                 aria_labelledby: 'html-tab',

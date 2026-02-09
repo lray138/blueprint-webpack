@@ -8,17 +8,34 @@
     </head>
     <body class="d-flex flex-column min-vh-100">
         <%
-            var escapeHtml = require("/blueprint/utils/escape-html");
+            var renderCodeBlock = function(content, language) {
+                return require("/blueprint/partials/components/code-block/index.ejs")({
+                    content: content,
+                    language: language || 'html'
+                });
+            };
+
+            var codeBlock = function(language, content) {
+                return require("/blueprint/partials/components/code-block/index.ejs")({
+                    content: content,
+                    language: language || 'html'
+                });
+            };
+
             var getCardMarkup = (function() {
                 var cached;
                 return function() {
-                    if (!cached) {
-                        cached = require("/blueprint/pages/docs/components/card/stash.ejs")();
-                    }
+                    // if (!cached) {
+                    //     cached = require("/blueprint/partials/components/card/stash.ejs")();
+                    // }
                     return cached;
                 };
             })();
             var cardMarkup = getCardMarkup();
+            var cardBgImgTitleCode = renderCodeBlock(
+                require("/blueprint/partials/components/card/bg-img-title.ejs")(),
+                'html'
+            );
         %>
         <!-- Header -->
         <div class="container-fluid">
@@ -42,20 +59,73 @@
                         <h1 class="mb-2">Card</h1>
                         <p class="fs-lg text-muted mb-3">Reference for local dev.</p>
                         
+                        <h3 class="mb-2">Image and Text</h3>
 
-                        <%- require("/blueprint/partials/docs/code-tabs/index.ejs")({
+                        <p>A few examples of how to use the card component with an image and text.</p>
+
+                        <%- require("/blueprint/partials/components/tabs/index.ejs")({
                             items: [
                                 {
                                     id: 'preview',
                                     text: 'Preview',
                                     selected: true,
-                                    content: cardMarkup   
+                                    content: require("/blueprint/partials/wraps/row-three-cols.ejs")({
+                                        cols: [
+                                        {
+                                            content: require("/blueprint/partials/components/card/img-title-text-btn.ejs")()
+                                        },
+                                        {
+                                            content: require("/blueprint/partials/components/card/img-title-text-links.ejs")()
+                                        },
+                                        {
+                                            content: require("/blueprint/partials/components/card/kitchen-sink.ejs")()
+                                        }
+                                    ]
+                                    }),
                                 },
                                 {
                                     id: 'html',
-                                    text: 'HTML',
-                                    content: escapeHtml(cardMarkup)
+                                    text: 'Card 1 HTML',
+                                    content: codeBlock('html', require("/blueprint/partials/components/card/img-title-text-btn.ejs")())
+                                },
+                                {
+                                    id: 'html-2',
+                                    text: 'Card 2 HTML',
+                                    content: codeBlock('html', require("/blueprint/partials/components/card/title-text-links.ejs")())
+                                },
+                                {
+                                    id: 'html-3',
+                                    text: 'Card 3 HTML',
+                                    content: codeBlock('html', require("/blueprint/partials/components/card/bg-img-title.ejs")())
                                 }
+                            ]
+                        }) %>
+
+                        <br/>
+
+                        <h3 class="mb-2">Image and Text (cont)</h3>
+
+                        <p>A few examples of how to use the card component with an image and text.</p>
+
+                        <%- require("/blueprint/partials/components/tabs/index.ejs")({
+                            items: [
+                                {
+                                    id: 'preview2',
+                                    text: 'Preview',
+                                    selected: true,
+                                    content: require("/blueprint/partials/wraps/row-three-cols.ejs")({
+                                        cols: [
+                                        {
+                                            content: require("/blueprint/partials/components/card/bg-img-title.ejs")()
+                                        }
+                                    ]
+                                    }),
+                                },
+                                {
+                                    id: 'html2',
+                                    text: 'Card 1 HTML',
+                                    content: codeBlock('html', require("/blueprint/partials/components/card/img-title-text-btn.ejs")())
+                                },
                             ]
                         }) %>
 
