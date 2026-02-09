@@ -153,8 +153,58 @@ var content_static = `<!-- Section Heading -->
     })
     + 
     require("/blueprint/partials/docs/sidebar/section.ejs")({
+        section_href: "/docs/components/",
+        section_title: "Components",
+        list_items: [
+            {
+                text: "Accordion",
+                href: "/docs/components/accordion.html"
+            },
+            {
+                text: "Anchor",
+                href: "/docs/components/anchor.html"
+            },
+            {
+                text: "Badge",
+                href: "/docs/components/badge.html"
+            },
+            {
+                text: "Card",
+                href: "/docs/components/card.html"
+            }
+        ]
+    })
+    + 
+    // PATTERNS
+    require("/blueprint/partials/docs/sidebar/section.ejs")({
+        section_href: "/docs/components/",
+        section_title: "Patterns",
+        list_items: [
+            {
+                text: "Hero",
+                href: "/docs/patterns/hero.html"
+            }
+        ]
+    })
+    + 
+    // PATTERNS
+    require("/blueprint/partials/docs/sidebar/section.ejs")({
+        section_href: "/docs/wraps/",
+        section_title: "Wraps",
+        list_items: []
+    })
+    + 
+    // PATTERNS
+    require("/blueprint/partials/docs/sidebar/section.ejs")({
+        section_href: "/docs/components/",
+        section_title: "Shout-Outs",
+        list_items: []
+    })
+    + 
+    // PATTERNS
+    require("/blueprint/partials/docs/sidebar/section.ejs")({
         section_href: "/docs/github/",
-        section_title: "GitHub",
+        section_title: "GITHUB",
         list_items: []
     });
 %>

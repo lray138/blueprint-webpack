@@ -22,7 +22,10 @@ const getSitePages = (dir) => {
 };
 
 const readMarkdown = (filePath) => {
-    const resolvedPath = path.resolve(__dirname, '..', filePath);
+    const srcRoot = path.resolve(__dirname, '..');
+    const resolvedPath = filePath.startsWith('/')
+        ? path.join(srcRoot, filePath.slice(1))
+        : path.resolve(srcRoot, filePath);
     try {
         const raw = fs.readFileSync(resolvedPath, 'utf8');
         return {

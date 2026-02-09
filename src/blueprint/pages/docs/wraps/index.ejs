@@ -26,37 +26,9 @@
                     <!-- Main Content -->
                     <div class="col-12 col-lg-6 col-xl-8 py-7 py-lg-9 px-lg-7" id="doc-content">
                         <!-- Page Title -->
-                        <h1 class="mb-2">Github</h1>
+                        <h1 class="mb-2"></h1>
                         <p class="fs-lg text-muted mb-3">Reference for local dev.</p>
-                        
-                        <!-- Github Scenarios -->
-                        <h2>Subtree Push</h2>
-
-                        <pre><code class="language-bash">git subtree push --prefix=webpack webpack-origin main</code></pre>
-
-                        <h2>Subtree Pull</h2>
-
-                        <pre><code class="language-bash">git subtree pull --prefix=webpack webpack-origin main --squash</code></pre>
-
-
-                        <h3>Resolve Conflict</h3>
-                        <p>If there are problems and you know you want to overwrite:</p>
-
-                        <pre><code class="language-bash">git checkout --theirs webpack/src/blueprint/pages/features/index.ejs
-git add webpack/src/blueprint/pages/features/index.ejs
-git commit</code></pre>
-
-                        <!-- ------------------------------------------------------------------- -->
-                         <h2>Stash</h2>
-                        <p>If you want to stash all changes:</p>
-
-                        <pre><code class="language-bash">git stash push -u -m "stash all changes"</code></pre>
-
-                        <p>To retreive:</p>
-
-                        <pre><code class="language-bash">git stash pop</code></pre>
-
-
+                      
                         <hr class="my-4"/>
                         
                         <%- require("/blueprint/partials/components/nav-pager/index.ejs")({
