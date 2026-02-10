@@ -20,3 +20,4 @@ document.documentElement.setAttribute('data-bs-theme', 'light');
 localStorage.removeItem('theme');
 
 import "./vendor/css-scope-inline.js";
+import "./contact-form.js";

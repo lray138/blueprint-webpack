@@ -61,6 +61,7 @@ module.exports = {
             readMarkdown,
             curryRequire,
             escapeHtml,
+            base_url: ''
           }
         });
       });
