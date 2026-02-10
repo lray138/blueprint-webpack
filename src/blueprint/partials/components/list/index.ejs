@@ -3,7 +3,7 @@
     var list_items = typeof list_items != 'undefined' ? list_items : '';
     
     if(typeof list_items == 'object' && Array.isArray(list_items)) {
-        list_items = list_items.map(item => `<li>${item}</li>`).join('');
+        list_items = list_items.map(item => `<li>${item.content}</li>`).join('');
     }
 
     var __attributes__ = [

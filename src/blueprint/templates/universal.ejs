@@ -4,23 +4,31 @@
     var footer = require("/blueprint/partials/footer.ejs")();
     content = header + content + footer;
 
-    var meta_title = typeof meta_title !== "undefined" ? meta_title : "Webpack + Bootstrap";
-    var meta_description = typeof meta_description !== "undefined" ? meta_description : "";
-    var meta_image = typeof meta_image !== "undefined" ? meta_image : "/img/blueprint/covers/outkast-is-everlasting.svg";
-    var meta_url = typeof meta_url !== "undefined" ? meta_url : "";
-    var meta_type = typeof meta_type !== "undefined" ? meta_type : "website";
-    var meta_site_name = typeof meta_site_name !== "undefined" ? meta_site_name : "";
-    var twitter_card = typeof twitter_card !== "undefined" ? twitter_card : "summary_large_image";
-    var twitter_site = typeof twitter_site !== "undefined" ? twitter_site : "";
+    var head = typeof head !== "undefined" ? head : {};
+    var head_meta = head.meta || {};
+    var head_link = head.link || {};
+
+    var meta_title = typeof meta_title !== "undefined" ? meta_title : (head_meta.title || "Webpack + Bootstrap");
+    var meta_description = typeof meta_description !== "undefined" ? meta_description : (head_meta.description || "");
+    var meta_image = typeof meta_image !== "undefined" ? meta_image : (head_meta.image || "/img/blueprint/covers/outkast-is-everlasting.svg");
+    var meta_url = typeof meta_url !== "undefined" ? meta_url : (head_meta.url || "");
+    var meta_type = typeof meta_type !== "undefined" ? meta_type : (head_meta.type || "website");
+    var meta_site_name = typeof meta_site_name !== "undefined" ? meta_site_name : (head_meta.site_name || "");
+    var twitter_card = typeof twitter_card !== "undefined" ? twitter_card : (head_meta.twitter_card || "summary_large_image");
+    var twitter_site = typeof twitter_site !== "undefined" ? twitter_site : (head_meta.twitter_site || "");
+    var canonical_url = typeof canonical_url !== "undefined" ? canonical_url : (head_link.canonical || "");
 %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Webpack + Bootstrap</title>
+        <title><%- meta_title %></title>
         <% if (meta_description) { %>
             <meta name="description" content="<%- meta_description %>">
+        <% } %>
+        <% if (canonical_url) { %>
+            <link rel="canonical" href="<%- canonical_url %>">
         <% } %>
         <% if (meta_url) { %>
             <meta property="og:url" content="<%- meta_url %>">

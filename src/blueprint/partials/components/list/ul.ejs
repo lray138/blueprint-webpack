@@ -1,9 +1,7 @@
 <%  
-    var list_items = list_items || "";
+    var list_items = list_items || [];
 %>
 <%- require('/blueprint/partials/components/list/index.ejs')({
     list_type: 'ul',
-    list_items: [
-        `<a href="/blog/2026/the-long-game/">The Long Game</a>`,
-    ]
+    list_items,
 }) %>
