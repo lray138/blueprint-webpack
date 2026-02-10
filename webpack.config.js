@@ -61,7 +61,7 @@ module.exports = {
             readMarkdown,
             curryRequire,
             escapeHtml,
-            base_url: IS_FRAMEWORK ? '' : '/blueprint'
+            base_url: ''
           }
         });
       });
