@@ -1,0 +1,233 @@
+<% 
+
+var content_static = `<!-- Section Heading -->
+            <a href="/docs/" class="section-heading"><h6 class="text-uppercase fw-bold">Welcome</h6></a>
+            
+            <!-- Links -->
+            <ul class="list mb-6 ps-3">
+                <li class="list-item">
+                    <a class="list-link" href="index.html">Introduction</a>
+                </li>
+                <li class="list-item">
+                    <a class="list-link" href="/docs/terminology.html">Terminology</a>
+                </li>
+                <li class="list-item">
+                    <a class="list-link" href="docs.html#setup">Project Setup</a>
+                </li>
+            </ul>
+            
+            <!-- Section Heading -->
+            <a href="/docs/components/" class="section-heading"><h6 class="text-uppercase fw-bold">Components</h6></a>
+            
+            <!-- Links -->
+            <ul class="list mb-6 ps-3">
+                <li class="list-item">
+                    <a class="list-link" href="/docs/components/accordion.html">Accordion</a>
+                </li>
+                <li class="list-item">
+                    <a class="list-link" href="/docs/components/anchor.html">Anchor</a>
+                </li>
+                <li class="list-item">
+                    <span class="list-link text-muted">Badge</span>
+                </li>
+                <li class="list-item">
+                    <span class="list-link text-muted">Breadcrumb</span>
+                </li>
+                <li class="list-item">
+                    <span class="list-link text-muted">Button</span>
+                </li>
+                <li class="list-item">
+                    <span class="list-link text-muted">Button Group</span>
+                </li>
+                <li class="list-item">
+                    <span class="list-link text-muted">Card</span>
+                </li>
+                <li class="list-item">
+                    <a class="list-link" href="/docs/components/carousel.html">Carousel</a>
+                </li>
+                <li class="list-item">
+                    <span class="list-link text-muted">Datetime Picker</span>
+                </li>
+                <li class="list-item">
+                    <span class="list-link text-muted">Devices</span>
+                </li>
+                <li class="list-item">
+                    <span class="list-link text-muted">Dropdown</span>
+                </li>
+                <li class="list-item">
+                    <span class="list-link text-muted">Gallery</span>
+                </li>
+                <li class="list-item">
+                    <span class="list-link text-muted">Icons</span>
+                </li>
+                <li class="list-item">
+                    <span class="list-link text-muted">Image</span>
+                </li>
+                <li class="list-item">
+                    <span class="list-link text-muted">List</span>
+                </li>
+                <li class="list-item">
+                    <span class="list-link text-muted">Map</span>
+                </li>
+                <li class="list-item">
+                    <span class="list-link text-muted">Nav</span>
+                </li>
+                <li class="list-item">
+                    <span class="list-link text-muted">Navbar</span>
+                </li>
+                <li class="list-item">
+                    <span class="list-link text-muted">Pagination</span>
+                </li>
+                <li class="list-item">
+                    <span class="list-link text-muted">Parallax</span>
+                </li>
+                <li class="list-item">
+                    <span class="list-link text-muted">Placeholder</span>
+                </li>
+                <li class="list-item">
+                    <span class="list-link text-muted">Popover</span>
+                </li>
+                <li class="list-item">
+                    <span class="list-link text-muted">Scrollspy</span>
+                </li>
+                <li class="list-item">
+                    <span class="list-link text-muted">Screenshot</span>
+                </li>
+                <li class="list-item">
+                    <span class="list-link text-muted">Shapes</span>
+                </li>
+                <li class="list-item">
+                    <span class="list-link text-muted">Spinner</span>
+                </li>
+                <li class="list-item">
+                    <span class="list-link text-muted">Steps</span>
+                </li>
+                <li class="list-item">
+                    <span class="list-link text-muted">Tab</span>
+                </li>
+                <li class="list-item">
+                    <span class="list-link text-muted">Testimonial</span>
+                </li>
+                <li class="list-item">
+                    <span class="list-link text-muted">Toast</span>
+                </li>
+                <li class="list-item">
+                    <span class="list-link text-muted">Tooltip</span>
+                </li>
+                <li class="list-item">
+                    <span class="list-link text-muted">Video</span>
+                </li>
+            </ul>
+
+            <h6 class="text-uppercase fw-bold">Patterns</h6>
+            
+            <!-- Links -->
+            <ul class="list mb-6 ps-3">
+                <li class="list-item">
+                    <a class="list-link" href="/docs/patterns/hero.html">Hero</a>
+                </li>
+            </ul>
+
+
+            <!-- Section Heading -->
+            <a href="/docs/inspiration/" class="section-heading"><h6 class="text-uppercase fw-bold">Inspiration</h6></a>
+            `;
+
+    var sections = require('/blueprint/partials/docs/sidebar/section.ejs')({
+        section_href: "/docs/",
+        section_title: "Welcome",
+        list_items: [
+            {
+                text: "Introduction",
+                href: "/docs/"
+            },
+            {
+                text: "Terminology",
+                href: "/docs/terminology/"
+            },
+            {
+                text: "Project Setup",
+                href: "/docs/setup/"
+            }
+        ]
+    })
+    + 
+    require("/blueprint/partials/docs/sidebar/section.ejs")({
+        section_href: "/docs/components/",
+        section_title: "Components",
+        list_items: [
+            {
+                text: "Accordion",
+                href: "/docs/components/accordion.html"
+            },
+            {
+                text: "Anchor",
+                href: "/docs/components/anchor.html"
+            },
+            {
+                text: "Badge",
+                href: "/docs/components/badge.html"
+            },
+            {
+                text: "Card",
+                href: "/docs/components/card.html"
+            }
+        ]
+    })
+    + 
+    // PATTERNS
+    require("/blueprint/partials/docs/sidebar/section.ejs")({
+        section_href: "/docs/components/",
+        section_title: "Patterns",
+        list_items: [
+            {
+                text: "Hero",
+                href: "/docs/patterns/hero.html"
+            }
+        ]
+    })
+    + 
+    // PATTERNS
+    require("/blueprint/partials/docs/sidebar/section.ejs")({
+        section_href: "/docs/wraps/",
+        section_title: "Wraps",
+        list_items: []
+    })
+    + 
+    // PATTERNS
+    require("/blueprint/partials/docs/sidebar/section.ejs")({
+        section_href: "/docs/components/",
+        section_title: "Shout-Outs",
+        list_items: []
+    })
+    + 
+    // PATTERNS
+    require("/blueprint/partials/docs/sidebar/section.ejs")({
+        section_href: "/docs/github/",
+        section_title: "GITHUB",
+        list_items: []
+    });
+%>
+<div class="col-12 col-lg-3 col-xl-2 px-lg-0 border-end-lg border-secondary">
+    <div class="collapse d-lg-block" id="docsNavCollapse">
+        <div class="py-7 py-lg-9 px-3">
+
+            <style>
+                me a.section-heading {
+                    text-decoration: none;
+                    color: inherit;
+                }
+
+                me a.section-heading:hover {
+                    text-decoration: underline;
+                }
+
+                me ul li a { 
+                    text-decoration: none;
+                }
+            </style>
+            
+            <%- sections %>
+        </div>
+    </div>
+</div>

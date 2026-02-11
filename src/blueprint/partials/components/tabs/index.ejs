@@ -1,0 +1,24 @@
+<%
+    var code_example = code_example || '';
+    var code_example_src = code_example_src || '';
+    var escapeHtml = require('/blueprint/utils/escape-html');
+    code_example_src = escapeHtml(code_example);
+
+    var items = items || [];
+
+    var nav_items = items.map(item => require("/blueprint/partials/components/tabs/tab-nav-item.ejs")(item)).join('');
+    var tab_items = items.map(item => require("/blueprint/partials/components/tabs/tab-panel.ejs")({
+        id: item.id,
+        content: item.content,
+        is_active: !!item.selected,
+        aria_labelledby: item.id ? (item.id + '-tab') : undefined
+    })).join('');
+%>
+<!-- Tabs Navigation -->
+<ul class="nav nav-tabs mb-0" id="accordionTabs" role="tablist">
+    <%- nav_items %>
+</ul>
+<!-- Tab Content -->
+<div class="tab-content border-start border-end border-bottom rounded-bottom rounded-top-end p-3" id="accordionTabContent">
+    <%- tab_items %>
+</div>

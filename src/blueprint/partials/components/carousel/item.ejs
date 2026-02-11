@@ -1,0 +1,12 @@
+<% 
+    // var src = '/img/carousel/1.jpg';
+    var alt = '';
+    
+    var item_class = 'carousel-item';
+    if(active) {
+        item_class += ' active';
+    }
+%>
+<div class="<%= item_class %>">
+    <img class="d-block w-100" src="<%= src %>" alt="<%= alt %>">
+</div>

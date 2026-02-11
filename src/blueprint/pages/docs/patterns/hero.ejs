@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Github - Blueprint Docs</title>
+    <script src="https://cdn.jsdelivr.net/gh/gnat/css-scope-inline@main/script.js"></script>
+    </head>
+    <body class="d-flex flex-column min-vh-100">
+        <%
+            var heroExample = require("/blueprint/pages/docs/patterns/hero/centered.ejs")();
+        %>
+        <!-- Header -->
+        <div class="container-fluid">
+            <%- require("/blueprint/partials/header.ejs")({
+                base_url: base_url,
+                fluid: true
+            }) %>
+        </div>
+        
+        <!-- Docs Content -->
+        <section>
+            <div class="container-fluid">
+                <div class="row">
+                    
+                    <!-- Left Sidebar Navigation -->
+                    <%- require("/blueprint/partials/docs/sidebar.ejs")() %>
+                    
+                    <!-- Main Content -->
+                    <div class="col-12 col-lg-6 col-xl-8 py-7 py-lg-9 px-lg-7" id="doc-content">
+                        <!-- Page Title -->
+
+                        <section class="intro">
+                            <h1 class="mb-2">Hero</h1>
+                            <p class="fs-lg text-muted">A hero section is a large banner image, prominently placed on a web page, generally front and center. See official Bootstrap examples
+                                <a href="https://getbootstrap.com/docs/5.3/examples/heroes/" target="_blank">https://getbootstrap.com/docs/5.3/examples/heroes/</a>.
+                            </p>
+                        </section>
+                        
+                        <h2>Centered Hero</h2>
+                        <p>A centered hero is a hero section that is centered on the page. It is a large banner image, prominently placed on a web page, generally front and center.</p>
+                        <%- require("/blueprint/partials/components/tabs/index.ejs")({
+                            items: [
+                                {
+                                    id: 'preview',
+                                    text: 'Preview',
+                                    selected: true,
+                                    content: heroExample
+                                },
+                                {
+                                    id: 'html',
+                                    text: 'HTML',
+                                    content: require("/blueprint/partials/components/code-block/index.ejs")({
+                                        content: heroExample.trimStart(),
+                                        language: 'html'
+                                    })
+                                }
+                            ]
+                        }) %>
+
+                        <hr class="my-4"/>
+                        
+                        <%- require("/blueprint/partials/components/nav-pager/index.ejs")({
+                            next: "<a href='/tutorials/webpack-html/project-setup/index.html' class='nav-pager-item'><div class='text-uppercase small text-muted'>Next</div><p class='mb-0'>Welcome (to the Jungle)</p></a>"
+                        }) %>
+                    </div>
+                    
+                    <!-- Right "Jump to" Sidebar -->
+                    <%- require("/blueprint/partials/docs/jump-to.ejs")() %>
+                    
+                </div>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <div class="container mt-auto">
+            <%- require("/blueprint/partials/footer.ejs")() %>
+        </div>
+        <%- require("/blueprint/partials/svg-icons.ejs")() %>
+    </body>
+</html>

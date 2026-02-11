@@ -1,0 +1,20 @@
+<%
+    var sidebar = typeof sidebar !== "undefined" ? sidebar : "provide sidebar";
+    var content = content;
+    var jump_to_sidebar = typeof jump_to_sidebar !== "undefined" ? jump_to_sidebar : "";
+%>
+<main>
+    <div class="container-fluid">
+        <div class="row">
+            
+            <%- sidebar %>
+            
+            <div class="col-12 col-lg-6 col-xl-8 py-7 py-lg-9 px-lg-7" id="doc-content">
+                <%- content %>
+            </div>
+            
+            <!-- Right "Jump to" Sidebar -->
+            <%- jump_to_sidebar %>
+        </div>
+    </div>
+</main>

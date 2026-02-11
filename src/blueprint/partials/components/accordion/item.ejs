@@ -1,0 +1,33 @@
+<% 
+    var expanded = typeof expanded !== 'undefined' ? expanded : false;
+    var button_class = "accordion-button";
+    if(typeof expanded == 'undefined' || expanded == false) {
+        button_class += " collapsed";
+    }
+
+    var accordion_collapse_class = "accordion-collapse";
+    if(typeof expanded == 'undefined' || expanded == false) {
+        accordion_collapse_class += " collapse";
+    } else {
+        accordion_collapse_class += " collapse show";
+    }
+
+    if(typeof always_open == 'undefined' || always_open == false) {
+        var extra_attributes = `data-bs-parent="#${parent_id}"`;
+    } else {
+        var extra_attributes = ``;
+    }
+
+%>
+<div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="<%= button_class %>" type="button" data-bs-toggle="collapse" data-bs-target="#<%= target_id %>" aria-expanded="<%= expanded %>" aria-controls="<%= target_id %>">
+        <%- button_text %>
+      </button>
+    </h2>
+    <div id="<%= target_id %>" class="<%= accordion_collapse_class %>" <%- extra_attributes %>>
+      <div class="accordion-body">
+        <%- content %>
+      </div>
+    </div>
+  </div>
