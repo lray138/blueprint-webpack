@@ -10,7 +10,6 @@ import "./vendor/bigpicture";
 import 'bootstrap/dist/js/bootstrap.bundle';  // Includes Popper
 
 
-
 import Flickity from 'flickity';
 
 // Make available globally
