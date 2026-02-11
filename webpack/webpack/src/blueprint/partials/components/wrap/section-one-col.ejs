@@ -1,0 +1,15 @@
+<% 
+    var wrap_start = typeof wrap_start !== "undefined" ? wrap_start : "";   
+    var wrap_end = typeof wrap_end !== "undefined" ? wrap_end : "";
+    var content = typeof content !== "undefined" ? content : "";
+    var class_names = typeof class_names !== "undefined" ? class_names : "";
+%>
+<section class="<%- class_names %>">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 ">
+                <%- content %>
+            </div>
+        </div>
+    </div>
+</section>

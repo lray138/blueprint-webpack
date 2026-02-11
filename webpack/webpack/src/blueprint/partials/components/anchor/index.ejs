@@ -1,0 +1,13 @@
+<% 
+    var __attributes__ = '';
+    var text = typeof text != 'undefined' ? text : '';
+
+    if (typeof class_names != 'undefined') {  
+        __attributes__ += ' class="' + class_names + '"';
+    }
+
+    if (typeof href != 'undefined') {
+        __attributes__ += ' href="' + href + '"';
+    }
+%>
+<a <%- __attributes__ %>><%- text %></a>

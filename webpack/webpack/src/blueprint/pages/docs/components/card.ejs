@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Github - Blueprint Docs</title>
+    <script src="https://cdn.jsdelivr.net/gh/gnat/css-scope-inline@main/script.js"></script>
+    </head>
+    <body class="d-flex flex-column min-vh-100">
+        <%
+            var renderCodeBlock = function(content, language) {
+                return require("/blueprint/partials/components/code-block/index.ejs")({
+                    content: content,
+                    language: language || 'html'
+                });
+            };
+
+            var codeBlock = function(language, content) {
+                return require("/blueprint/partials/components/code-block/index.ejs")({
+                    content: content,
+                    language: language || 'html'
+                });
+            };
+
+            var getCardMarkup = (function() {
+                var cached;
+                return function() {
+                    // if (!cached) {
+                    //     cached = require("/blueprint/partials/components/card/stash.ejs")();
+                    // }
+                    return cached;
+                };
+            })();
+            var cardMarkup = getCardMarkup();
+            var cardBgImgTitleCode = renderCodeBlock(
+                require("/blueprint/partials/components/card/bg-img-title.ejs")(),
+                'html'
+            );
+        %>
+        <!-- Header -->
+        <div class="container-fluid">
+            <%- require("/blueprint/partials/header.ejs")({
+                base_url: base_url,
+                fluid: true
+            }) %>
+        </div>
+        
+        <!-- Docs Content -->
+        <section>
+            <div class="container-fluid">
+                <div class="row">
+                    
+                    <!-- Left Sidebar Navigation -->
+                    <%- require("/blueprint/partials/docs/sidebar.ejs")() %>
+                    
+                    <!-- Main Content -->
+                    <div class="col-12 col-lg-6 col-xl-8 py-7 py-lg-9 px-lg-7" id="doc-content">
+                        <!-- Page Title -->
+                        <h1 class="mb-2">Card</h1>
+                        <p class="fs-lg text-muted mb-3">Reference for local dev.</p>
+                        
+                        <h3 class="mb-2">Image and Text</h3>
+
+                        <p>A few examples of how to use the card component with an image and text.</p>
+
+                        <%- require("/blueprint/partials/components/tabs/index.ejs")({
+                            items: [
+                                {
+                                    id: 'preview',
+                                    text: 'Preview',
+                                    selected: true,
+                                    content: require("/blueprint/partials/wraps/row-three-cols.ejs")({
+                                        cols: [
+                                        {
+                                            content: require("/blueprint/partials/components/card/img-title-text-btn.ejs")()
+                                        },
+                                        {
+                                            content: require("/blueprint/partials/components/card/img-title-text-links.ejs")()
+                                        },
+                                        {
+                                            content: require("/blueprint/partials/components/card/kitchen-sink.ejs")()
+                                        }
+                                    ]
+                                    }),
+                                },
+                                {
+                                    id: 'html',
+                                    text: 'Card 1 HTML',
+                                    content: codeBlock('html', require("/blueprint/partials/components/card/img-title-text-btn.ejs")())
+                                },
+                                {
+                                    id: 'html-2',
+                                    text: 'Card 2 HTML',
+                                    content: codeBlock('html', require("/blueprint/partials/components/card/title-text-links.ejs")())
+                                },
+                                {
+                                    id: 'html-3',
+                                    text: 'Card 3 HTML',
+                                    content: codeBlock('html', require("/blueprint/partials/components/card/bg-img-title.ejs")())
+                                }
+                            ]
+                        }) %>
+
+                        <br/>
+
+                        <h3 class="mb-2">Image and Text (cont)</h3>
+
+                        <p>A few examples of how to use the card component with an image and text.</p>
+
+                        <%- require("/blueprint/partials/components/tabs/index.ejs")({
+                            items: [
+                                {
+                                    id: 'preview2',
+                                    text: 'Preview',
+                                    selected: true,
+                                    content: require("/blueprint/partials/wraps/row-three-cols.ejs")({
+                                        cols: [
+                                        {
+                                            content: require("/blueprint/partials/components/card/bg-img-title.ejs")()
+                                        }
+                                    ]
+                                    }),
+                                },
+                                {
+                                    id: 'html2',
+                                    text: 'Card 1 HTML',
+                                    content: codeBlock('html', require("/blueprint/partials/components/card/img-title-text-btn.ejs")())
+                                },
+                            ]
+                        }) %>
+
+                        <hr class="my-4"/>
+                        
+                        <%- require("/blueprint/partials/components/nav-pager/index.ejs")({
+                            next: "<a href='/tutorials/webpack-html/project-setup/index.html' class='nav-pager-item'><div class='text-uppercase small text-muted'>Next</div><p class='mb-0'>Welcome (to the Jungle)</p></a>"
+                        }) %>
+                    </div>
+                    
+                    <!-- Right "Jump to" Sidebar -->
+                    <%- require("/blueprint/partials/docs/jump-to.ejs")() %>
+                    
+                </div>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <div class="container mt-auto">
+            <%- require("/blueprint/partials/footer.ejs")() %>
+        </div>
+        <%- require("/blueprint/partials/svg-icons.ejs")() %>
+    </body>
+</html>

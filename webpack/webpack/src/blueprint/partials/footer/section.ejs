@@ -1,0 +1,13 @@
+<% 
+    var heading = require('/blueprint/partials/components/heading/index.ejs')({
+        text: heading,
+        level: 5
+    });
+
+    var list_items = require('/blueprint/partials/components/list/index.ejs')({
+        list_items,
+        class_names: 'list-unstyled'
+    });
+%>
+<%- heading %>
+<%- list_items %>

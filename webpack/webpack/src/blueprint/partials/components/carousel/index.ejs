@@ -1,0 +1,79 @@
+<% 
+    var items = [
+        {
+            active: false,
+            src: '/img/blueprint/covers/outkast-is-everlasting.jpg',
+            alt: 'Image 2',
+        },
+        {
+            active: true,
+            src: '/img/blueprint/covers/get-in-loser.jpg',
+            alt: 'Image 1',
+        },
+    ]
+    .map(item => require("./item.ejs")(item))
+    .join('');
+
+    var carousel_id = "carouselExample";
+    var ride = "carousel";
+    var controls = require("./controls.ejs")({
+        carousel_id
+    });
+    var indicators = require("./indicators.ejs")({
+        carousel_id
+    });
+%>
+<div id="<%= carousel_id %>" class="carousel slide carousel-fade" data-bs-interval="7000" data-bs-ride="<%= ride %>">
+    <%- indicators %>
+    <div class="carousel-inner">
+        <%- items %>
+    </div>
+    <%- controls %>
+</div>
+<style>
+/* default slow fade */
+.carousel.carousel-fade .carousel-item {
+  opacity: 0;
+  transition: opacity 3s ease-in-out;
+}
+
+.carousel.carousel-fade .carousel-item.active,
+.carousel.carousel-fade .carousel-item-next.carousel-item-start,
+.carousel.carousel-fade .carousel-item-prev.carousel-item-end {
+  opacity: 1;
+}
+
+.carousel.carousel-fade .active.carousel-item-start,
+.carousel.carousel-fade .active.carousel-item-end {
+  opacity: 0;
+}
+
+/* fast fade when user clicks */
+.carousel.carousel-fade.fast-fade .carousel-item {
+  transition: opacity 0.75s ease-in-out;
+}
+
+</style>
+<script>
+document.querySelectorAll(".carousel").forEach(carousel => {
+
+const setFast = () => carousel.classList.add("fast-fade");
+const setSlow = () => carousel.classList.remove("fast-fade");
+
+// when user clicks next/prev
+carousel.querySelectorAll("[data-bs-slide]").forEach(btn => {
+  btn.addEventListener("pointerdown", () => {
+    console.log("fast fade");
+    setFast();
+  });
+});
+
+// after slide completes, revert to slow
+carousel.addEventListener("slid.bs.carousel", () => {
+  setSlow();
+});
+
+});
+
+
+</script>

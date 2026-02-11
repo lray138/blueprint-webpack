@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Webpack + Bootstrap</title>
+    </head>
+    <body class="d-flex flex-column min-vh-100">
+        
+        <%- require("/blueprint/partials/header.ejs")() %>
+
+        <section class="menu">
+            <div class="container menu-sections">
+                <div class="menu-inner-section">
+                    <h2 class="menu-inner-section-heading">Hot</h2>
+                    <div class="menu-item">
+                        <div class="item-name-price">
+                            <span class="item-name">hassleback sweet potato</span>
+                            <span class="item-price">12</span>
+                        </div>
+                        <span class="item-description">
+                            <p>tahni, labneh, olives, pickled veg, atar, sumac, fresh herbs</p>
+                        </span>
+                    </div>
+                </div>
+                <div class="menu-inner-section flex dotted">
+                    <h2 class="">Hot</h2>
+                    <div class="menu-item">
+                        <div class="item-name-price">
+                            <span class="item-name">hassleback sweet potato</span>
+                            <span class="item-price">12</span>
+                        </div>
+                        <div class="item-description">
+                            <p>tahni, labneh, olives, pickled veg, <br> zatar, sumac, fresh herbs </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-inner-section dotted">
+                    <h2 class="">Specials</h2>
+                    <div class="menu-item daily-special">
+                        <span class="item-day">Monday</span>
+                        <div class="item-name-price">
+                            <span class="item-name">Ribs</span>
+                            <span class="item-price">12</span>
+                        </div>
+                    </div>
+                    <div class="menu-item daily-special">
+                        <span class="item-day">Tuesday</span>
+                        <div class="item-name-price">
+                            <span class="item-name">Chicken wings</span>
+                            <span class="item-price">12</span>
+                        </div>
+                    </div>
+                    <div class="menu-item daily-special">
+                        <span class="item-day">Wednesday</span>
+                        <div class="item-name-price">
+                            <span class="item-name">Smash burgers</span>
+                            <span class="item-price">12</span>
+                        </div>
+                    </div><div class="menu-item daily-special">
+                        <span class="item-day">Thursday</span>
+                        <div class="item-name-price">
+                            <span class="item-name">Tacos</span>
+                            <span class="item-price">12</span>
+                        </div>
+                    </div>
+                    <div class="menu-item daily-special">
+                        <span class="item-day">Friday</span>
+                        <div class="item-name-price">
+                            <span class="item-name">Jambalaya</span>
+                            <span class="item-price">12</span>
+                        </div>
+                    </div>
+                    <div class="menu-item daily-special">
+                        <span class="item-day">Saturday</span>
+                        <div class="item-name-price">
+                            <span class="item-name">Denver Steak Stir Fry</span>
+                            <span class="item-price">12</span>
+                        </div>
+                    </div>
+                    <div class="menu-item daily-special">
+                        <span class="item-day">Sunday</span>
+                        <div class="item-name-price">
+                            <span class="item-name">Pizza</span>
+                            <span class="item-price">12</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="container"><hr class=""/></div>
+
+        <%- require("/blueprint/partials/footer.ejs")({
+            border_top: true,
+        }) %>
+        <%- require("/blueprint/partials/svg-icons.ejs")() %>
+    </body>
+</html>

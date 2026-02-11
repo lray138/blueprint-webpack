@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Features | Blueprint</title>
+    </head>
+    <body class="d-flex flex-column min-vh-100">
+        
+        <%- require("/blueprint/partials/header.ejs")({
+            base_url: base_url
+        }) %>
+
+        <%- require("/blueprint/partials/components/wrap/section-one-col.ejs")({
+            content: '<a href="/features/menu.html">Menu</a>'
+        }) %>
+
+        <%- require("/blueprint/partials/footer.ejs")({
+            border_top: true,
+        }) %>
+        <%- require("/blueprint/partials/svg-icons.ejs")() %>
+    </body>
+</html>

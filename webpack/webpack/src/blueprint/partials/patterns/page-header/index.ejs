@@ -1,0 +1,9 @@
+<%
+    var heading = typeof heading !== "undefined" ? heading : "Heading Missing";
+    var text = typeof text !== "undefined" ? text : "";
+    var class_names = typeof class_names !== "undefined" ? class_names : "";
+%>
+<div class="page-header <%= class_names %>">
+    <h2 class="display-2"><%- heading %></h2>
+    <p class="lead"><%- text %></p>
+</div>

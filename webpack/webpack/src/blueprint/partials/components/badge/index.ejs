@@ -1,0 +1,8 @@
+<% 
+    var __attributes__ = "class=\"badge " + class_names + "\"";
+
+    if(typeof style !== "undefined") {
+        __attributes__ += " style=\"" + style + "\"";
+    }
+%>
+<span <%- __attributes__ %>><%- text %></span>
