@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Blog | Blueprint</title>
+        <script src="https://cdn.jsdelivr.net/gh/gnat/css-scope-inline@main/script.js"></script>
+    </head>
+    <body class="d-flex flex-column min-vh-100">
+
+        <%- require("/blueprint/partials/header.ejs")({
+            base_url: base_url
+        }) %>
+        
+        <%- require("/blueprint/partials/components/wrap/section-one-col.ejs")({
+            content: require("/blueprint/partials/patterns/page-header/index.ejs")({
+                heading: "Blog",
+                text: "Sharing is caring"
+            })
+            + 
+            require("/blueprint/partials/components/list/ul.ejs")({
+                items: [
+                    {
+                        title: "Blog",
+                        content: "test"
+                    }
+                ]
+            })
+        }) %>
+
+        <%- require("/blueprint/partials/footer.ejs")() %>
+        <%- require("/blueprint/partials/svg-icons.ejs")() %>
+    </body>
+</html>

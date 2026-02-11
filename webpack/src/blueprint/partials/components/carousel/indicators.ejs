@@ -1,0 +1,17 @@
+<% 
+    var buttons = require("./indicator-button.ejs")({
+        active: true,
+        index: 0,
+        label: "Slide 1",
+        carousel_id,
+    })
+    + require("./indicator-button.ejs")({
+        active: false,
+        index: 1,
+        label: "Slide 2",
+        carousel_id,
+    })
+%>
+<div class="carousel-indicators">
+   <%- buttons %>
+</div>

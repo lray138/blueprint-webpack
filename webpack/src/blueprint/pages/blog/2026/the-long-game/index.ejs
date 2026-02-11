@@ -1,0 +1,20 @@
+<%- require('/blueprint/templates/universal.ejs')({
+    content: require('/blueprint/partials/components/wrap/section-one-col.ejs')({
+        content: require("/blueprint/partials/patterns/hero/index.ejs")({
+                    heading: "We believe",
+                    content: `<p class="lead mb-4"></p>
+                    <p class="lead mb-4">The internet has always been about communication. 
+
+    Not just publishing content—but sharing ideas, telling stories, organizing information, and building communities.
+
+    </p><p>Blueprint is built around that same principle.
+
+    It’s a composable content management framework designed to make content easier to structure, reuse, and evolve over time—without locking you into brittle themes, annoying page builders, or one-off hacks.
+
+    Blueprint gives you a clean system for building websites that can grow with you.
+
+    </p><p class="lead">Blueprint isn't just a content framework, it's a communication strategy designed for the long game.</p>
+                    `
+                })
+    })
+}) %>

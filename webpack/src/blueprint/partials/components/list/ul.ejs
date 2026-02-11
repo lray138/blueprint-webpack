@@ -1,0 +1,7 @@
+<%  
+    var list_items = list_items || [];
+%>
+<%- require('/blueprint/partials/components/list/index.ejs')({
+    list_type: 'ul',
+    list_items,
+}) %>

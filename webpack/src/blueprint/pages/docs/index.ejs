@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Docs | Blueprint</title>
+    <script src="https://cdn.jsdelivr.net/gh/gnat/css-scope-inline@main/script.js"></script>
+    </head>
+    <body class="d-flex flex-column min-vh-100">
+        <!-- Header -->
+        <div class="container-fluid">
+            <%- require("/blueprint/partials/header.ejs")({
+                base_url: base_url
+            }) %>
+        </div>
+        
+        <!-- Docs Content -->
+        <section>
+            <div class="container-fluid">
+                <div class="row">
+                    
+                    <!-- Left Sidebar Navigation -->
+                    <%- require("/blueprint/partials/docs/sidebar.ejs")() %>
+                    
+                    <!-- Main Content -->
+                    <div class="col-12 col-lg-6 col-xl-8 py-7 py-lg-9 px-lg-7">
+                        <!-- Page Title -->
+                        <h1 class="mb-1">Documentation</h1>
+                       
+                        <p>This documentation and framework is the result of a few years of finetuning an approach to managing content on the web.  As 
+                            I look back at some of the project folders in my root directory, I can see that finding my own method of generating documntation has 
+                            been a trial and error process in which I've tried a few different solution or frameworks, but I am satsified, now, that it is bundled up 
+                            into the same framework and there is a method to the madness.
+                        </p>
+
+                        <p>With that I mean, there are so many flavors and tools out there and names and there is a lot of information overload and ways to do things.  As this 
+                            the core of the approach has been adjusted slightly as it's been documented.  I like that too, because I was originally thinking about 
+                            it in terms of document driven development.  Sort of like TDD, but that every component that exist in the wild, would have a corresponding 
+                            static component that is documented.
+                        </p>
+
+                        <p>So, welcome...</p>
+                        
+                        <hr/>
+
+                        <%- require("/blueprint/partials/components/nav-pager/index.ejs")({
+                            next: "<a href='/tutorials/webpack-html/project-setup/index.html' class='nav-pager-item'><div class='text-uppercase small text-muted'>Next</div><p class='mb-0'>Welcome (to the Jungle)</p></a>"
+                        }) %>
+                    </div>
+                    
+                    <!-- Right "Jump to" Sidebar -->
+                    <div class="col-12 col-lg-3 col-xl-2 d-none d-lg-block px-lg-0">
+                        <div class="my-7 my-lg-9 px-lg-7 border-start-lg border-secondary">
+                                                        <!-- Heading -->
+                            <h6 class="text-uppercase fw-bold">Jump to</h6>
+                            
+                            <!-- Links -->
+                            <!-- <ul class="list mb-0 list-unstyled">
+                                <li class="list-item">
+                                    <a class="list-link" href="#section1" data-scroll>Section 1</a>
+                                    <ul class="list px-3 list-unstyled">
+                                        <li class="list-item">
+                                            <a class="list-link" href="#section1-1" data-scroll>Section 1.1</a>
+                                        </li>
+                                        <li class="list-item">
+                                            <a class="list-link" href="#section1-2" data-scroll>Section 1.2</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="list-item">
+                                    <a class="list-link" href="#section2" data-scroll>Section 2</a>
+                                </li>
+                                <li class="list-item">
+                                    <a class="list-link" href="#section3" data-scroll="true">Section 3</a>
+                                </li>
+                            </ul> -->
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <div class="container mt-auto">
+            <%- require("/blueprint/partials/footer.ejs")() %>
+        </div>
+        <%- require("/blueprint/partials/svg-icons.ejs")() %>
+    </body>
+</html>

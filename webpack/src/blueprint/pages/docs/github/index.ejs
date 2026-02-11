@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Github - Blueprint Docs</title>
+    <script src="https://cdn.jsdelivr.net/gh/gnat/css-scope-inline@main/script.js"></script>
+    </head>
+    <body class="d-flex flex-column min-vh-100">
+        <!-- Header -->
+        <div class="container-fluid">
+            <%- require("/blueprint/partials/header.ejs")({
+                base_url: base_url,
+                fluid: true
+            }) %>
+        </div>
+        
+        <!-- Docs Content -->
+        <section>
+            <div class="container-fluid">
+                <div class="row">
+                    
+                    <!-- Left Sidebar Navigation -->
+                    <%- require("/blueprint/partials/docs/sidebar.ejs")() %>
+                    
+                    <!-- Main Content -->
+                    <div class="col-12 col-lg-6 col-xl-8 py-7 py-lg-9 px-lg-7" id="doc-content">
+                        <!-- Page Title -->
+                        <h1 class="mb-2">Github</h1>
+                        <p class="fs-lg text-muted mb-3">Reference for local dev.</p>
+                        
+                        <!-- Github Scenarios -->
+                        <h2>Subtree Push</h2>
+
+                        <pre><code class="language-bash">git subtree push --prefix=webpack webpack-origin main</code></pre>
+
+                        <h2>Subtree Pull</h2>
+
+                        <pre><code class="language-bash">git subtree pull --prefix=webpack webpack-origin main --squash</code></pre>
+
+
+                        <h3>Resolve Conflict</h3>
+                        <p>If there are problems and you know you want to overwrite:</p>
+
+                        <pre><code class="language-bash">git checkout --theirs webpack/src/blueprint/pages/features/index.ejs
+git add webpack/src/blueprint/pages/features/index.ejs
+git commit</code></pre>
+
+                        <!-- ------------------------------------------------------------------- -->
+                         <h2>Stash</h2>
+                        <p>If you want to stash all changes:</p>
+
+                        <pre><code class="language-bash">git stash push -u -m "stash all changes"</code></pre>
+
+                        <p>To retreive:</p>
+
+                        <pre><code class="language-bash">git stash pop</code></pre>
+
+
+                        <h2>Submodule</h2>
+                        <p>To add a submodule from scratch:</p>
+
+                        <pre><code class="language-bash">git subtree add --prefix=webpack git@github.com:lray138/blueprint-webpack.git main --squash</code></pre>
+                        
+                        <pre><code class="language-bash">git remote add webpack-canon git@github.com:lray138/blueprint-webpack.git</code></pre>
+
+                        <hr class="my-4"/>
+                        
+                        <%- require("/blueprint/partials/components/nav-pager/index.ejs")({
+                            next: "<a href='/tutorials/webpack-html/project-setup/index.html' class='nav-pager-item'><div class='text-uppercase small text-muted'>Next</div><p class='mb-0'>Welcome (to the Jungle)</p></a>"
+                        }) %>
+                    </div>
+                    
+                    <!-- Right "Jump to" Sidebar -->
+                    <%- require("/blueprint/partials/docs/jump-to.ejs")() %>
+                    
+                </div>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <div class="container mt-auto">
+            <%- require("/blueprint/partials/footer.ejs")() %>
+        </div>
+        <%- require("/blueprint/partials/svg-icons.ejs")() %>
+    </body>
+</html>
