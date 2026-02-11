@@ -1,9 +1,0 @@
-<%
-    var content = require("/blueprint/partials/components/heading/index.ejs")(heading)
-        + require("/blueprint/partials/components/paragraph/index.ejs")(paragraph)
-        + require("/blueprint/partials/components/anchor/index.ejs")((typeof anchor !== "undefined" ? anchor : {}));
-
-%>
-<div data-pattern="info-stack">
-    <%- content %>
-</div>
