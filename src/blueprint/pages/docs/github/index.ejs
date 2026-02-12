@@ -57,6 +57,21 @@ git commit</code></pre>
                         <pre><code class="language-bash">git stash pop</code></pre>
 
 
+                        <h2>From scratch</h2>
+
+                        <p>From the project root:</p>
+
+                        <pre><code class="language-bash">git init
+git add .
+git commit -m "Initial commit"
+</code></pre>
+
+                        <p>Add the remote and fetch:</p>
+
+                        <pre><code>git remote add webpack-canon git@github.com:lray138/blueprint-webpack.git
+git fetch webpack-canon</code></pre>
+
+
                         <hr class="my-4"/>
                         
                         <%- require("/blueprint/partials/components/nav-pager/index.ejs")({
