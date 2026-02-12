@@ -6,54 +6,73 @@ const { getSitePages, readMarkdown } = require('./src/utils/filesystem');
 const escapeHtml = require('./src/blueprint/utils/escape-html');
 const curryRequire = require('./src/utils/require-curried');
 const CopyPlugin = require('copy-webpack-plugin');
-//const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
+// const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
 // ✅ Detect “framework mode” when this config is running from /blueprint/webpack
 const ROOT = __dirname;
 const IS_FRAMEWORK = ROOT.includes(path.join('blueprint', 'webpack'));
-const SITE_ENTRY = path.resolve(__dirname, 'src/site/js/theme.js');
+
+const SITE_ENTRY_ABS = path.resolve(__dirname, 'src/site/js/theme.js');
 const BLUEPRINT_ENTRY = './src/blueprint/js/theme.js';
+
+// ✅ Does src/site/js/theme.js exist?
 const HAS_SITE_ENTRY = (() => {
   try {
-    return fs.statSync(SITE_ENTRY).isFile();
+    return fs.statSync(SITE_ENTRY_ABS).isFile();
+  } catch (err) {
+    return false;
+  }
+})();
+
+// ✅ Does src/site/pages exist?
+const SITE_PAGES_DIR_ABS = path.resolve(__dirname, 'src/site/pages');
+const HAS_SITE_PAGES = (() => {
+  try {
+    return fs.statSync(SITE_PAGES_DIR_ABS).isDirectory();
   } catch (err) {
     return false;
   }
 })();
 
 module.exports = {
-  // ✅ In framework mode, build only blueprint. Otherwise build site (as before).
-  entry: IS_FRAMEWORK ? BLUEPRINT_ENTRY : (HAS_SITE_ENTRY ? './src/site/js/theme.js' : BLUEPRINT_ENTRY),
+  // ✅ In framework mode, build only blueprint.
+  // ✅ Otherwise build site if present, fallback to blueprint.
+  entry: IS_FRAMEWORK
+    ? BLUEPRINT_ENTRY
+    : (HAS_SITE_ENTRY ? './src/site/js/theme.js' : BLUEPRINT_ENTRY),
 
   plugins: [
     // ✅ Always generate Blueprint pages
     ...(() => {
-        const blueprintBase = path.resolve(__dirname, 'src/blueprint/pages');
-      
-        return getSitePages('./src/blueprint/pages').map(page => {
-          const rel = path.relative(blueprintBase, page).replace(/\\/g, '/');
-          const pageName = rel.replace(/\.ejs$/i, '');
-      
-          return new HtmlWebpackPlugin({
-            template: page,
-            templateParameters: {
-                escapeHtml,
-                readMarkdown,
-                curryRequire,
-                base_url: IS_FRAMEWORK ? '' : '/blueprint'
-            },
-            filename: IS_FRAMEWORK
-              ? `./${pageName}.html`            // ✅ framework: treat blueprint as root
-              : `./blueprint/${pageName}.html`  // ✅ normal: blueprint is namespaced
-          });
+      const blueprintBase = path.resolve(__dirname, 'src/blueprint/pages');
+
+      return getSitePages('./src/blueprint/pages').map(page => {
+        const rel = path.relative(blueprintBase, page).replace(/\\/g, '/');
+        const pageName = rel.replace(/\.ejs$/i, '');
+
+        return new HtmlWebpackPlugin({
+          template: page,
+          templateParameters: {
+            escapeHtml,
+            readMarkdown,
+            curryRequire,
+            base_url: IS_FRAMEWORK ? '' : '/blueprint'
+          },
+          filename: IS_FRAMEWORK
+            ? `./${pageName}.html`            // ✅ framework: blueprint is root
+            : `./blueprint/${pageName}.html`  // ✅ normal: blueprint is namespaced
         });
-      })(),      
-    // ✅ Only generate Site pages when NOT in framework mode
-    ...(!IS_FRAMEWORK ? (() => {
-      const appBase = path.resolve(__dirname, 'src/site/pages');
+      });
+    })(),
+
+    // ✅ Only generate Site pages when NOT in framework mode AND the folder exists
+    ...((!IS_FRAMEWORK && HAS_SITE_PAGES) ? (() => {
+      const appBase = SITE_PAGES_DIR_ABS;
+
       return getSitePages('./src/site/pages').map(page => {
         const rel = path.relative(appBase, page).replace(/\\/g, '/');
         const pageName = rel.replace(/\.ejs$/i, '');
+
         return new HtmlWebpackPlugin({
           template: page,
           filename: `./${pageName}.html`,
@@ -71,8 +90,6 @@ module.exports = {
       filename: 'theme.css'
     }),
 
-    // ✅ If you want to ignore site assets in framework mode, keep only blueprint copy.
-    // If your images are shared (and you still want them), keep this as-is.
     new CopyPlugin({
       patterns: [
         {
@@ -110,20 +127,14 @@ module.exports = {
       {
         test: /\.(scss)$/,
         use: [
-          {
-            loader: MiniCssExtractPlugin.loader
-          },
-          {
-            loader: 'css-loader'
-          },
+          { loader: MiniCssExtractPlugin.loader },
+          { loader: 'css-loader' },
           {
             loader: 'postcss-loader',
             options: {
               postcssOptions: {
                 plugins: function () {
-                  return [
-                    require('autoprefixer')
-                  ];
+                  return [require('autoprefixer')];
                 }
               }
             }
@@ -132,11 +143,7 @@ module.exports = {
             loader: 'sass-loader',
             options: {
               sassOptions: {
-                silenceDeprecations: [
-                  'color-functions',
-                  'global-builtin',
-                  'import'
-                ],
+                silenceDeprecations: ['color-functions', 'global-builtin', 'import'],
                 quietDeps: true,
               }
             }
@@ -147,10 +154,13 @@ module.exports = {
   },
 
   resolve: {
-    // ✅ Helpful aliases. In framework mode, importing @site will fail fast.
     alias: {
       '@blueprint': path.resolve(__dirname, 'src/blueprint'),
-      '@site': IS_FRAMEWORK ? false : path.resolve(__dirname, 'src/site'),
+
+      // ✅ Hide @site if framework mode OR site folder/entry doesn't exist
+      '@site': (!IS_FRAMEWORK && (HAS_SITE_ENTRY || HAS_SITE_PAGES))
+        ? path.resolve(__dirname, 'src/site')
+        : false,
     },
     roots: [
       path.resolve(__dirname, 'src'),
@@ -159,8 +169,10 @@ module.exports = {
   },
 
   devServer: {
-    // ✅ Watch only blueprint in framework mode; otherwise watch everything (as before)
-    watchFiles: IS_FRAMEWORK ? 'src/blueprint/**/*' : 'src/**/*',
-    //hot: true
+    // ✅ Watch only what's actually present
+    watchFiles: IS_FRAMEWORK
+      ? 'src/blueprint/**/*'
+      : ((HAS_SITE_ENTRY || HAS_SITE_PAGES) ? 'src/**/*' : 'src/blueprint/**/*'),
+    // hot: true
   },
 };
