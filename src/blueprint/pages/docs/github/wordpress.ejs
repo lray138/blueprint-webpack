@@ -21,10 +21,19 @@
                 <div class="row">
                     
                     <!-- Left Sidebar Navigation -->
-                    <%- require("/blueprint/partials/docs/sidebar.ejs")() %>
-                    
+                    <%- require("/blueprint/partials/docs/sidebar.ejs")({base_url}) %>
+                  
                     <!-- Main Content -->
                     <div class="col-12 col-lg-6 col-xl-8 py-7 py-lg-9 px-lg-7" id="doc-content">
+
+                        <%- require("/blueprint/partials/components/breadcrumbs/index.ejs")({
+                            list: `<ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Docs</a></li>
+            <li class="breadcrumb-item"><a href="#">Github</a></li>
+            <li class="breadcrumb-item active" aria-current="page">WordPress Theme</li>
+        </ol>` 
+                    }) %>
+
                         <!-- Page Title -->
                         <h1 class="mb-2">WordPress Theme</h1>
                         <p class="fs-lg text-muted mb-3">Reference for local dev.</p>

@@ -1,10 +1,11 @@
 <% 
-    var list = `<ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="#">Home</a></li>
-        <li class="breadcrumb-item"><a href="#">Library</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Data</li>
-    </ol>`;
+    var list = list || ``;
 %>
-<nav aria-label="breadcrumb" class="container">
+<nav aria-label="breadcrumb" class="">
     <%- list %>
 </nav>
+<style>
+    me ol {
+        font-size: .85em;
+    }
+</style>
