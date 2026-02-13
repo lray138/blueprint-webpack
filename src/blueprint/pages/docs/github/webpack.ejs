@@ -80,6 +80,14 @@ git fetch webpack-canon</code></pre>
                             <pre><code>git remote rename webpack-origin webpack-canon
 </code></pre>
 
+                        <h2>"Force the pull"</h2>
+
+                        <pre><code>git checkout --theirs .
+git add .
+git commit -m "Resolve merge conflicts by keeping theirs"
+Updated 4 paths from the index
+[main ebf0584] Resolve merge conflicts by keeping theirs</code></pre>
+
                         <hr class="my-4"/>
                         
                         <%- require("/blueprint/partials/components/nav-pager/index.ejs")({
