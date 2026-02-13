@@ -1,5 +1,7 @@
 <% 
 
+var base_url = base_url || '';
+
 var content_static = `<!-- Section Heading -->
             <a href="/docs/" class="section-heading"><h6 class="text-uppercase fw-bold">Welcome</h6></a>
             
@@ -201,11 +203,11 @@ var content_static = `<!-- Section Heading -->
         list_items: [
             {
                 text: 'Webpack',
-                href: '/docs/github/webpack.html'
+                href: base_url + '/docs/github/webpack.html'
             },
             {
-                text: 'Wordpress',
-                href: '/docs/github/wordpress.html'
+                text: 'Wordpress ',
+                href: base_url + '/docs/github/wordpress.html'
             }
         ]
     });
