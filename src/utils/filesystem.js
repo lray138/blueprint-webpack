@@ -21,23 +21,28 @@ const getSitePages = (dir) => {
     return results;
 };
 
-const readMarkdown = (filePath) => {
+const readMarkdown = (filePath, callerDir = null) => {
     const srcRoot = path.resolve(__dirname, '..');
-    const resolvedPath = filePath.startsWith('/')
-        ? path.join(srcRoot, filePath.slice(1))
-        : path.resolve(srcRoot, filePath);
+
+    let resolvedPath;
+
+    if (filePath.startsWith('/')) {
+        resolvedPath = path.join(srcRoot, filePath.slice(1));
+    } else if (callerDir) {
+        resolvedPath = path.resolve(callerDir, filePath);
+    } else {
+        resolvedPath = path.resolve(srcRoot, filePath);
+    }
+
     try {
         const raw = fs.readFileSync(resolvedPath, 'utf8');
-        return {
-            content: marked.parse(raw)
-        };
+        return { content: marked.parse(raw) };
     } catch (err) {
         if (err.code === 'ENOENT') {
-            return { content: 'Markdown file not found' }; // make it obvious if the path is wrong
-        } else {
-            console.log(err);
-            return { content: '' }; // Return empty string for other errors
+            return { content: `Markdown file not found: ${resolvedPath}` };
         }
+        console.log(err);
+        return { content: '' };
     }
 };
 
