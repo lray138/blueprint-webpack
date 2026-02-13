@@ -1,6 +1,7 @@
 // 🌘 CSS Scope Inline (https://github.com/gnat/css-scope-inline)
 window.cssScopeCount ??= 1 // Let extra copies share the scope count.
-window.cssScope ??= new MutationObserver(mutations => { // Allow 1 observer.
+
+const applyCssScope = () => {
 	document?.body?.querySelectorAll('style:not([ready])').forEach(node => { // Faster than walking MutationObserver results when recieving subtree (DOM swap, htmx, ajax, jquery).
 		var scope = 'me__'+(window.cssScopeCount++) // Ready. Make unique scope, example: .me__1234
 		node.parentNode.classList.add(scope)
@@ -12,5 +13,11 @@ window.cssScope ??= new MutationObserver(mutations => { // Allow 1 observer.
 		)
 		node.setAttribute('ready', '')
 	})
+}
+
+window.cssScope ??= new MutationObserver(() => { // Allow 1 observer.
+	applyCssScope()
 }).observe(document.documentElement, {childList: true, subtree: true})
 
+// Run once for existing inline styles.
+applyCssScope()
