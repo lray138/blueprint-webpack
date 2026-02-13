@@ -26,20 +26,16 @@
                     <!-- Main Content -->
                     <div class="col-12 col-lg-6 col-xl-8 py-7 py-lg-9 px-lg-7" id="doc-content">
                         <!-- Page Title -->
-                        <h1 class="mb-2">Github</h1>
-                        <p class="fs-lg text-muted mb-3">Github references for the following projects.</p>
+                        <h1 class="mb-2">WordPress Theme</h1>
+                        <p class="fs-lg text-muted mb-3">Reference for local dev.</p>
                         
-                        <%- require('/blueprint/partials/components/list/index.ejs')({
-                            list_items: [
-                                {
-                                    content: `<a href="/docs/github/webpack.html">Webpack</a>`
-                                },
-                                {
-                                    content: `<a href="/docs/github/wordpress.html">WordPress</a>`
-                                }
-                            ]
-                        }) %>
+                        <!-- Github Scenarios -->
+                        <h2>Clone</h2>
 
+                        <p>From the theme directory run the following command:</p>
+
+                        <pre><code class="language-bash">git clone git@github.com:lray138/blueprint-wordpress.git blueprint
+</code></pre>
                         <hr class="my-4"/>
                         
                         <%- require("/blueprint/partials/components/nav-pager/index.ejs")({
