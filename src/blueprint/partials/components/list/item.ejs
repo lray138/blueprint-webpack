@@ -1,0 +1,11 @@
+<%
+    var __tag__ = typeof tag != 'undefined' ? tag : 'li';
+    var content = typeof content != 'undefined' ? content : '';
+
+    var __attributes__ = [
+        typeof class_names != 'undefined' ? `class="${class_names}"` : '',
+        typeof id != 'undefined' ? `id="${id}"` : '',
+        typeof style != 'undefined' ? `style="${style}"` : '',
+    ].filter(Boolean).join(' ');
+%>
+<<%- __tag__ %> <%- __attributes__ %>><%- content %></<%- __tag__ %>>
