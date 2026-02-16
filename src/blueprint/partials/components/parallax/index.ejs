@@ -1,0 +1,8 @@
+<% 
+    var bg_img_src = bg_img_src || "#";
+    var content = content || "";
+    var class_names = class_names || "";
+%>
+<div style="background: url(<%= bg_img_src %>); background-size: cover; min-height: 100vh" class="<%= class_names %>">
+    <%- content %>
+</div>

@@ -233,3 +233,18 @@ ul.nav.list-group.list-group-sm > .nav-item > .nav-link {
 
 }
 
+
+
+.lift,
+.lift-shadow {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  will-change: transform;
+}
+
+.lift:hover {
+  transform: translateY(-3px);
+}
+
+.lift-shadow:hover {
+  box-shadow: 0 7px 12px rgba(0,0,0,0.3);
+}
