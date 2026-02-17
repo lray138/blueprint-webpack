@@ -5,6 +5,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { getSitePages, readMarkdown } = require('./src/utils/filesystem');
 const escapeHtml = require('./src/blueprint/utils/escape-html');
 const curryRequire = require('./src/utils/require-curried');
+const getAttributes = require('./src/utils/html');
 const CopyPlugin = require('copy-webpack-plugin');
 // const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
@@ -56,6 +57,9 @@ module.exports = {
             escapeHtml,
             readMarkdown,
             curryRequire,
+            utils: {
+                getAttributes
+            },
             base_url: IS_FRAMEWORK ? '' : '/blueprint'
           },
           filename: IS_FRAMEWORK

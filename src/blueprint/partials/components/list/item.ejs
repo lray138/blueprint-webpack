@@ -1,11 +1,8 @@
 <%
-    var __tag__ = typeof tag != 'undefined' ? tag : 'li';
-    var content = typeof content != 'undefined' ? content : '';
+    handleLocals = typeof utils !== "undefined" && typeof utils.handleLocals !== "undefined" 
+        ? utils.handleLocals 
+        : function(x) { return x; };
 
-    var __attributes__ = [
-        typeof class_names != 'undefined' ? `class="${class_names}"` : '',
-        typeof id != 'undefined' ? `id="${id}"` : '',
-        typeof style != 'undefined' ? `style="${style}"` : '',
-    ].filter(Boolean).join(' ');
+    __attributes__ = handleLocals(locals);
 %>
-<<%- __tag__ %> <%- __attributes__ %>><%- content %></<%- __tag__ %>>
+<li<%- __attributes__ %>><%- content %></li>
