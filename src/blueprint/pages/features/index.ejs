@@ -11,13 +11,22 @@
             base_url: base_url
         }) %>
 
-        <%- require("/blueprint/partials/components/wrap/section-one-col.ejs")({
-            content: '<a href="/features/menu.html">Menu</a>'
+        <%- require("/blueprint/partials/wraps/section-one-col.ejs")({
+            attrs: {
+                section: {
+                    class_add: "this is a test",
+                }
+            },
+            content: `<h1 class="display-3">Features</h1>
+                <p>Blueprint was conceptualized as the ultimate starter package for building a website.  We currenty use Bootstrap as our HTML framework, but the
+                    idea was that the components and patterns are framework agnostic.</p>
+            `
         }) %>
 
         <%- require("/blueprint/partials/footer.ejs")({
             border_top: true,
         }) %>
         <%- require("/blueprint/partials/svg-icons.ejs")() %>
+
     </body>
 </html>

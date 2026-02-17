@@ -1,8 +1,8 @@
 <%
-    handleLocals = typeof utils !== "undefined" && typeof utils.handleLocals !== "undefined" 
-        ? utils.handleLocals 
+    getAttributes = typeof utils !== "undefined" && typeof utils.getAttributes !== "undefined" 
+        ? utils.getAttributes 
         : function(x) { return x; };
 
-    __attributes__ = handleLocals(locals);
+    __attributes__ = getAttributes(locals);
 %>
 <li<%- __attributes__ %>><%- content %></li>

@@ -12,7 +12,7 @@
             base_url: base_url
         }) %>
         
-        <%- require("/blueprint/partials/components/wrap/section-one-col.ejs")({
+        <%- require("/blueprint/partials/wraps/section-one-col.ejs")({
             content: require("/blueprint/partials/patterns/page-header/index.ejs")({
                 heading: "Blog",
                 text: "Sharing is caring"
@@ -21,7 +21,7 @@
             require("/blueprint/partials/components/list/ul.ejs")({
                 list_items: [
                     {
-                        class_names: "this-is-how-it-should-work",
+                        class_names: "test-again",
                         content: "test",
                         utils
                     }
