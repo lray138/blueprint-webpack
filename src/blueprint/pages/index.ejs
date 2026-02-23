@@ -1,37 +1,47 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Blueprint Theme</title>
+<%
 
+    var content = require("/blueprint/partials/components/wrap/section-one-col.ejs")({
+    content: require("/blueprint/partials/components/image/index.ejs")({
+        attrs: {
+            src: "/img/blueprint/covers/get-in-loser.jpg",
+            alt: "Hero Image",
+            class: "img-fluid",
+        }
+    }),
+    class_names: "pb-3"
+}) + require("/blueprint/partials/components/wrap/section-one-col.ejs")({
+    class_names: "text-center w-50 mx-auto",
+    content: require("/blueprint/partials/patterns/page-header/index.ejs")({
+        heading: "Tired of the grind?",
+        text: "So was I",
         
-    </head>
-    <body class="d-flex flex-column min-vh-100">
-        <%- require("/blueprint/partials/header.ejs")({
-            base_url: base_url
-        }) %>
+    })
 
-        <%- require("/blueprint/partials/components/wrap/section-one-col.ejs")({
-            content: require("/blueprint/partials/components/image/index.ejs")({
-                attrs: {
-                    src: "/img/blueprint/covers/get-in-loser.jpg",
-                    alt: "Hero Image",
-                    class: "img-fluid",
-                }
-            }),
-            class_names: "pb-3"
-        }) %>
+}) 
 
-        <%- require("/blueprint/partials/components/wrap/section-one-col.ejs")({
-            class_names: "text-center w-50 mx-auto",
-            content: require("/blueprint/partials/patterns/page-header/index.ejs")({
-                heading: "Tired of the grind?",
-                text: "I am too",
-            })
-        }) %>
+    + require("/blueprint/partials/wraps/section-one-col-md-6-center.ejs")({
+        class_names: "",
+        content: `<p>
+I didn’t want another stack.
+I wanted a system I could build in for the rest of my career.
+</p>
 
-        <%- require("/blueprint/partials/footer.ejs")() %>
-        <%- require("/blueprint/partials/svg-icons.ejs")() %>
-    </body>
-</html>
+<p>
+Blueprint is a durable content framework —
+grounded in applied theory,
+built on proven tools,
+designed for the long game.
+</p>
+
+<p>
+Blueprint is also a place to explore durable systems,
+clear thinking,
+and the craft of building on the web.
+</p>`})
+
+%>
+
+<%- require("/blueprint/templates/default.ejs")({
+    content
+})
+%>

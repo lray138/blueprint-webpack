@@ -7,6 +7,8 @@ const escapeHtml = require('./src/blueprint/utils/escape-html');
 const curryRequire = require('./src/utils/require-curried');
 const getAttributes = require('./src/utils/html');
 const CopyPlugin = require('copy-webpack-plugin');
+const fp = require("./src/blueprint/js/lray138fp.min.js");
+
 // const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
 // ✅ Detect “framework mode” when this config is running from /blueprint/webpack
@@ -58,7 +60,8 @@ module.exports = {
             readMarkdown,
             curryRequire,
             utils: {
-                getAttributes
+                getAttributes,
+                fp
             },
             base_url: IS_FRAMEWORK ? '' : '/blueprint'
           },
@@ -82,6 +85,7 @@ module.exports = {
           filename: `./${pageName}.html`,
           templateParameters: {
             readMarkdown,
+            fp,
             curryRequire,
             escapeHtml,
             base_url: '',

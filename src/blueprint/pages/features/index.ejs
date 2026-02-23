@@ -11,15 +11,24 @@
             base_url: base_url
         }) %>
 
+        <%
+        
+        utils.fp.Maybe('asdf')
+
+        %>
+
         <%- require("/blueprint/partials/wraps/section-one-col.ejs")({
-            attrs: {
-                section: {
-                    class_add: "this is a test",
+            wrap_attrs: {
+                col_1: {
+                    class_add: "col-md-8"
                 }
             },
             content: `<h1 class="display-3">Features</h1>
-                <p>Blueprint was conceptualized as the ultimate starter package for building a website.  We currenty use Bootstrap as our HTML framework, but the
-                    idea was that the components and patterns are framework agnostic.</p>
+                <p>Blueprint was conceptualized as the ultimate starter package and framework for building a website.  We currenty use Bootstrap as our HTML framework and WordPress as our CMS foundation. This decision was made
+                    after trying... The
+                    mentality is that the components and patterns are framework agnostic and implemented via the particular framework/cms stack.  
+                    It's our mentality that components, patterns, and layouts are formalized
+                    through a design process. When the time comes to create content, you aren't fighting with a design tool, you simply add content related to your area of expertise.</p>
             `
         }) %>
 
