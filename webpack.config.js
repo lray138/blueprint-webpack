@@ -85,7 +85,10 @@ module.exports = {
           filename: `./${pageName}.html`,
           templateParameters: {
             readMarkdown,
-            fp,
+            utils: {
+                getAttributes,
+                fp
+            },
             curryRequire,
             escapeHtml,
             base_url: '',

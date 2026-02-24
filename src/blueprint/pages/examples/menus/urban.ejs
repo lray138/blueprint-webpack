@@ -1,0 +1,718 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Urban Pie Bar & Pizzeria — Menu</title>
+  <style>
+    :root{
+      --ink:#111;
+      --paper:#fff;
+      --muted:#666;
+      --rule: #111;
+
+      /* sizing */
+      --radius: 28px;
+      --pad: 18px;
+      --gap: 16px;
+
+      /* type */
+      --h1: clamp(1.6rem, 2.2vw, 2.2rem);
+      --h2: clamp(1.1rem, 1.8vw, 1.6rem);
+      --h3: 0.95rem;
+      --body: 0.95rem;
+      --small: 0.82rem;
+    }
+
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      background: #f3f3f3;
+      color: var(--ink);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      line-height:1.25;
+    }
+
+    .wrap{
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: clamp(14px, 2vw, 28px);
+    }
+
+    /* Header */
+    header{
+      text-align:center;
+      padding: 22px 10px 10px;
+    }
+    .brand{
+      display:inline-block;
+      border: 3px solid var(--ink);
+      padding: 12px 18px 10px;
+      line-height:1;
+      letter-spacing: 0.05em;
+      font-weight: 800;
+      text-transform: uppercase;
+      background: var(--paper);
+    }
+    .brand .top{ font-size: clamp(1.5rem, 4vw, 3rem); display:block; }
+    .brand .sub{ font-size: clamp(0.9rem, 2.1vw, 1.3rem); display:block; margin-top:6px; font-weight: 700; }
+
+    .subnote{
+      margin: 10px auto 0;
+      max-width: 60ch;
+      color: var(--muted);
+      font-size: var(--small);
+    }
+
+    /* Layout */
+    .page{
+      background: var(--paper);
+      border-radius: 18px;
+      padding: clamp(14px, 2vw, 22px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+      margin: 18px 0;
+    }
+
+    .grid{
+      display:grid;
+      gap: var(--gap);
+      grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 900px){
+      .grid.two{
+        grid-template-columns: 1fr 1fr;
+        align-items:start;
+      }
+      .grid.three{
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+    }
+
+    /* Menu Panels */
+    .panel{
+      border: 3px solid var(--rule);
+      border-radius: var(--radius);
+      padding: var(--pad);
+      background: var(--paper);
+    }
+
+    .panel-title{
+      display:flex;
+      align-items:baseline;
+      justify-content:center;
+      gap: 10px;
+      margin: 0 0 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.10em;
+      font-weight: 900;
+      font-size: var(--h2);
+      text-align:center;
+    }
+
+    .panel-title:before,
+    .panel-title:after{
+      content:"";
+      flex: 1 1 auto;
+      height: 3px;
+      background: var(--ink);
+      border-radius: 99px;
+      opacity: 0.95;
+    }
+
+    .panel-sub{
+      text-align:center;
+      margin-top:-6px;
+      margin-bottom: 12px;
+      color: var(--muted);
+      font-size: var(--small);
+    }
+
+    /* Items */
+    .items{
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+    }
+
+    .item{
+      display:grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items:start;
+    }
+
+    .item .name{
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      font-size: var(--h3);
+    }
+
+    .item .price{
+      font-weight: 800;
+      white-space:nowrap;
+    }
+
+    .item .desc{
+      grid-column: 1 / -1;
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: var(--small);
+      line-height:1.25;
+    }
+
+    .meta{
+      color: var(--muted);
+      font-size: var(--small);
+      margin-top: 10px;
+      text-align:center;
+    }
+
+    /* two-column list inside a panel */
+    .cols{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+    @media (min-width: 700px){
+      .cols{ grid-template-columns: 1fr 1fr; }
+    }
+
+    .divider{
+      margin: 10px 0 2px;
+      height: 2px;
+      background: #ddd;
+      border-radius: 99px;
+    }
+
+    /* Pills / icons (simple) */
+    .badges{
+      display:flex;
+      justify-content:center;
+      gap: 10px;
+      flex-wrap:wrap;
+      margin-top: 10px;
+    }
+    .badge{
+      border: 2px solid var(--ink);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: var(--small);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    /* Footer note */
+    .footer-note{
+      text-align:center;
+      margin-top: 12px;
+      font-size: var(--small);
+      color: var(--muted);
+      letter-spacing: 0.02em;
+    }
+
+    /* Print */
+    @media print{
+      body{ background:#fff; }
+      .wrap{ max-width:none; padding:0; }
+      .page{ box-shadow:none; margin:0; border-radius:0; padding: 0.25in; }
+      header{ padding:0.25in 0 0.1in; }
+      .footer-note{ color:#000; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand" aria-label="Urban Pie Bar & Pizzeria">
+        <span class="top">URBAN PIE</span>
+        <span class="sub">BAR & PIZZERIA</span>
+      </div>
+      <p class="subnote">Responsive menu layout (mobile-first). Swap in your exact descriptions, prices, and images as needed.</p>
+    </header>
+
+    <!-- PAGE 1 (Apps/Salads/Wings/Desserts/Plates/Drinks/Cocktails) -->
+    <section class="page" id="page-1">
+      <div class="grid two">
+
+        <!-- Left column stack -->
+        <div class="grid" style="gap: var(--gap);">
+          <article class="panel">
+            <h2 class="panel-title">Apps &amp; Sides</h2>
+
+            <div class="items">
+              <div class="item">
+                <div class="name">Basket of Fries</div>
+                <div class="price">$7.25</div>
+                <div class="desc">Crispy, seasoned golden fries — simple, classic, and always a good idea.</div>
+              </div>
+
+              <div class="item">
+                <div class="name">Meatballs (5)</div>
+                <div class="price">$12.00</div>
+                <div class="desc">Five all-beef meatballs, baked with ricotta, marinara, and our custom mozzarella blend.</div>
+              </div>
+
+              <div class="item">
+                <div class="name">Breadsticks</div>
+                <div class="price">$7.75</div>
+                <div class="desc">Topped with garlic butter and served with marinara.</div>
+              </div>
+
+              <div class="item">
+                <div class="name">Spinach &amp; Artichoke Dip</div>
+                <div class="price">$11.50</div>
+                <div class="desc">Creamy spinach &amp; artichoke dip baked golden — served with crostini.</div>
+              </div>
+
+              <div class="item">
+                <div class="name">Arancini (3)</div>
+                <div class="price">$12.00</div>
+                <div class="desc">Crispy fried risotto balls stuffed with mozzarella, served with house-made marinara.</div>
+              </div>
+
+              <div class="divider"></div>
+
+              <div class="item">
+                <div class="name">Jalapeño Cheese Curds</div>
+                <div class="price">$9.50</div>
+                <div class="desc">Crispy, melty, and just the right kick — served with jalapeño ranch.</div>
+              </div>
+
+              <div class="item">
+                <div class="name">Garlic Cheesy Bread</div>
+                <div class="price">$11.00</div>
+                <div class="desc">Soft garlic cheesy bread topped with a blend — served with marinara (add goat cheese for extra charge).</div>
+              </div>
+
+              <div class="item">
+                <div class="name">Pesto Parmesan Fries</div>
+                <div class="price">$10.75</div>
+                <div class="desc">Crispy fries tossed in pesto &amp; parmesan, served with red pepper aioli.</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel">
+            <h2 class="panel-title">Fresh Salads</h2>
+            <div class="panel-sub">Add chicken to any salad: +$5.00</div>
+
+            <div class="cols">
+              <div class="items">
+                <div class="item">
+                  <div class="name">Arugula</div>
+                  <div class="price">SM $7.50 · LG $10.50</div>
+                  <div class="desc">Fresh arugula tossed in house-made lemon-basil dressing, topped with freshly grated parmesan.</div>
+                </div>
+
+                <div class="item">
+                  <div class="name">Spinach Salad</div>
+                  <div class="price">SM $9.50 · LG $13.50</div>
+                  <div class="desc">Baby spinach, red onion, crispy pancetta, and gorgonzola tossed in house-made balsamic vinaigrette.</div>
+                </div>
+
+                <div class="item">
+                  <div class="name">Tomato Burrata Salad</div>
+                  <div class="price">$13.50</div>
+                  <div class="desc">Creamy burrata meets marinated cherry tomatoes with olive oil and herbs — finished with a balsamic glaze drizzle. Served with crostini. Add pancetta for an extra charge.</div>
+                </div>
+              </div>
+
+              <div class="items">
+                <div class="item">
+                  <div class="name">House Salad</div>
+                  <div class="price">SM $8.00 · LG $11.50</div>
+                  <div class="desc">Romaine lettuce with mushrooms, tomatoes, green peppers, and red onions, topped with mozzarella.</div>
+                </div>
+
+                <div class="item">
+                  <div class="name">Lemon Pepper Caesar</div>
+                  <div class="price">SM $8.00 · LG $12.00</div>
+                  <div class="desc">Fresh romaine with grated parmesan and homemade lemon pepper croutons, tossed in our classic caesar dressing, topped with pecorino cheese.</div>
+                </div>
+
+                <div class="item">
+                  <div class="name">Greek Salad</div>
+                  <div class="price">SM $9.00 · LG $13.00</div>
+                  <div class="desc">Romaine with tomatoes, green peppers, red onions, banana peppers, kalamata olives, and feta. Covered in house-made Faye’s balsamic vinaigrette.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <h3 class="panel-title" style="font-size: var(--h3); margin-top: 14px;">Dressings</h3>
+            <p class="meta">Faye’s Balsamic Vinaigrette (House Dressing), Lemon-Basil Vinaigrette, Caesar, Ranch, Bleu Cheese, Honey Mustard</p>
+            <p class="meta"><strong>Get a bottle of Faye’s Balsamic Dressing $8</strong></p>
+          </article>
+        </div>
+
+        <!-- Right column stack -->
+        <div class="grid" style="gap: var(--gap);">
+          <article class="panel">
+            <h2 class="panel-title">Wings</h2>
+            <p class="meta">
+              Choice of <strong>Medium, Hot, Lemon Pepper, Garlic Pepper, Cajun, Jerk, Honey Sriracha, Jalapeño BBQ</strong>,
+              or <strong>HOT-HOT-HOT</strong> (lip injection +$1 or +$2)
+            </p>
+            <div class="items" style="margin-top: 10px;">
+              <div class="item">
+                <div class="name">Half Order (5)</div>
+                <div class="price">$9.25</div>
+              </div>
+              <div class="item">
+                <div class="name">Full Order (10)</div>
+                <div class="price">$17.25</div>
+              </div>
+              <div class="item">
+                <div class="name">All Flats or All Drums</div>
+                <div class="price"></div>
+              </div>
+              <div class="item">
+                <div class="name">Half $1.00 · Full $2.00</div>
+                <div class="price"></div>
+              </div>
+              <p class="meta">Served with choice of Ranch, Bleu Cheese, or jalapeño ranch.</p>
+            </div>
+          </article>
+
+          <article class="panel">
+            <h2 class="panel-title">Desserts</h2>
+            <div class="items">
+              <div class="item"><div class="name">Chocolate Chip Cannoli</div><div class="price">$6.50</div></div>
+              <div class="item"><div class="name">Italian Lemon Cake</div><div class="price">$8.50</div></div>
+              <div class="item"><div class="name">New York Cheesecake</div><div class="price">$8.50</div></div>
+
+              <div class="divider"></div>
+
+              <div class="item"><div class="name">Raspberry</div><div class="price">$0.50</div></div>
+              <div class="item"><div class="name">Caramel</div><div class="price">$0.50</div></div>
+              <div class="item"><div class="name">Strawberry</div><div class="price">$0.50</div></div>
+
+              <div class="divider"></div>
+
+              <div class="item">
+                <div class="name">Dessert Calzone</div>
+                <div class="price">$14.00</div>
+                <div class="desc">Sweet cream whipped ricotta, seasonal fruit, Nutella drizzle, pistachio, crispy prosciutto.</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel">
+            <h2 class="panel-title">Plates</h2>
+            <div class="items">
+              <div class="item">
+                <div class="name">Meatball Sub</div>
+                <div class="price">$15.25</div>
+                <div class="desc">Hearty all-beef meatballs covered in marinara and mozzarella cheese, served with fries.</div>
+              </div>
+              <div class="item">
+                <div class="name">Urban Calzone</div>
+                <div class="price">$14.00</div>
+                <div class="desc">Stuffed with ricotta, roasted garlic, and mozzarella cheese, served with homemade marinara. Add your choice of pizza toppings for an additional charge.</div>
+              </div>
+              <div class="item">
+                <div class="name">Pesto Caprese Sandwich</div>
+                <div class="price">$14.50</div>
+                <div class="desc">Fresh roma tomatoes, buffalo mozzarella, basil, and pesto sauce. Served with an arugula salad. Sub fries for $3 · Add chicken for $5</div>
+              </div>
+              <div class="item">
+                <div class="name">Grilled Cheese Sandwich</div>
+                <div class="price">$12.00</div>
+                <div class="desc">A classic with a twist — melted cheese, tomatoes, and basil. Served with fries.</div>
+              </div>
+              <div class="item">
+                <div class="name">Chicken Tenders</div>
+                <div class="price">$15.25</div>
+                <div class="desc">Crispy, golden chicken tenders served with seasoned fries and your choice of dipping sauce (Honey Mustard or BBQ).</div>
+              </div>
+            </div>
+          </article>
+
+          <div class="grid two">
+            <article class="panel">
+              <h2 class="panel-title">Soft Drinks</h2>
+              <div class="items">
+                <div class="item">
+                  <div class="name">Soda Fountain</div>
+                  <div class="price">$2.50</div>
+                  <div class="desc">Coke / Diet Coke / Pink Lemonade / Sprite / Club Soda</div>
+                </div>
+                <div class="item">
+                  <div class="name">Canned Soda</div>
+                  <div class="price">$2.34</div>
+                  <div class="desc">Coke / Diet Coke / Coke Zero / Dr Pepper / Sprite / A&amp;W Rootbeer / Topo Chico ($4.16) / Bottled Water ($4)</div>
+                </div>
+                <div class="item">
+                  <div class="name">Juices</div>
+                  <div class="price">$2.60</div>
+                  <div class="desc">Cranberry / Orange Juice / Apple Juice</div>
+                </div>
+              </div>
+            </article>
+
+            <article class="panel">
+              <h2 class="panel-title">BR Cocktails</h2>
+              <div class="items">
+                <div class="item"><div class="name">The Pickled Martini</div><div class="price">$14.00</div></div>
+                <div class="item"><div class="name">Rum Old Fashioned</div><div class="price">$14.00</div></div>
+                <div class="item"><div class="name">Doppio Trouble</div><div class="price">$13.00</div></div>
+                <div class="item"><div class="name">Curacao Crush</div><div class="price">$14.00</div></div>
+                <div class="item"><div class="name">Respect Your Elder</div><div class="price">$13.00</div></div>
+                <div class="item"><div class="name">Icy Hot Margarita</div><div class="price">$13.00</div></div>
+                <div class="item"><div class="name">Rosemary Aperol Spritz</div><div class="price">$13.00</div></div>
+              </div>
+
+              <div class="badges" aria-label="Dietary options">
+                <span class="badge">Vegetarian options</span>
+                <span class="badge">Gluten-free options</span>
+              </div>
+            </article>
+          </div>
+
+          <article class="panel">
+            <h2 class="panel-title">Non-Alcoholic</h2>
+            <div class="items">
+              <div class="item">
+                <div class="name">Soda Fountain</div>
+                <div class="price">$2.50</div>
+                <div class="desc">Coke / Diet Coke / Pink Lemonade / Sprite / Club Soda</div>
+              </div>
+              <div class="item">
+                <div class="name">Canned Soda</div>
+                <div class="price">$2.34</div>
+                <div class="desc">Coke / Diet Coke / Coke Zero / Dr Pepper / Sprite / A&amp;W Rootbeer / Topo Chico ($4.16) / Bottled Water ($4)</div>
+              </div>
+              <div class="item">
+                <div class="name">Juices</div>
+                <div class="price">$2.60</div>
+                <div class="desc">Cranberry / Orange Juice / Apple Juice</div>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+      <p class="footer-note">NEXT TIME YOU DON’T FEEL LIKE DRIVING — $3 IN-HOUSE DELIVERY WITHIN 3 MILES.</p>
+    </section>
+
+    <!-- PAGE 2 (Signature Pizzas / Build Your Own / etc.) -->
+    <section class="page" id="page-2">
+      <article class="panel">
+        <h2 class="panel-title">Signature Pizzas</h2>
+        <div class="panel-sub">Make it Detroit style: +$7</div>
+
+        <div class="grid three">
+          <div class="items">
+            <div class="item">
+              <div class="name">Kitchen Sink</div>
+              <div class="price"></div>
+              <div class="desc">Urban supreme — Italian sausage, pepperoni, green peppers, mushrooms, red onions, and black olives.</div>
+            </div>
+            <div class="item"><div class="name">12"</div><div class="price">$25.75</div></div>
+            <div class="item"><div class="name">16"</div><div class="price">$29.50</div></div>
+
+            <div class="divider"></div>
+
+            <div class="item">
+              <div class="name">Jackie O</div>
+              <div class="price"></div>
+              <div class="desc">Olive oil base with our custom mozzarella blend, topped with arugula salad (arugula, parmesan, lemon-basil vinaigrette).</div>
+            </div>
+            <div class="item"><div class="name">12"</div><div class="price">$22.75</div></div>
+            <div class="item"><div class="name">16"</div><div class="price">$25.75</div></div>
+
+            <div class="divider"></div>
+
+            <div class="item">
+              <div class="name">Luau Pie</div>
+              <div class="price"></div>
+              <div class="desc">Aloha vibes — red pizza sauce with our custom mozzarella blend, topped with diced ham, bacon crumbles, and pineapple.</div>
+            </div>
+            <div class="item"><div class="name">12"</div><div class="price">$23.75</div></div>
+            <div class="item"><div class="name">16"</div><div class="price">$26.75</div></div>
+
+            <div class="divider"></div>
+
+            <div class="item">
+              <div class="name">BBQ Chicken</div>
+              <div class="price"></div>
+              <div class="desc">BBQ sauce base with our custom mozzarella blend, roasted chicken, smoked gouda, red onions, and scallions. Add jalapeños for an extra charge.</div>
+            </div>
+            <div class="item"><div class="name">12"</div><div class="price">$24.50</div></div>
+            <div class="item"><div class="name">16"</div><div class="price">$28.50</div></div>
+          </div>
+
+          <div class="items">
+            <div class="item">
+              <div class="name">The Urban</div>
+              <div class="price"></div>
+              <div class="desc">Olive oil, roasted garlic, spinach, roasted red peppers, red onions, feta, and mozzarella.</div>
+            </div>
+            <div class="item"><div class="name">12"</div><div class="price">$24.50</div></div>
+            <div class="item"><div class="name">16"</div><div class="price">$28.50</div></div>
+
+            <div class="divider"></div>
+
+            <div class="item">
+              <div class="name">Garden Variety</div>
+              <div class="price"></div>
+              <div class="desc">A veggie lover’s dream — thin crust with our custom mozzarella blend, mushrooms, green bell peppers, red onions, black olives, and tomatoes.</div>
+            </div>
+            <div class="item"><div class="name">12"</div><div class="price">$23.50</div></div>
+            <div class="item"><div class="name">16"</div><div class="price">$26.75</div></div>
+
+            <div class="divider"></div>
+
+            <div class="item">
+              <div class="name">Grease Monkey</div>
+              <div class="price"></div>
+              <div class="desc">The ultimate meat lover’s pie — red pizza sauce with our custom mozzarella blend, pepperoni, bacon, ground beef, and diced ham.</div>
+            </div>
+            <div class="item"><div class="name">12"</div><div class="price">$24.50</div></div>
+            <div class="item"><div class="name">16"</div><div class="price">$28.50</div></div>
+
+            <div class="divider"></div>
+
+            <div class="item">
+              <div class="name">Classic Margherita</div>
+              <div class="price"></div>
+              <div class="desc">Timeless favorite — red sauce, fresh mozzarella, diced tomatoes, and basil. Feeling adventurous? Add prosciutto for an extra charge.</div>
+            </div>
+            <div class="item"><div class="name">12"</div><div class="price">$24.50</div></div>
+            <div class="item"><div class="name">16"</div><div class="price">$28.75</div></div>
+          </div>
+
+          <div class="items">
+            <div class="item">
+              <div class="name">Vegan Chorizo</div>
+              <div class="price"></div>
+              <div class="desc">Red pizza sauce with vegan cheese, vegan chorizo crumbles, red onions, and green bell peppers.</div>
+            </div>
+            <div class="item"><div class="name">12"</div><div class="price">$24.75</div></div>
+            <div class="item"><div class="name">16"</div><div class="price">$28.75</div></div>
+
+            <div class="divider"></div>
+
+            <div class="item">
+              <div class="name">Thunderbird</div>
+              <div class="price"></div>
+              <div class="desc">A legendary mix of chicken, feta, sun-dried tomatoes, and pesto sauce.</div>
+            </div>
+            <div class="item"><div class="name">12"</div><div class="price">$24.50</div></div>
+            <div class="item"><div class="name">16"</div><div class="price">$28.75</div></div>
+
+            <div class="divider"></div>
+
+            <div class="item">
+              <div class="name">Urban Beets</div>
+              <div class="price"></div>
+              <div class="desc">Pesto base (with walnuts), mozzarella blend, topped with roasted cauliflower, roasted beets, goat cheese, and a balsamic reduction.</div>
+            </div>
+            <div class="item"><div class="name">12"</div><div class="price">$24.75</div></div>
+            <div class="item"><div class="name">16"</div><div class="price">$28.75</div></div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <h3 class="panel-title" style="font-size: var(--h3); margin-top: 14px;">BR Pizza Menu</h3>
+        <div class="grid three" style="margin-top: 10px;">
+          <div class="items">
+            <div class="item">
+              <div class="name">Queen Margherita</div>
+              <div class="price"></div>
+              <div class="desc">Tomato sauce, burrata, cherry tomato, basil, pecorino romano, sicilian oregano, extra virgin olive oil, balsamic glaze, mozzarella cheese.</div>
+            </div>
+            <div class="item"><div class="name">16"</div><div class="price">$29.50</div></div>
+          </div>
+
+          <div class="items">
+            <div class="item">
+              <div class="name">Potato Rosemary</div>
+              <div class="price"></div>
+              <div class="desc">Detroit-style pizza, potatoes, rosemary, caramelized onions, mozzarella, pecorino romano, sicilian oregano, sea salt, extra virgin olive oil.</div>
+            </div>
+            <div class="item"><div class="name">12x12"</div><div class="price">$34.00</div></div>
+          </div>
+
+          <div class="items">
+            <div class="item">
+              <div class="name">Vodka Burrata</div>
+              <div class="price"></div>
+              <div class="desc">Detroit-style pizza, vodka sauce, pepperoni, burrata, hot honey, pecorino, sicilian oregano. Topped with 5 cups of cheese including mozzarella.</div>
+            </div>
+            <div class="item"><div class="name">12x12"</div><div class="price">$36.00</div></div>
+          </div>
+        </div>
+      </article>
+
+      <div class="grid two" style="margin-top: var(--gap);">
+        <article class="panel">
+          <h2 class="panel-title">Build Your Own Pizza</h2>
+
+          <div class="cols">
+            <div>
+              <h3 class="panel-title" style="font-size: var(--h3);">Pick a Crust</h3>
+              <div class="items">
+                <div class="item"><div class="name">New York Style</div><div class="price">SM 12" $14.25 · LG 16" $17.25</div></div>
+                <div class="item"><div class="name">Personal 10"</div><div class="price">$10.00 · Slice $4.50</div></div>
+                <div class="item"><div class="name">Detroit Style</div><div class="price">$24.25</div></div>
+                <div class="item"><div class="name">Cauliflower Crust</div><div class="price">$21.75</div></div>
+                <div class="item"><div class="name">Vegan Cheese</div><div class="price">SM 12" $16.25 · LG 16" $21.50 · Personal 10" $15.00</div></div>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="panel-title" style="font-size: var(--h3);">Toppings</h3>
+              <div class="items">
+                <div class="item">
+                  <div class="name">Choice Toppings</div>
+                  <div class="price">$1.05 / $1.50</div>
+                  <div class="desc">Banana peppers / black olives / green peppers / italian sausage / jalapeños / meatballs / mushrooms / pepperoni / pickles / red onions / tomatoes / extra sauce</div>
+                </div>
+
+                <div class="item">
+                  <div class="name">Specialty Toppings</div>
+                  <div class="price">$1.55 / $2.85</div>
+                  <div class="desc">Anchovies / artichoke / bacon / broccoli / feta cheese / fresh basil / fresh spinach / green olives / ground beef / ham / pineapple / roasted garlic / extra cheese</div>
+                </div>
+
+                <div class="item">
+                  <div class="name">Gourmet Toppings</div>
+                  <div class="price">$2.35 / $3.85</div>
+                  <div class="desc">Arugula / chicken / fresh mozzarella / gorgonzola / pancetta / smoked gouda / sun-dried tomatoes / ricotta cheese / roasted red peppers / prosciutto</div>
+                </div>
+
+                <div class="item">
+                  <div class="name">Vegan Toppings</div>
+                  <div class="price">$3.00 / $5.00</div>
+                  <div class="desc">Vegan pepperoni / vegan chorizo / vegan cheese</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="panel">
+          <h2 class="panel-title">Kid’s Menu</h2>
+          <div class="panel-sub">Kids under 12 years old only</div>
+          <div class="items">
+            <div class="item"><div class="name">Grilled Cheese</div><div class="price">$9.00</div><div class="desc">With fries</div></div>
+            <div class="item"><div class="name">Chicken Fingers &amp; Fries</div><div class="price"></div><div class="desc">Choice of BBQ or honey mustard</div></div>
+            <div class="item"><div class="name">Kid-Sized Pizza</div><div class="price">$10.00</div><div class="desc">Small cheese pizza</div></div>
+          </div>
+        </article>
+      </div>
+    </section>
+    <script>    
+        
+    </script>
+  </div>
+</body>
+</html>

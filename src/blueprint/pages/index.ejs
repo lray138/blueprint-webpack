@@ -1,6 +1,7 @@
 <%
 
     var content = require("/blueprint/partials/components/wrap/section-one-col.ejs")({
+        utils,
     content: require("/blueprint/partials/components/image/index.ejs")({
         attrs: {
             src: "/img/blueprint/covers/get-in-loser.jpg",
@@ -27,21 +28,18 @@ I wanted a system I could build in for the rest of my career.
 </p>
 
 <p>
-Blueprint is a durable content framework —
+Blueprint is a durable content managment framework —
 grounded in applied theory,
 built on proven tools,
-designed for the long game.
+and designed for the long game.
 </p>
 
-<p>
-Blueprint is also a place to explore durable systems,
-clear thinking,
-and the craft of building on the web.
-</p>`})
+`})
 
 %>
-
+<!-- call template -->
 <%- require("/blueprint/templates/default.ejs")({
-    content
+    utils,
+    content,
 })
 %>

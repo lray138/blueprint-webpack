@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Masonry Pattern - Blueprint Docs</title>
+    <script src="https://cdn.jsdelivr.net/gh/gnat/css-scope-inline@main/script.js"></script>
+    </head>
+    <body class="d-flex flex-column min-vh-100">
+        <!-- Header -->
+        <div class="container-fluid">
+            <%- require("/blueprint/partials/header.ejs")({
+                base_url: base_url,
+                fluid: true
+            }) %>
+        </div>
+        
+        <!-- Docs Content -->
+        <section>
+            <div class="container-fluid">
+                <div class="row">
+                    
+                    <!-- Left Sidebar Navigation -->
+                    <%- require("/blueprint/partials/docs/sidebar.ejs")() %>
+                    
+                    <!-- Main Content -->
+                    <div class="col-12 col-lg-6 col-xl-8 py-7 py-lg-9 px-lg-7" id="doc-content">
+                        
+                        <!-- Page Title -->
+
+                        <section class="intro">
+                            <h1 class="mb-2">Masonry</h1>
+                            <p class="fs-lg text-muted">This will be some text describing the pattern, likely with a link to the official documentation
+                                <a href="https://getbootstrap.com/docs/5.3/examples/masonry/" target="_blank">https://getbootstrap.com/docs/5.3/examples/masonry/</a>.
+                            </p>
+                        </section>
+                        
+                        <% var heroExample = require("/blueprint/pages/docs/patterns/masonry/example.ejs")(); %>
+                        <%- require("/blueprint/partials/components/tabs/index.ejs")({
+                            items: [
+                                {
+                                    id: 'preview',
+                                    text: 'Preview',
+                                    selected: true,
+                                    content: heroExample
+                                },
+                                {
+                                    id: 'html',
+                                    text: 'HTML',
+                                    content: require("/blueprint/partials/components/code-block/index.ejs")({
+                                        content: heroExample.trimStart(),
+                                        language: 'html'
+                                    })
+                                }
+                            ]
+                        }) %>
+
+                        <hr class="my-4"/>
+                        
+                        <%- require("/blueprint/partials/components/nav-pager/index.ejs")({
+                            next: "<a href='/tutorials/webpack-html/project-setup/index.html' class='nav-pager-item'><div class='text-uppercase small text-muted'>Next</div><p class='mb-0'>Welcome (to the Jungle)</p></a>"
+                        }) %>
+                    </div>
+                    
+                    <!-- Right "Jump to" Sidebar -->
+                    <%- require("/blueprint/partials/docs/jump-to.ejs")() %>
+                    
+                </div>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <div class="container mt-auto">
+            <%- require("/blueprint/partials/footer.ejs")() %>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous"></script>
+        <%- require("/blueprint/partials/svg-icons.ejs")() %>
+    </body>
+</html>
