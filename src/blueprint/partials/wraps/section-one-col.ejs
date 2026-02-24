@@ -1,8 +1,8 @@
 <% 
-    // var wrap_start = typeof wrap_start !== "undefined" ? wrap_start : "";   
-    // var wrap_end = typeof wrap_end !== "undefined" ? wrap_end : "";
-    // var content = typeof content !== "undefined" ? content : "";
-    // var class_names = typeof class_names !== "undefined" ? class_names : "";
+    const { Kvm } = require("/blueprint/js/lray138fp.min.js");
+    const L = Kvm.of(locals);
+
+    var content = L.tryPath('content').getOrElse('');
 
     var section_class_names = typeof wrap_attrs !== "undefined" && typeof wrap_attrs.section !== "undefined" && typeof wrap_attrs.section.class_names !== "undefined"
         ? wrap_attrs.section.class_names : "";
@@ -11,8 +11,9 @@
 
     var col_1_class_add = typeof wrap_attrs !== "undefined" && typeof wrap_attrs.col_1 !== "undefined" && typeof wrap_attrs.col_1.class_add !== "undefined"
         ? wrap_attrs.col_1.class_add : "";
+
 %>
-<section<%- __section_attributes__ %>>
+<section <%- __section_attributes__ %>>
     <div class="container">
         <div class="row">
             <div class="col-12 <%= col_1_class_add %>">

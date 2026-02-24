@@ -1,6 +1,6 @@
 <%
 
-    var content = require("/blueprint/partials/components/wrap/section-one-col.ejs")({
+var content = require("/blueprint/partials/components/wrap/section-one-col.ejs")({
         utils,
     content: require("/blueprint/partials/components/image/index.ejs")({
         attrs: {
@@ -10,16 +10,20 @@
         }
     }),
     class_names: "pb-3"
-}) + require("/blueprint/partials/components/wrap/section-one-col.ejs")({
+}) 
++ require("/blueprint/partials/wraps/section-one-col.ejs")({
+    col_1: {
+        content: "sample"
+    },
+})
++ require("/blueprint/partials/components/wrap/section-one-col.ejs")({
     class_names: "text-center w-50 mx-auto",
     content: require("/blueprint/partials/patterns/page-header/index.ejs")({
         heading: "Tired of the grind?",
         text: "So was I",
         
     })
-
 }) 
-
     + require("/blueprint/partials/wraps/section-one-col-md-6-center.ejs")({
         class_names: "",
         content: `<p>
@@ -28,7 +32,7 @@ I wanted a system I could build in for the rest of my career.
 </p>
 
 <p>
-Blueprint is a durable content managment framework —
+Blueprint is the result.  A durable content managment framework —
 grounded in applied theory,
 built on proven tools,
 and designed for the long game.
@@ -39,7 +43,9 @@ and designed for the long game.
 %>
 <!-- call template -->
 <%- require("/blueprint/templates/default.ejs")({
-    utils,
+    head: {
+        title: "Blueprint",
+    },
     content,
 })
 %>

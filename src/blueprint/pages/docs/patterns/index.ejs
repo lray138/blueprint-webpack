@@ -7,6 +7,9 @@
     <script src="https://cdn.jsdelivr.net/gh/gnat/css-scope-inline@main/script.js"></script>
     </head>
     <body class="d-flex flex-column min-vh-100">
+        <%
+            var heroExample = require("/blueprint/pages/docs/patterns/hero/centered.ejs")();
+        %>
         <!-- Header -->
         <div class="container-fluid">
             <%- require("/blueprint/partials/header.ejs")({
@@ -26,35 +29,24 @@
                     <!-- Main Content -->
                     <div class="col-12 col-lg-6 col-xl-8 py-7 py-lg-9 px-lg-7" id="doc-content">
                         <!-- Page Title -->
-                        <h1 class="mb-2">Components</h1>
-                        <p class="fs-lg text-muted mb-3">Reference for local dev.</p>
+
+                        <section class="intro">
+                            <h1 class="mb-2">Patterns</h1>
+                            <p class="fs-lg text-muted">Some text here
+                                <a href="https://getbootstrap.com/docs/5.3/examples/heroes/" target="_blank">https://getbootstrap.com/docs/5.3/examples/heroes/</a>.
+                            </p>
+                        </section>
                         
-                        <!-- Github Scenarios -->
-                        <h2>Subtree Push</h2>
-
-                        <pre><code class="language-bash">git subtree push --prefix=webpack webpack-origin main</code></pre>
-
-                        <h2>Subtree Pull</h2>
-
-                        <pre><code class="language-bash">git subtree pull --prefix=webpack webpack-origin main --squash</code></pre>
-
-
-                        <h3>Resolve Conflict</h3>
-                        <p>If there are problems and you know you want to overwrite:</p>
-
-                        <pre><code class="language-bash">git checkout --theirs webpack/src/blueprint/pages/features/index.ejs
-git add webpack/src/blueprint/pages/features/index.ejs
-git commit</code></pre>
-
-                        <!-- ------------------------------------------------------------------- -->
-                         <h2>Stash</h2>
-                        <p>If you want to stash all changes:</p>
-
-                        <pre><code class="language-bash">git stash push -u -m "stash all changes"</code></pre>
-
-                        <p>To retreive:</p>
-
-                        <pre><code class="language-bash">git stash pop</code></pre>
+                        <div class="row">
+                            <div class="col-12 col-md-6">
+                                <%- require("/blueprint/partials/components/card/index.ejs")({
+                                    title: "Hero",
+                                    content: "ally front and center. See official Bootstrap examples"
+                                }) %>  
+                                    
+                                </div>
+                            </div>
+                        </div>
 
 
                         <hr class="my-4"/>

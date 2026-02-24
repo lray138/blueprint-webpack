@@ -14,6 +14,7 @@
     var utils = typeof utils !== "undefined" ? utils : {};
     
     var meta_title = typeof meta_title !== "undefined" ? meta_title : (head_meta.title || "Webpack + Bootstrap");
+
     var meta_description = typeof meta_description !== "undefined" ? meta_description : (head_meta.description || "");
     var meta_image = typeof meta_image !== "undefined" ? meta_image : (head_meta.image || "/img/blueprint/covers/outkast-is-everlasting.svg");
     var meta_url = typeof meta_url !== "undefined" ? meta_url : (head_meta.url || "");
@@ -22,6 +23,9 @@
     var twitter_card = typeof twitter_card !== "undefined" ? twitter_card : (head_meta.twitter_card || "summary_large_image");
     var twitter_site = typeof twitter_site !== "undefined" ? twitter_site : (head_meta.twitter_site || "");
     var canonical_url = typeof canonical_url !== "undefined" ? canonical_url : (head_link.canonical || "");
+
+    // a lot of the above is GPT garbage
+    meta_title = L.tryPath('head.title').getOrElse('Blueprint');
 %>
 <!DOCTYPE html>
 <html>
