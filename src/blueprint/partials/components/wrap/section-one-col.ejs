@@ -1,17 +1,15 @@
 <% 
+    const { Kvm } = require("/blueprint/js/lray138fp.min.js");
+    const L = Kvm.of(locals);
+    
+    var class_names = L.tryPath('class_names').getOrElse('');
+
     var wrap_start = typeof wrap_start !== "undefined" ? wrap_start : "";   
     var wrap_end = typeof wrap_end !== "undefined" ? wrap_end : "";
     var content = typeof content !== "undefined" ? content : "";
     var class_names = typeof class_names !== "undefined" ? class_names : "";
     var utils = typeof utils !== "undefined" ? utils : {};
 
-    const fp = require("/blueprint/js/lray138fp.min.js");
-
-    if(typeof fp !== "undefined" && fp) {
-        var class_names = fp.Kvm.of(locals).tryPath('class_names').getOrElse('');
-    } else {
-        var class_names = 'no utils';
-    }
 %>
 <section class="<%- class_names %>">
     <div class="container">

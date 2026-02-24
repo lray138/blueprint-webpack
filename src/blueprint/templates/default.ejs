@@ -1,12 +1,11 @@
 <%
     const { Kvm } = require("/blueprint/js/lray138fp.min.js");
+    const L = Kvm.of(locals);
 
     var content = typeof content !== "undefined" ? content : "";
     var header = require("/blueprint/partials/header.ejs")();
     var footer = require("/blueprint/partials/footer.ejs")();
     content = header + content + footer;
-
-    var locals = Kvm.of(locals);
 
     var head = typeof head !== "undefined" ? head : {};
     var head_meta = head.meta || {};
@@ -24,7 +23,6 @@
     var twitter_site = typeof twitter_site !== "undefined" ? twitter_site : (head_meta.twitter_site || "");
     var canonical_url = typeof canonical_url !== "undefined" ? canonical_url : (head_link.canonical || "");
 %>
-<%- locals.tryPath('content').getOrElse('') %>
 <!DOCTYPE html>
 <html>
     <head>

@@ -15,7 +15,7 @@
         <%- require("/blueprint/partials/wraps/section-one-col.ejs")({
             content: require("/blueprint/partials/patterns/page-header/index.ejs")({
                 heading: "Blog",
-                text: "Sharing is caring"
+                text: "A collection of thoughts and musings."
             })
             + 
             require("/blueprint/partials/components/list/ul.ejs")({
@@ -23,7 +23,6 @@
                     {
                         class_names: "test-again",
                         content: "test",
-                        utils
                     }
                 ]
             })
