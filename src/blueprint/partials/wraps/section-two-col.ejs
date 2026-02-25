@@ -1,16 +1,22 @@
 <% 
-    var wrap_start = typeof wrap_start !== "undefined" ? wrap_start : "";   
-    var wrap_end = typeof wrap_end !== "undefined" ? wrap_end : "";
-    var col_1_content = typeof cols[0].content !== "undefined" ? cols[0].content : "";    
-    var col_2_content = typeof cols[1].content !== "undefined" ? cols[1].content : "";    
+    const { Kvm } = require("/blueprint/js/lray138fp.min.js");
+    const  attrsReducer = require("/blueprint/utils/attrsReducer.js");
+    const L = Kvm.of(locals);
+
+    var col_1_content = L.prop('col_1.content');
+    var col_1_class_add = L.prop('col_1.class_add');
+    var col_2_content = L.prop('col_1.content');
+    var col_2_class_add = L.prop('col_2.class_add');
+
+    var __col_1_attributes__ = L.prop("col_1").filterKeys(x => x !== "content").reduce(attrsReducer, "").get()
 %>
 <section>
     <div class="container">
         <div class="row">
-            <div class="col-12 col-md-6">
+            <div class="col-12 col-md-6 <%= col_1_class_add %>" <%- __col_1_attributes__ %>>
                 <%- col_1_content %>
             </div>
-            <div class="col-12 col-md-6">
+            <div class="col-12 col-md-6  <%= col_1_class_add %>">
                 <%- col_2_content %>
             </div>
         </div>

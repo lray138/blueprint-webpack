@@ -1,0 +1,18 @@
+<%
+
+var content = require("/blueprint/partials/wraps/section-two-col.ejs")({
+        col_1: {
+            test: "val",
+            test2: "val"
+        }
+});
+
+%>
+<!-- call template -->
+<%- require("/blueprint/templates/default.ejs")({
+    head: {
+        title: "Blueprint",
+    },
+    content,
+})
+%>
