@@ -52,6 +52,8 @@ module.exports = {
       return getSitePages('./src/blueprint/pages').map(page => {
         const rel = path.relative(blueprintBase, page).replace(/\\/g, '/');
         const pageName = rel.replace(/\.ejs$/i, '');
+        const blueprintBaseUrl = IS_FRAMEWORK ? '' : '/blueprint';
+        const current_path = IS_FRAMEWORK ? `/${pageName}.html` : `${blueprintBaseUrl}/${pageName}.html`;
 
         return new HtmlWebpackPlugin({
           template: page,
@@ -64,6 +66,8 @@ module.exports = {
                 fp
             },
             base_url: IS_FRAMEWORK ? '' : '/blueprint'
+            ,
+            current_path
           },
           filename: IS_FRAMEWORK
             ? `./${pageName}.html`            // ✅ framework: blueprint is root
@@ -79,6 +83,7 @@ module.exports = {
       return getSitePages('./src/site/pages').map(page => {
         const rel = path.relative(appBase, page).replace(/\\/g, '/');
         const pageName = rel.replace(/\.ejs$/i, '');
+        const current_path = `/${pageName}.html`;
 
         return new HtmlWebpackPlugin({
           template: page,
@@ -92,6 +97,7 @@ module.exports = {
             curryRequire,
             escapeHtml,
             base_url: '',
+            current_path,
             dir_path: path.dirname(page)
           }
         });

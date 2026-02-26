@@ -18,15 +18,42 @@ var list = require('/blueprint/partials/components/list/index.ejs')({
     //     class: "list mb-6 ps-34"
     // },
     class_names: "list mb-6 ps-0 list-unstyled",
-    list_items: list_items.map((item) => 
-        require('/blueprint/partials/elements/list-item/index.ejs')({
-            content: require('/blueprint/partials/components/anchor/index.ejs')({
-                text: item.text,
-                href: item.href,
-                class_names: item.class_names
+    list_items: list_items.map((item) => {
+        const link = require('/blueprint/partials/components/anchor/index.ejs')({
+            text: item.text,
+            href: item.href,
+            class_names: item.class_names
+        });
+
+        const basePrefix = (typeof item.href === 'string')
+            ? item.href.replace(/index\.html$/i, '')
+            : '';
+        const isActive = (typeof current_path === 'string' && current_path)
+            ? (current_path === item.href || (basePrefix && current_path.startsWith(basePrefix)))
+            : false;
+
+        const allowChildren = item.children_mode === 'active' ? isActive : true;
+
+        const children = allowChildren && Array.isArray(item.children) && item.children.length
+            ? require('/blueprint/partials/components/list/index.ejs')({
+                list_type: "ul",
+                class_names: "list ps-3 mb-2 list-unstyled",
+                list_items: item.children.map((child) =>
+                    require('/blueprint/partials/elements/list-item/index.ejs')({
+                        content: require('/blueprint/partials/components/anchor/index.ejs')({
+                            text: child.text,
+                            href: child.href,
+                            class_names: child.class_names
+                        })
+                    })
+                ).join('')
             })
-        })
-    ).join(''),
+            : '';
+
+        return require('/blueprint/partials/elements/list-item/index.ejs')({
+            content: link + children
+        });
+    }).join(''),
 });
 %>
 <%- anchor %>

@@ -1,4 +1,5 @@
 <% 
+    var current_path = typeof current_path !== 'undefined' ? current_path : '';
 
 var base_url = base_url || '';
 
@@ -136,6 +137,7 @@ var content_static = `<!-- Section Heading -->
             `;
 
     var sections = require('/blueprint/partials/docs/sidebar/section.ejs')({
+        current_path,
         section_href: "/docs/",
         section_title: "Welcome",
         list_items: [
@@ -155,6 +157,7 @@ var content_static = `<!-- Section Heading -->
     })
     + 
     require("/blueprint/partials/docs/sidebar/section.ejs")({
+        current_path,
         section_href: "/docs/components/",
         section_title: "Components",
         list_items: [
@@ -179,6 +182,7 @@ var content_static = `<!-- Section Heading -->
     + 
     // PATTERNS
     require("/blueprint/partials/docs/sidebar/section.ejs")({
+        current_path,
         section_href: "/docs/patterns/",
         section_title: "Patterns",
         list_items: [
@@ -195,6 +199,7 @@ var content_static = `<!-- Section Heading -->
     + 
     // PATTERNS
     require("/blueprint/partials/docs/sidebar/section.ejs")({
+        current_path,
         section_href: "/docs/wraps/",
         section_title: "Wraps",
         list_items: []
@@ -202,6 +207,7 @@ var content_static = `<!-- Section Heading -->
     + 
     // PATTERNS
     require("/blueprint/partials/docs/sidebar/section.ejs")({
+        current_path,
         section_href: base_url + "/docs/github/",
         section_title: "GITHUB",
         list_items: [
@@ -217,6 +223,7 @@ var content_static = `<!-- Section Heading -->
     })
     +
     require("/blueprint/partials/docs/sidebar/section.ejs")({
+        current_path,
         section_href: base_url + "/docs/lray138fp/",
         section_title: "lray138fp",
         list_items: [
@@ -230,27 +237,30 @@ var content_static = `<!-- Section Heading -->
             },
             {
                 text: 'Types',
-                href: base_url + '/docs/lray138fp/types/index.html'
-            },
-            {
-                text: 'Kvm',
-                href: base_url + '/docs/lray138fp/types/kvm/index.html'
-            },
-            {
-                text: 'Lst',
-                href: base_url + '/docs/lray138fp/types/lst/index.html'
-            },
-            {
-                text: 'Maybe',
-                href: base_url + '/docs/lray138fp/types/maybe/index.html'
-            },
-            {
-                text: 'Result',
-                href: base_url + '/docs/lray138fp/types/result/index.html'
-            },
-            {
-                text: 'Str',
-                href: base_url + '/docs/lray138fp/types/str/index.html'
+                href: base_url + '/docs/lray138fp/types/index.html',
+                children_mode: 'active',
+                children: [
+                    {
+                        text: 'Kvm',
+                        href: base_url + '/docs/lray138fp/types/kvm/index.html'
+                    },
+                    {
+                        text: 'Lst',
+                        href: base_url + '/docs/lray138fp/types/lst/index.html'
+                    },
+                    {
+                        text: 'Maybe',
+                        href: base_url + '/docs/lray138fp/types/maybe/index.html'
+                    },
+                    {
+                        text: 'Result',
+                        href: base_url + '/docs/lray138fp/types/result/index.html'
+                    },
+                    {
+                        text: 'Str',
+                        href: base_url + '/docs/lray138fp/types/str/index.html'
+                    }
+                ]
             }
         ]
     });

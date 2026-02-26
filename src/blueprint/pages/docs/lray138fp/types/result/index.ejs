@@ -14,7 +14,7 @@
     <section>
       <div class="container-fluid">
         <div class="row">
-          <%- require("/blueprint/partials/docs/sidebar.ejs")() %>
+          <%- require("/blueprint/partials/docs/sidebar.ejs")({ base_url, current_path }) %>
 
           <div class="col-12 col-lg-6 col-xl-8 py-7 py-lg-9 px-lg-7" id="doc-content">
             <h1 class="mb-2">Result</h1>
