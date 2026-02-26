@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Either | lray138/g2</title>
+    <script src="https://cdn.jsdelivr.net/gh/gnat/css-scope-inline@main/script.js"></script>
+  </head>
+  <body class="d-flex flex-column min-vh-100">
+    <div class="container-fluid">
+      <%- require("/blueprint/partials/header.ejs")({ base_url }) %>
+    </div>
+
+    <section>
+      <div class="container-fluid">
+        <div class="row">
+          <%- require("/blueprint/partials/docs/sidebar.ejs")({ base_url, current_path }) %>
+
+          <div class="col-12 col-lg-6 col-xl-8 py-7 py-lg-9 px-lg-7" id="doc-content">
+            <h1 class="mb-2">Either</h1>
+            <p class="fs-lg text-muted mb-4">
+              Sum type: <code>Left</code> (error/empty) or <code>Right</code> (value).
+            </p>
+
+            <h2>Import</h2>
+            <p class="mb-4">
+              <code>use lray138\\G2\\Either\\Left;</code><br/>
+              <code>use lray138\\G2\\Either\\Right;</code>
+            </p>
+
+            <h2>Patterns</h2>
+            <h3>Map the happy path</h3>
+            <h3>Unwrap at the edge</h3>
+
+            <h2>Types</h2>
+            <h3>Left</h3>
+            <h3>Right</h3>
+          </div>
+
+          <%- require("/blueprint/partials/docs/jump-to.ejs")() %>
+        </div>
+      </div>
+    </section>
+
+    <div class="container mt-auto">
+      <%- require("/blueprint/partials/footer.ejs")() %>
+    </div>
+    <%- require("/blueprint/partials/svg-icons.ejs")() %>
+  </body>
+</html>
+

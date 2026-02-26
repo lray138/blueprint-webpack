@@ -263,6 +263,53 @@ var content_static = `<!-- Section Heading -->
                 ]
             }
         ]
+    })
+    +
+    require("/blueprint/partials/docs/sidebar/section.ejs")({
+        current_path,
+        section_href: base_url + "/docs/lray138g2/",
+        section_title: "lray138/g2",
+        list_items: [
+            {
+                text: 'Overview',
+                href: base_url + '/docs/lray138g2/index.html'
+            },
+            {
+                text: 'Usage',
+                href: base_url + '/docs/lray138g2/usage/index.html'
+            },
+            {
+                text: 'Types',
+                href: base_url + '/docs/lray138g2/types/index.html',
+                children_mode: 'active',
+                children: [
+                    {
+                        text: 'Lst',
+                        href: base_url + '/docs/lray138g2/types/lst/index.html'
+                    },
+                    {
+                        text: 'Kvm',
+                        href: base_url + '/docs/lray138g2/types/kvm/index.html'
+                    },
+                    {
+                        text: 'Either',
+                        href: base_url + '/docs/lray138g2/types/either/index.html'
+                    },
+                    {
+                        text: 'Maybe',
+                        href: base_url + '/docs/lray138g2/types/maybe/index.html'
+                    },
+                    {
+                        text: 'Result',
+                        href: base_url + '/docs/lray138g2/types/result/index.html'
+                    },
+                    {
+                        text: 'Str',
+                        href: base_url + '/docs/lray138g2/types/str/index.html'
+                    }
+                ]
+            }
+        ]
     });
 %>
 <div class="col-12 col-lg-3 col-xl-2 px-lg-0 border-end-lg border-secondary">
