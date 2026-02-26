@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>lray138fp | Blueprint Docs</title>
+    <script src="https://cdn.jsdelivr.net/gh/gnat/css-scope-inline@main/script.js"></script>
+  </head>
+  <body class="d-flex flex-column min-vh-100">
+    <div class="container-fluid">
+      <%- require("/blueprint/partials/header.ejs")({ base_url }) %>
+    </div>
+
+    <section>
+      <div class="container-fluid">
+        <div class="row">
+          <%- require("/blueprint/partials/docs/sidebar.ejs")() %>
+
+          <div class="col-12 col-lg-6 col-xl-8 py-7 py-lg-9 px-lg-7" id="doc-content">
+            <h1 class="mb-2">lray138fp (JavaScript)</h1>
+            <p class="fs-lg text-muted mb-4">
+              Functional helpers used by Blueprint’s build-time EJS templates and runtime JS.
+            </p>
+
+            <h2>What it is</h2>
+            <p>
+              <code>lray138fp</code> is a small FP-style utility library (monads + DOM helpers).
+              In this project you’ll see it used in two places:
+            </p>
+            <ul>
+              <li><strong>Build-time (EJS)</strong>: via <code>require("/blueprint/js/lray138fp.min.js")</code></li>
+              <li><strong>Runtime (browser)</strong>: via bundling/imports in <code>src/blueprint/js</code></li>
+            </ul>
+
+            <h2>Docs</h2>
+            <ul class="mb-0">
+              <li><a href="<%- base_url %>/docs/lray138fp/usage/">Usage (EJS + runtime)</a></li>
+              <li><a href="<%- base_url %>/docs/lray138fp/types/">Core types (Kvm, Lst, Maybe, Result)</a></li>
+            </ul>
+          </div>
+
+          <%- require("/blueprint/partials/docs/jump-to.ejs")() %>
+        </div>
+      </div>
+    </section>
+
+    <div class="container mt-auto">
+      <%- require("/blueprint/partials/footer.ejs")() %>
+    </div>
+    <%- require("/blueprint/partials/svg-icons.ejs")() %>
+  </body>
+</html>

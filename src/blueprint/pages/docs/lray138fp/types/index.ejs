@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>lray138fp Types | Blueprint Docs</title>
+    <script src="https://cdn.jsdelivr.net/gh/gnat/css-scope-inline@main/script.js"></script>
+  </head>
+  <body class="d-flex flex-column min-vh-100">
+    <div class="container-fluid">
+      <%- require("/blueprint/partials/header.ejs")({ base_url }) %>
+    </div>
+
+    <section>
+      <div class="container-fluid">
+        <div class="row">
+          <%- require("/blueprint/partials/docs/sidebar.ejs")() %>
+
+          <div class="col-12 col-lg-6 col-xl-8 py-7 py-lg-9 px-lg-7" id="doc-content">
+            <h1 class="mb-2">Core types</h1>
+            <p class="fs-lg text-muted mb-4">The most-used types in Blueprint templates.</p>
+
+            <h2>Type pages</h2>
+            <p>Each type has its own page. Jump To is used for methods on those pages.</p>
+            <ul class="mb-0">
+              <li><a href="<%- base_url %>/docs/lray138fp/types/kvm/">Kvm</a></li>
+              <li><a href="<%- base_url %>/docs/lray138fp/types/lst/">Lst</a></li>
+              <li><a href="<%- base_url %>/docs/lray138fp/types/maybe/">Maybe</a></li>
+              <li><a href="<%- base_url %>/docs/lray138fp/types/result/">Result</a></li>
+              <li><a href="<%- base_url %>/docs/lray138fp/types/str/">Str</a></li>
+            </ul>
+
+          </div>
+
+          <%- require("/blueprint/partials/docs/jump-to.ejs")() %>
+        </div>
+      </div>
+    </section>
+
+    <div class="container mt-auto">
+      <%- require("/blueprint/partials/footer.ejs")() %>
+    </div>
+    <%- require("/blueprint/partials/svg-icons.ejs")() %>
+  </body>
+</html>

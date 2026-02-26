@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Str | lray138fp | Blueprint Docs</title>
+    <script src="https://cdn.jsdelivr.net/gh/gnat/css-scope-inline@main/script.js"></script>
+  </head>
+  <body class="d-flex flex-column min-vh-100">
+    <div class="container-fluid">
+      <%- require("/blueprint/partials/header.ejs")({ base_url }) %>
+    </div>
+
+    <section>
+      <div class="container-fluid">
+        <div class="row">
+          <%- require("/blueprint/partials/docs/sidebar.ejs")() %>
+
+          <div class="col-12 col-lg-6 col-xl-8 py-7 py-lg-9 px-lg-7" id="doc-content">
+            <h1 class="mb-2">Str</h1>
+            <p class="fs-lg text-muted mb-4">String wrapper.</p>
+
+            <h2>Import</h2>
+            <pre class="mb-4 bg-light p-3 rounded"><code class="language-js">const fp = require("/blueprint/js/lray138fp.min.js");
+const { Str } = fp;</code></pre>
+
+            <h2>Methods</h2>
+            <h3>of(value)</h3>
+            <h3>append(value)</h3>
+            <h3>prepend(value)</h3>
+            <h3>get()</h3>
+            <p class="mb-0 text-muted">
+              When outputting into EJS, prefer <code>.get()</code> to unwrap into a plain string.
+            </p>
+          </div>
+
+          <%- require("/blueprint/partials/docs/jump-to.ejs")() %>
+        </div>
+      </div>
+    </section>
+
+    <div class="container mt-auto">
+      <%- require("/blueprint/partials/footer.ejs")() %>
+    </div>
+    <%- require("/blueprint/partials/svg-icons.ejs")() %>
+  </body>
+</html>

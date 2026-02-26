@@ -1,5 +1,6 @@
 <% 
-    const { Kvm } = require("/blueprint/js/lray138fp.min.js");
+    const { Kvm, Str } = require("/blueprint/js/lray138fp.min.js");
+    const attrsReducer = require("/blueprint/utils/attrsReducer.js");
     const L = Kvm.of(locals);
 
     var content = L.tryPath('content').getOrElse('');
@@ -11,6 +12,10 @@
 
     var col_1_class_add = typeof wrap_attrs !== "undefined" && typeof wrap_attrs.col_1 !== "undefined" && typeof wrap_attrs.col_1.class_add !== "undefined"
         ? wrap_attrs.col_1.class_add : "";
+
+    __section_attributes__ = L.tryProp('attrs.section')
+        .map(a => a.reduce(attrsReducer, ''))
+        .getOrElse(Str.of(''));
 
 %>
 <section <%- __section_attributes__ %>>

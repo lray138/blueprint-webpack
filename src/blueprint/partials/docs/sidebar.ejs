@@ -214,6 +214,45 @@ var content_static = `<!-- Section Heading -->
                 href: base_url + '/docs/github/wordpress.html'
             }
         ]
+    })
+    +
+    require("/blueprint/partials/docs/sidebar/section.ejs")({
+        section_href: base_url + "/docs/lray138fp/",
+        section_title: "lray138fp",
+        list_items: [
+            {
+                text: 'Overview',
+                href: base_url + '/docs/lray138fp/index.html'
+            },
+            {
+                text: 'Usage',
+                href: base_url + '/docs/lray138fp/usage/index.html'
+            },
+            {
+                text: 'Types',
+                href: base_url + '/docs/lray138fp/types/index.html'
+            },
+            {
+                text: 'Kvm',
+                href: base_url + '/docs/lray138fp/types/kvm/index.html'
+            },
+            {
+                text: 'Lst',
+                href: base_url + '/docs/lray138fp/types/lst/index.html'
+            },
+            {
+                text: 'Maybe',
+                href: base_url + '/docs/lray138fp/types/maybe/index.html'
+            },
+            {
+                text: 'Result',
+                href: base_url + '/docs/lray138fp/types/result/index.html'
+            },
+            {
+                text: 'Str',
+                href: base_url + '/docs/lray138fp/types/str/index.html'
+            }
+        ]
     });
 %>
 <div class="col-12 col-lg-3 col-xl-2 px-lg-0 border-end-lg border-secondary">

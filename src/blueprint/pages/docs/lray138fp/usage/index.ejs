@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>lray138fp Usage | Blueprint Docs</title>
+    <script src="https://cdn.jsdelivr.net/gh/gnat/css-scope-inline@main/script.js"></script>
+  </head>
+  <body class="d-flex flex-column min-vh-100">
+    <div class="container-fluid">
+      <%- require("/blueprint/partials/header.ejs")({ base_url }) %>
+    </div>
+
+    <section>
+      <div class="container-fluid">
+        <div class="row">
+          <%- require("/blueprint/partials/docs/sidebar.ejs")() %>
+
+          <div class="col-12 col-lg-6 col-xl-8 py-7 py-lg-9 px-lg-7" id="doc-content">
+            <h1 class="mb-2">Usage</h1>
+            <p class="fs-lg text-muted mb-4">How to use <code>lray138fp</code> in Blueprint.</p>
+
+            <h2>Build-time (EJS)</h2>
+            <p>Because EJS runs in Node during the build, you can require fp directly:</p>
+            <pre class="mb-4 bg-light p-3 rounded"><code class="language-ejs">&lt;% const fp = require("/blueprint/js/lray138fp.min.js"); %&gt;
+&lt;% const out = fp.Kvm.of({ test: "asdf" }).tryPath("test").getOrElse("no test").get(); %&gt;
+&lt;p&gt;&lt;%- out %&gt;&lt;/p&gt;</code></pre>
+
+            <h2>Runtime (browser)</h2>
+            <p>
+              If you bundle fp via imports (ex: in <code>src/blueprint/js/theme.js</code>),
+              you can expose it on <code>window</code> for quick experiments.
+            </p>
+            <pre class="mb-4 bg-light p-3 rounded"><code class="language-js">import * as fp from "./lray138fp.min.js";
+window.fp = fp;</code></pre>
+
+            <p class="mb-0">
+              Then in DevTools:
+              <code>window.fp.Kvm.of({ test: "asdf" }).tryPath("test").getOrElse("no test").get()</code>
+            </p>
+          </div>
+
+          <%- require("/blueprint/partials/docs/jump-to.ejs")() %>
+        </div>
+      </div>
+    </section>
+
+    <div class="container mt-auto">
+      <%- require("/blueprint/partials/footer.ejs")() %>
+    </div>
+    <%- require("/blueprint/partials/svg-icons.ejs")() %>
+  </body>
+</html>
