@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tests | lray138fp</title>
+    <script src="https://cdn.jsdelivr.net/gh/gnat/css-scope-inline@main/script.js"></script>
+  </head>
+  <body class="d-flex flex-column min-vh-100">
+    <div class="container-fluid">
+      <%- require("/blueprint/partials/header.ejs")({ base_url }) %>
+    </div>
+
+    <section>
+      <div class="container-fluid">
+        <div class="row">
+          <%- require("/blueprint/partials/docs/sidebar.ejs")({ base_url, current_path }) %>
+
+          <div class="col-12 col-lg-6 col-xl-8 py-7 py-lg-9 px-lg-7" id="doc-content">
+            <h1 class="mb-2">Tests</h1>
+            <p class="fs-lg text-muted mb-4">
+              Notes + conventions for testing <code>lray138fp</code>.
+            </p>
+
+            <h2>Scope</h2>
+            <ul>
+              <li><strong>Pure types</strong>: <code>Lst</code>, <code>Kvm</code>, <code>Maybe</code>, <code>Result</code>, <code>Either</code>, <code>Str</code></li>
+              <li><strong>Interop</strong>: behavior when used inside EJS (string coercion, extract/get)</li>
+              <li><strong>Runtime</strong>: DOM helpers (only if needed)</li>
+            </ul>
+
+            <h2>Test ideas</h2>
+            <ul class="mb-0">
+              <li><strong>Extractability</strong>: wrappers should safely produce primitives via <code>get()</code>/<code>extract()</code></li>
+              <li><strong>Symbol safety</strong>: avoid implicit coercion paths that throw in templates</li>
+              <li><strong>Path helpers</strong>: <code>Kvm.tryPath</code> / defaults should be deterministic</li>
+            </ul>
+          </div>
+
+          <%- require("/blueprint/partials/docs/jump-to.ejs")() %>
+        </div>
+      </div>
+    </section>
+
+    <div class="container mt-auto">
+      <%- require("/blueprint/partials/footer.ejs")() %>
+    </div>
+    <%- require("/blueprint/partials/svg-icons.ejs")() %>
+  </body>
+</html>
+

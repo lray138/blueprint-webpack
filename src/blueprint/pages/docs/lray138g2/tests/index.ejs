@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tests | lray138/g2</title>
+    <script src="https://cdn.jsdelivr.net/gh/gnat/css-scope-inline@main/script.js"></script>
+  </head>
+  <body class="d-flex flex-column min-vh-100">
+    <div class="container-fluid">
+      <%- require("/blueprint/partials/header.ejs")({ base_url }) %>
+    </div>
+
+    <section>
+      <div class="container-fluid">
+        <div class="row">
+          <%- require("/blueprint/partials/docs/sidebar.ejs")({ base_url, current_path }) %>
+
+          <div class="col-12 col-lg-6 col-xl-8 py-7 py-lg-9 px-lg-7" id="doc-content">
+            <h1 class="mb-2">Tests</h1>
+            <p class="fs-lg text-muted mb-4">
+              Notes + conventions for testing <code>lray138/g2</code> usage in the theme.
+            </p>
+
+            <h2>Scope</h2>
+            <ul>
+              <li><strong>Containers</strong>: <code>Lst</code>, <code>Kvm</code>, <code>Maybe</code>, <code>Result</code>, <code>Either</code></li>
+              <li><strong>Theme integration</strong>: Carbon Fields data shapes and “unwrap at the edge” behavior</li>
+            </ul>
+
+            <h2>Regression targets</h2>
+            <ul class="mb-0">
+              <li><strong>Null meta</strong>: ensure helpers don’t accidentally pass <code>Left</code> into APIs that expect <code>Lst</code></li>
+              <li><strong>Type guards</strong>: when a value isn’t the expected shape, fail predictably and close to the source</li>
+            </ul>
+          </div>
+
+          <%- require("/blueprint/partials/docs/jump-to.ejs")() %>
+        </div>
+      </div>
+    </section>
+
+    <div class="container mt-auto">
+      <%- require("/blueprint/partials/footer.ejs")() %>
+    </div>
+    <%- require("/blueprint/partials/svg-icons.ejs")() %>
+  </body>
+</html>
+

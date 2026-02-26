@@ -236,6 +236,10 @@ var content_static = `<!-- Section Heading -->
                 href: base_url + '/docs/lray138fp/usage/index.html'
             },
             {
+                text: 'Tests',
+                href: base_url + '/docs/lray138fp/tests/index.html'
+            },
+            {
                 text: 'Types',
                 href: base_url + '/docs/lray138fp/types/index.html',
                 children_mode: 'active',
@@ -277,6 +281,10 @@ var content_static = `<!-- Section Heading -->
             {
                 text: 'Usage',
                 href: base_url + '/docs/lray138g2/usage/index.html'
+            },
+            {
+                text: 'Tests',
+                href: base_url + '/docs/lray138g2/tests/index.html'
             },
             {
                 text: 'Types',
@@ -332,6 +340,61 @@ var content_static = `<!-- Section Heading -->
             </style>
             
             <%- sections %>
+
+            <script>
+                (function () {
+                    const KEY_PREFIX = 'blueprint:docs-nav:';
+
+                    function getKey(collapseId) {
+                        return KEY_PREFIX + collapseId;
+                    }
+
+                    function setExpanded(btn, expanded) {
+                        btn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+                    }
+
+                    function setCollapseVisible(el, visible) {
+                        el.classList.toggle('show', !!visible);
+                    }
+
+                    window.addEventListener('DOMContentLoaded', function () {
+                        const toggles = Array.from(document.querySelectorAll('.section-toggle[aria-controls]'));
+                        if (!toggles.length) return;
+
+                        // 1) Restore saved state (if present). If no saved state, keep server-rendered defaults.
+                        toggles.forEach((btn) => {
+                            const collapseId = btn.getAttribute('aria-controls');
+                            if (!collapseId) return;
+                            const el = document.getElementById(collapseId);
+                            if (!el) return;
+
+                            const saved = localStorage.getItem(getKey(collapseId));
+                            if (saved == null) return;
+
+                            const visible = saved === 'open';
+                            setExpanded(btn, visible);
+                            setCollapseVisible(el, visible);
+                        });
+
+                        // 2) Track future opens/closes.
+                        toggles.forEach((btn) => {
+                            const collapseId = btn.getAttribute('aria-controls');
+                            if (!collapseId) return;
+                            const el = document.getElementById(collapseId);
+                            if (!el) return;
+
+                            el.addEventListener('shown.bs.collapse', function () {
+                                localStorage.setItem(getKey(collapseId), 'open');
+                                setExpanded(btn, true);
+                            });
+                            el.addEventListener('hidden.bs.collapse', function () {
+                                localStorage.setItem(getKey(collapseId), 'closed');
+                                setExpanded(btn, false);
+                            });
+                        });
+                    });
+                })();
+            </script>
         </div>
     </div>
 </div>

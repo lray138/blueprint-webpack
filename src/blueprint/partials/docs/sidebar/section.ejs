@@ -138,12 +138,17 @@ var list = require('/blueprint/partials/components/list/index.ejs')({
         display: inline-flex;
         align-items: center;
         justify-content: center;
+        align-self: center;
+        font-size: 1rem;
+        line-height: 1;
     }
 
     me .section-toggle::before {
         content: "+";
         font-weight: 700;
         font-size: 1rem;
+        line-height: 1;
+        display: block;
     }
 
     me .section-toggle[aria-expanded="true"]::before {
