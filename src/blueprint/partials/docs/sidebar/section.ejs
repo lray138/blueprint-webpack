@@ -1,16 +1,73 @@
 <% 
 
-var anchor = require('/blueprint/partials/components/anchor/index.ejs')({
-    class_names: "section-heading",
-    href: section_href,
-    text: require("/blueprint/partials/components/heading/index.ejs")({
-        text: section_title,
-        level: 6,
-        attrs: {
-            class: "text-uppercase fw-bold"
-        }
-    }),
+var heading = require("/blueprint/partials/components/heading/index.ejs")({
+    text: section_title,
+    level: 6,
+    attrs: {
+        class: "text-uppercase fw-bold mb-0"
+    }
 });
+
+var section_id = 'docs-section-' + String(section_href || section_title || '')
+    .toLowerCase()
+    .replace(/index\.html$/i, '')
+    .replace(/https?:\/\//i, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
+var collapse_id = section_id + '-list';
+
+var normalizeHrefPrefix = (href) => {
+    if (typeof href !== 'string' || !href) return '';
+    return href.replace(/index\.html$/i, '');
+};
+
+var isOpenByDefault = (() => {
+    if (typeof current_path !== 'string' || !current_path) return false;
+
+    const curPrefix = normalizeHrefPrefix(current_path);
+    const sectionPrefix = normalizeHrefPrefix(section_href);
+
+    // Avoid overly-broad matches like "/docs/" opening on every docs page.
+    const isGenericRootPrefix = sectionPrefix === '/' || sectionPrefix === '/docs/';
+
+    if (sectionPrefix) {
+        if (curPrefix === sectionPrefix) return true;
+        if (!isGenericRootPrefix && curPrefix.startsWith(sectionPrefix)) return true;
+    }
+
+    if (!Array.isArray(list_items) || !list_items.length) return false;
+
+    return list_items.some((item) => {
+        const href = item && typeof item.href === 'string' ? item.href : '';
+        if (!href) return false;
+        const prefix = normalizeHrefPrefix(href);
+        const isGenericItemRootPrefix = prefix === '/' || prefix === '/docs/';
+        if (isGenericItemRootPrefix) {
+            return curPrefix === prefix;
+        }
+        return curPrefix === prefix || (prefix && curPrefix.startsWith(prefix));
+    });
+})();
+
+var aria_expanded = isOpenByDefault ? 'true' : 'false';
+var collapse_class = isOpenByDefault ? 'collapse show' : 'collapse';
+
+var section_heading = `
+<div class="d-flex align-items-center justify-content-between gap-2">
+    <a href="${section_href}" class="section-heading flex-grow-1">
+        ${heading}
+    </a>
+    <button
+        type="button"
+        class="btn btn-link p-0 section-toggle flex-shrink-0"
+        data-bs-toggle="collapse"
+        data-bs-target="#${collapse_id}"
+        aria-controls="${collapse_id}"
+        aria-expanded="${aria_expanded}"
+        aria-label="Toggle ${String(section_title || 'section')} list"
+    ></button>
+</div>
+`;
 
 var list = require('/blueprint/partials/components/list/index.ejs')({
     list_type: "ul",
@@ -56,11 +113,41 @@ var list = require('/blueprint/partials/components/list/index.ejs')({
     }).join(''),
 });
 %>
-<%- anchor %>
-<%- list %>
+<%- section_heading %>
+<div class="<%- collapse_class %>" id="<%- collapse_id %>">
+    <%- list %>
+</div>
 <style>
-    me a.section-heading {
+    me .section-heading {
         text-decoration: none;
+        color: inherit;
+        display: inline-block;
+        padding-bottom: .25rem;
+    }
+
+    me .section-heading:hover {
+        text-decoration: underline;
+    }
+
+    me .section-toggle {
+        width: 1.25rem;
+        height: 1.25rem;
+        line-height: 1.25rem;
+        text-decoration: none;
+        color: inherit;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    me .section-toggle::before {
+        content: "+";
+        font-weight: 700;
+        font-size: 1rem;
+    }
+
+    me .section-toggle[aria-expanded="true"]::before {
+        content: "–";
     }
 
     me ul li a {
