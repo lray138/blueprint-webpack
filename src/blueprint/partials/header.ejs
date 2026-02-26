@@ -1,5 +1,8 @@
 <% 
     var base_url = typeof base_url !== "undefined" ? base_url : "";
+    const { Kvm } = require("/blueprint/js/lray138fp.min.js");
+    const data = Kvm.of(locals);
+
     var nav_links = require('/blueprint/partials/components/list/index.ejs')({
         list_type: 'ul',
         class_names: 'nav col-12 col-md-auto mb-2 justify-content-center mb-md-0',
@@ -50,13 +53,14 @@
         var section_extra_classes = typeof pin_top !== 'undefined' && pin_top ? 'pin-top' : '';
 
     var container_class = typeof fluid !== 'undefined' && fluid ? 'container-fluid' : 'container';
+    container_class = data.tryProp('fluid')
+        .fork(() => 'container', (y) => y.isTrue() ? 'container-fluid' : 'container');
 %>
-
 <nav class="navbar navbar-expand-lg py-0" aria-label="Offcanvas navbar large">
     <div class="<%= container_class %> border-bottom py-3 mb-3">
         <div class="col-md-3 mb-2 mb-md-0">
-                    <%- site_name_anchor %>
-                </div>
+            <%- site_name_anchor %>
+        </div>
                 
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar2" aria-controls="offcanvasNavbar2" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -107,6 +111,5 @@
             </div>
         </div>
     </div>
-
 </nav>
 
