@@ -176,6 +176,10 @@ var content_static = `<!-- Section Heading -->
             {
                 text: "Card",
                 href: "/docs/components/card.html"
+            },
+            {
+                text: "Quote",
+                href: "/docs/components/quote/"
             }
         ]
     })
@@ -318,7 +322,15 @@ var content_static = `<!-- Section Heading -->
                 ]
             }
         ]
-    });
+    })
+    +
+    require("/blueprint/partials/docs/sidebar/section.ejs")({
+        current_path,
+        section_href: base_url + "/docs/roadmap/",
+        section_title: "Roadmap",
+        list_items: [
+    ]})
+
 %>
 <div class="col-12 col-lg-3 col-xl-2 px-lg-0 border-end-lg border-secondary">
     <div class="collapse d-lg-block" id="docsNavCollapse">

@@ -10,7 +10,8 @@
         <!-- Header -->
         <div class="container-fluid">
             <%- require("/blueprint/partials/header.ejs")({
-                base_url: base_url
+                base_url: base_url,
+                fluid: true,
             }) %>
         </div>
         
@@ -86,9 +87,10 @@
         </section>
         
         <!-- Footer -->
-        <div class="container mt-auto">
-            <%- require("/blueprint/partials/footer.ejs")() %>
-        </div>
+        <%- require("/blueprint/partials/footer.ejs")({
+            fluid: true,
+        }) %>
+
         <%- require("/blueprint/partials/svg-icons.ejs")() %>
     </body>
 </html>

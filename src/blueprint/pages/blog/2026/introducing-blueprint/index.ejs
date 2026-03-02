@@ -1,0 +1,14 @@
+<%- require("/blueprint/templates/default.ejs")({
+    content: 
+        require("/blueprint/partials/wraps/container-blog.ejs")({
+            content: require("/blueprint/partials/patterns/page-header/index.ejs")({
+                heading: "Introducing Blueprint",
+            })
+            +
+            require("/blueprint/partials/components/paragraph/index.ejs")({
+                content: 'blog content',
+                text: 'asalaladf'
+            })
+        })
+}) 
+%>
