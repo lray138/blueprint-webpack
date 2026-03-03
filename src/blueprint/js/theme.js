@@ -5,11 +5,7 @@ import "./components/jump-to.js";
 import "./components/accordion-docs.js";
 
 import "./vendor/bigpicture";
-<<<<<<< HEAD
-import * as fp from "./lray138fp.min.js";
-=======
 import * as jfp from "./lray138fp.min.js";
->>>>>>> 8fbfbcd3c73b581eab55b9bbcae08f41c3048f9f
 
 //import 'bootstrap';
 import 'bootstrap/dist/js/bootstrap.bundle';  // Includes Popper
@@ -26,12 +22,7 @@ localStorage.removeItem('theme');
 import "./vendor/css-scope-inline.js";
 import "./contact-form.js";
 
-<<<<<<< HEAD
-window.fp = fp;
-=======
 window.jfp = jfp;
-
-
 
 // scripts.js
 const get = (endpoint, acceptHeader = 'json', data, success_callback) => {
@@ -147,4 +138,3 @@ const post = (endpoint, acceptHeader = 'json', data, success_callback) => {
 
 window.post = post;
 window.get = get;
->>>>>>> 8fbfbcd3c73b581eab55b9bbcae08f41c3048f9f
