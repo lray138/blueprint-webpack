@@ -38,12 +38,17 @@ const HAS_SITE_PAGES = (() => {
 })();
 
 module.exports = {
+    output: {
+  path: path.resolve(__dirname, 'dist'),
+  filename: 'js/[name].js',
+  assetModuleFilename: 'assets/[name][ext]',
+  clean: true
+},
   // ✅ In framework mode, build only blueprint.
   // ✅ Otherwise build site if present, fallback to blueprint.
   entry: IS_FRAMEWORK
-    ? BLUEPRINT_ENTRY
-    : (HAS_SITE_ENTRY ? './src/site/js/theme.js' : BLUEPRINT_ENTRY),
-
+  ? { theme: BLUEPRINT_ENTRY }
+  : { theme: (HAS_SITE_ENTRY ? './src/site/js/theme.js' : BLUEPRINT_ENTRY) },
   plugins: [
     // ✅ Always generate Blueprint pages
     ...(() => {
@@ -105,7 +110,7 @@ module.exports = {
     })() : []),
 
     new MiniCssExtractPlugin({
-      filename: 'theme.css'
+      filename: 'css/[name].css'
     }),
 
     new CopyPlugin({
@@ -135,6 +140,11 @@ module.exports = {
   module: {
     rules: [
       { test: /\.ejs$/i, use: [{ loader: 'ejs-easy-loader' }] },
+      {
+      test: /\.(woff2?|eot|ttf|otf)$/i,
+      type: 'asset/resource',
+      generator: { filename: 'fonts/[name][ext]' },
+    },
       {
         test: /\.(png|svg|jpg|jpeg|gif|JPG)$/i,
         type: 'asset/resource',
