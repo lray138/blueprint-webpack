@@ -56,7 +56,8 @@
     container_class = data.tryProp('fluid')
         .fork(() => 'container', (y) => y.isTrue() ? 'container-fluid' : 'container');
 %>
-<nav class="navbar navbar-expand-lg py-0" aria-label="Offcanvas navbar large">
+<nav class="navbar navbar-expand-lg py-0" aria-label="Offcanvas navbar large"
+    data-bp-edit-url="/wp-admin/post.php?post=123&action=edit">
     <div class="<%= container_class %> border-bottom py-3 mb-3">
         <div class="col-md-3 mb-2 mb-md-0">
             <%- site_name_anchor %>
@@ -73,7 +74,8 @@
             </div>
             <div class="offcanvas-body d-flex flex-wrap align-items-center text-center">
                 
-                <ul class="nav list-group list-group-sm col-12 col-md-auto mb-2 mb-md-0 flex-grow-1 pe-3 "> <!-- align-items-center justify-content-center justify-content-md-between -->
+                <ul class="nav list-group list-group-sm col-12 col-md-auto mb-2 mb-md-0 flex-grow-1 pe-3 "
+    data-bp-edit-url="/wp-admin/post.php?post=123&action=edit"> <!-- align-items-center justify-content-center justify-content-md-between -->
                     <li class="nav-item">
                         <a class="nav-link" href="<%= base_url %>/manifesto/">Manifesto</a>
                     </li>

@@ -138,3 +138,130 @@ const post = (endpoint, acceptHeader = 'json', data, success_callback) => {
 
 window.post = post;
 window.get = get;
+
+
+(function () {
+
+    if (!document.body.classList.contains('bp-edit')) return;
+
+    function getPostId() {
+        return document.body?.dataset?.postId || null;
+    }
+
+    function getAdminUrl() {
+        return document.body?.dataset?.adminUrl || null;
+    }
+
+    function buildEditUrl(el, bpId) {
+        const adminUrl = getAdminUrl();
+        if (!adminUrl || !bpId) return null;
+
+        const postId =
+            el?.dataset?.postId ||
+            getPostId();
+
+        if (!postId) return null;
+
+        const url = new URL('post.php', adminUrl);
+        url.searchParams.set('post', postId);
+        url.searchParams.set('action', 'edit');
+        url.searchParams.set('bp_edit', bpId);
+
+        return url.toString();
+    }
+
+    function normalizeEditUrls() {
+        document.querySelectorAll('[data-bp-id]').forEach(function (el) {
+
+            if (el.dataset.bpEditUrl) return;
+
+            const bpId = el.dataset.bpId;
+
+            // Skip empty or whitespace bp_id
+            if (!bpId || !bpId.trim()) return;
+
+            const url = buildEditUrl(el, bpId);
+
+            if (url) {
+                el.dataset.bpEditUrl = url;
+            }
+
+        });
+    }
+
+    function ensureButton(el) {
+        let btn = el.querySelector(':scope > .bp-edit-button');
+        if (btn) return btn;
+
+        const url = el.dataset.bpEditUrl;
+        if (!url) return null;
+
+        btn = document.createElement('a');
+        btn.className = 'bp-edit-button';
+        btn.href = url;
+        btn.target = '_blank';
+        btn.rel = 'noopener';
+        btn.textContent = 'Edit';
+        btn.style.display = 'none';
+
+        const position = el.dataset.bpEditPosition === 'left' ? 'left' : 'right';
+        btn.classList.add(position === 'left' ? 'is-left' : 'is-right');
+
+        el.appendChild(btn);
+
+        return btn;
+    }
+
+    function deactivateAll() {
+        document.querySelectorAll('.bp-edit-active').forEach(function (el) {
+            deactivate(el);
+        });
+    }
+
+    function activate(el) {
+        if (!el) return;
+
+        deactivateAll();
+
+        el.classList.add('bp-edit-active');
+
+        const btn = ensureButton(el);
+        if (btn) btn.style.display = '';
+    }
+
+    function deactivate(el) {
+        if (!el) return;
+
+        el.classList.remove('bp-edit-active');
+
+        const btn = el.querySelector(':scope > .bp-edit-button');
+        if (btn) btn.style.display = 'none';
+    }
+
+    document.addEventListener('mouseover', function (e) {
+        const el = e.target.closest('[data-bp-edit-url]');
+        if (!el) return;
+
+        const fromEl = e.relatedTarget?.closest?.('[data-bp-edit-url]');
+        if (fromEl === el) return;
+
+        activate(el);
+    });
+
+    document.addEventListener('mouseout', function (e) {
+        const el = e.target.closest('[data-bp-edit-url]');
+        if (!el) return;
+
+        const toEl = e.relatedTarget?.closest?.('[data-bp-edit-url]');
+        if (toEl === el) return;
+
+        deactivate(el);
+    });
+
+    window.addEventListener('blur', function () {
+        deactivateAll();
+    });
+
+    normalizeEditUrls();
+
+})();
