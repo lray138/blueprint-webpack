@@ -156,9 +156,21 @@
     padding-top: 1.5rem;
 }
 
+.menu-inner-section.two-per-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
 .menu-sections {
     display: flex;
     flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.menu-sections.two-per-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
 }
 

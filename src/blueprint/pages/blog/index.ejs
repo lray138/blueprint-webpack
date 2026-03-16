@@ -1,35 +1,31 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Blog | Blueprint</title>
-        <script src="https://cdn.jsdelivr.net/gh/gnat/css-scope-inline@main/script.js"></script>
-    </head>
-    <body class="d-flex flex-column min-vh-100">
-
-        <%- require("/blueprint/partials/header.ejs")({
-            base_url: base_url
-        }) %>
-        
-        <%- require("/blueprint/partials/components/wrap/section-one-col.ejs")({
+<%- require("/blueprint/templates/default.ejs")({
+    head: {
+        title: "Blog",
+    },
+    content: require("/blueprint/partials/wraps/section-one-col.ejs")({
+            attrs: {
+                section: {
+                    class_add: "mt-5",
+                }
+            },
             content: require("/blueprint/partials/patterns/page-header/index.ejs")({
                 heading: "Blog",
-                text: "Sharing is caring"
+                text: "A collection of thoughts and musings."
             })
-            + 
+            +
             require("/blueprint/partials/components/list/ul.ejs")({
                 list_items: [
                     {
+<<<<<<< HEAD
                         class_names: "this-is-how-it-should-work",
                         content: "test",
                         utils
+=======
+                        class_names: "test-again",
+                        content: "test",
+>>>>>>> 7d0ab57ef01fc9fb9aee78afef0bffc6ac1365b7
                     }
                 ]
             })
-        }) %>
-
-        <%- require("/blueprint/partials/footer.ejs")() %>
-        <%- require("/blueprint/partials/svg-icons.ejs")() %>
-    </body>
-</html>
+        }) 
+}) %>

@@ -1,9 +1,17 @@
 <% 
-  var __level__ = typeof level !== "undefined" ? level : 2;
-  var __heading_attributes__ = '';
-  var text = typeof text !== "undefined" ? text : "";
-  var attrs = typeof attrs !== "undefined" ? attrs : {};
-  var attrsString = Object.entries(attrs).map(([key, value]) => `${key}="${value}"`).join(" ");
-  __attributes__ = attrsString ? ` ${attrsString}` : "";
+
+    const { Kvm, Str } = require("/blueprint/js/lray138fp.min.js");
+    const ls = Kvm.of(locals);
+
+    var text = ls.tryProp("content")
+        .orElse(() => ls.tryProp("text"))
+        .getOrElse('');
+        
+    var __level__ = typeof level !== "undefined" ? level : 2;
+    var __heading_attributes__ = '';
+    
+    var attrs = typeof attrs !== "undefined" ? attrs : {};
+    var attrsString = Object.entries(attrs).map(([key, value]) => `${key}="${value}"`).join(" ");
+    __attributes__ = attrsString ? ` ${attrsString}` : "";
 %>
 <h<%- __level__ %> <%- __attributes__ %>><%- text %></h<%- __level__ %>>

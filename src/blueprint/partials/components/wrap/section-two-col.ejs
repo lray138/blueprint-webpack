@@ -1,8 +1,14 @@
 <% 
+    const { Kvm } = require("/blueprint/js/lray138fp.min.js");
+    var data = Kvm.of(locals);
+
     var wrap_start = typeof wrap_start !== "undefined" ? wrap_start : "";   
     var wrap_end = typeof wrap_end !== "undefined" ? wrap_end : "";
     var col_1_content = typeof cols[0].content !== "undefined" ? cols[0].content : "";    
-    var col_2_content = typeof cols[1].content !== "undefined" ? cols[1].content : "";    
+    var col_2_content = typeof cols[1].content !== "undefined" ? cols[1].content : "";
+    
+    col_2_content = cols[1]?.content ?? "";
+    col_2_content2 = data.tryProp('cols[1].content').fork(() => 'nope', (x) => x);
 %>
 <section>
     <div class="container">
@@ -12,6 +18,7 @@
             </div>
             <div class="col-12 col-md-6">
                 <%- col_2_content %>
+                <%- col_2_content2 %>
             </div>
         </div>
     </div>

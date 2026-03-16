@@ -8,7 +8,9 @@
     <body class="d-flex flex-column min-vh-100">
         <!-- Header -->
         <div class="container-fluid">
-            <%- require("/blueprint/partials/header.ejs")() %>
+            <%- require("/blueprint/partials/header.ejs")({
+                fluid: true
+            }) %>
         </div>
         
         <!-- Docs Content -->
@@ -17,7 +19,7 @@
                 <div class="row">
                     
                     <!-- Left Sidebar Navigation -->
-                    <%- require("/blueprint/partials/docs/sidebar.ejs")() %>
+          <%- require("/blueprint/partials/docs/sidebar.ejs")({ base_url, current_path }) %>
                     
                     <!-- Main Content -->
                     <div class="col-12 col-lg-6 col-xl-8 py-7 py-lg-9 px-lg-7">

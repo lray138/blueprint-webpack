@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Usage | lray138/g2</title>
+    <script src="https://cdn.jsdelivr.net/gh/gnat/css-scope-inline@main/script.js"></script>
+  </head>
+  <body class="d-flex flex-column min-vh-100">
+    <div class="container-fluid">
+      <%- require("/blueprint/partials/header.ejs")({ base_url }) %>
+    </div>
+
+    <section>
+      <div class="container-fluid">
+        <div class="row">
+          <%- require("/blueprint/partials/docs/sidebar.ejs")({ base_url, current_path }) %>
+
+          <div class="col-12 col-lg-6 col-xl-8 py-7 py-lg-9 px-lg-7" id="doc-content">
+            <h1 class="mb-2">Usage</h1>
+            <p class="fs-lg text-muted mb-4">
+              How Blueprint uses <code>lray138/g2</code> inside the theme.
+            </p>
+
+            <h2>Where it lives</h2>
+            <ul>
+              <li><strong>Composer vendor</strong>: <code>wp-content/themes/blueprint/vendor/lray138/g2/</code></li>
+              <li><strong>Theme code</strong>: used in helpers and Carbon Fields plumbing</li>
+            </ul>
+
+            <h2>Common patterns</h2>
+            <ul class="mb-0">
+              <li><strong>Defensive composition</strong>: prefer returning <code>Either</code> / <code>Maybe</code> instead of throwing</li>
+              <li><strong>Mapping</strong>: operate on <code>Lst</code> with <code>map</code> rather than raw arrays</li>
+              <li><strong>Unwrap at the edge</strong>: call <code>get()</code>/<code>extract()</code> as late as possible</li>
+            </ul>
+          </div>
+
+          <%- require("/blueprint/partials/docs/jump-to.ejs")() %>
+        </div>
+      </div>
+    </section>
+
+    <div class="container mt-auto">
+      <%- require("/blueprint/partials/footer.ejs")() %>
+    </div>
+    <%- require("/blueprint/partials/svg-icons.ejs")() %>
+  </body>
+</html>
+

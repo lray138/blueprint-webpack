@@ -21,7 +21,7 @@
                 <div class="row">
                     
                     <!-- Left Sidebar Navigation -->
-                    <%- require("/blueprint/partials/docs/sidebar.ejs")({base_url}) %>
+                    <%- require("/blueprint/partials/docs/sidebar.ejs")({ base_url, current_path }) %>
                   
                     <!-- Main Content -->
                     <div class="col-12 col-lg-6 col-xl-8 py-7 py-lg-9 px-lg-7" id="doc-content">
@@ -69,7 +69,8 @@ git commit -m "Initial commit"
                         <p>Add the remote and fetch:</p>
 
                         <pre><code>git remote add webpack-canon git@github.com:lray138/blueprint-webpack.git
-git fetch webpack-canon</code></pre>
+git fetch webpack-canon
+git subtree add --prefix=webpack webpack-canon main --squash</code></pre>
 
                             <hr/>
 

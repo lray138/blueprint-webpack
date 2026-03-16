@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Types | lray138/g2</title>
+    <script src="https://cdn.jsdelivr.net/gh/gnat/css-scope-inline@main/script.js"></script>
+  </head>
+  <body class="d-flex flex-column min-vh-100">
+    <div class="container-fluid">
+      <%- require("/blueprint/partials/header.ejs")({ base_url }) %>
+    </div>
+
+    <section>
+      <div class="container-fluid">
+        <div class="row">
+          <%- require("/blueprint/partials/docs/sidebar.ejs")({ base_url, current_path }) %>
+
+          <div class="col-12 col-lg-6 col-xl-8 py-7 py-lg-9 px-lg-7" id="doc-content">
+            <h1 class="mb-2">Core types</h1>
+            <p class="fs-lg text-muted mb-4">
+              Each type gets its own page. Add <code>h2</code>/<code>h3</code> headings per method and the “Jump to” sidebar will pick them up.
+            </p>
+
+            <h2>Types</h2>
+            <ul class="mb-0">
+              <li><a href="<%- base_url %>/docs/lray138g2/types/lst/">Lst</a></li>
+              <li><a href="<%- base_url %>/docs/lray138g2/types/kvm/">Kvm</a></li>
+              <li><a href="<%- base_url %>/docs/lray138g2/types/either/">Either (Left / Right)</a></li>
+              <li><a href="<%- base_url %>/docs/lray138g2/types/maybe/">Maybe</a></li>
+              <li><a href="<%- base_url %>/docs/lray138g2/types/result/">Result</a></li>
+              <li><a href="<%- base_url %>/docs/lray138g2/types/str/">Str</a></li>
+            </ul>
+          </div>
+
+          <%- require("/blueprint/partials/docs/jump-to.ejs")() %>
+        </div>
+      </div>
+    </section>
+
+    <div class="container mt-auto">
+      <%- require("/blueprint/partials/footer.ejs")() %>
+    </div>
+    <%- require("/blueprint/partials/svg-icons.ejs")() %>
+  </body>
+</html>
+

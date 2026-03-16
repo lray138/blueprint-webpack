@@ -7,6 +7,8 @@ const escapeHtml = require('./src/blueprint/utils/escape-html');
 const curryRequire = require('./src/utils/require-curried');
 const getAttributes = require('./src/utils/html');
 const CopyPlugin = require('copy-webpack-plugin');
+const fp = require("./src/blueprint/js/lray138fp.min.js");
+
 // const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
 // ✅ Detect “framework mode” when this config is running from /blueprint/webpack
@@ -36,12 +38,17 @@ const HAS_SITE_PAGES = (() => {
 })();
 
 module.exports = {
+    output: {
+  path: path.resolve(__dirname, 'dist'),
+  filename: 'js/[name].js',
+  assetModuleFilename: 'assets/[name][ext]',
+  clean: true
+},
   // ✅ In framework mode, build only blueprint.
   // ✅ Otherwise build site if present, fallback to blueprint.
   entry: IS_FRAMEWORK
-    ? BLUEPRINT_ENTRY
-    : (HAS_SITE_ENTRY ? './src/site/js/theme.js' : BLUEPRINT_ENTRY),
-
+  ? { theme: BLUEPRINT_ENTRY }
+  : { theme: (HAS_SITE_ENTRY ? './src/site/js/theme.js' : BLUEPRINT_ENTRY) },
   plugins: [
     // ✅ Always generate Blueprint pages
     ...(() => {
@@ -50,6 +57,8 @@ module.exports = {
       return getSitePages('./src/blueprint/pages').map(page => {
         const rel = path.relative(blueprintBase, page).replace(/\\/g, '/');
         const pageName = rel.replace(/\.ejs$/i, '');
+        const blueprintBaseUrl = IS_FRAMEWORK ? '' : '/blueprint';
+        const current_path = IS_FRAMEWORK ? `/${pageName}.html` : `${blueprintBaseUrl}/${pageName}.html`;
 
         return new HtmlWebpackPlugin({
           template: page,
@@ -58,9 +67,16 @@ module.exports = {
             readMarkdown,
             curryRequire,
             utils: {
+<<<<<<< HEAD
                 getAttributes
+=======
+                getAttributes,
+                fp
+>>>>>>> 7d0ab57ef01fc9fb9aee78afef0bffc6ac1365b7
             },
             base_url: IS_FRAMEWORK ? '' : '/blueprint'
+            ,
+            current_path
           },
           filename: IS_FRAMEWORK
             ? `./${pageName}.html`            // ✅ framework: blueprint is root
@@ -76,15 +92,21 @@ module.exports = {
       return getSitePages('./src/site/pages').map(page => {
         const rel = path.relative(appBase, page).replace(/\\/g, '/');
         const pageName = rel.replace(/\.ejs$/i, '');
+        const current_path = `/${pageName}.html`;
 
         return new HtmlWebpackPlugin({
           template: page,
           filename: `./${pageName}.html`,
           templateParameters: {
             readMarkdown,
+            utils: {
+                getAttributes,
+                fp
+            },
             curryRequire,
             escapeHtml,
             base_url: '',
+            current_path,
             dir_path: path.dirname(page)
           }
         });
@@ -92,7 +114,7 @@ module.exports = {
     })() : []),
 
     new MiniCssExtractPlugin({
-      filename: 'theme.css'
+      filename: 'css/[name].css'
     }),
 
     new CopyPlugin({
@@ -122,6 +144,11 @@ module.exports = {
   module: {
     rules: [
       { test: /\.ejs$/i, use: [{ loader: 'ejs-easy-loader' }] },
+      {
+      test: /\.(woff2?|eot|ttf|otf)$/i,
+      type: 'asset/resource',
+      generator: { filename: 'fonts/[name][ext]' },
+    },
       {
         test: /\.(png|svg|jpg|jpeg|gif|JPG)$/i,
         type: 'asset/resource',

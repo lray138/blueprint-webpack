@@ -1,5 +1,8 @@
 <% 
     var base_url = typeof base_url !== "undefined" ? base_url : "";
+    const { Kvm } = require("/blueprint/js/lray138fp.min.js");
+    const data = Kvm.of(locals);
+
     var nav_links = require('/blueprint/partials/components/list/index.ejs')({
         list_type: 'ul',
         class_names: 'nav col-12 col-md-auto mb-2 justify-content-center mb-md-0',
@@ -45,18 +48,20 @@
         class_names: 'd-inline-flex link-body-emphasis text-decoration-none'
     });
 
-    var flex_end_content = `<a href="${base_url}/contact/" class="btn btn-primary btn-lg">Contact</a>`;
+    var flex_end_content = `<a href="${base_url}/contact/" class="btn btn-primary btn-lg lift">Contact</a>`;
         var header_class_extras = 'mb-4 border-bottom';
         var section_extra_classes = typeof pin_top !== 'undefined' && pin_top ? 'pin-top' : '';
 
     var container_class = typeof fluid !== 'undefined' && fluid ? 'container-fluid' : 'container';
+    container_class = data.tryProp('fluid')
+        .fork(() => 'container', (y) => y.isTrue() ? 'container-fluid' : 'container');
 %>
-
-<nav class="navbar navbar-expand-lg py-0" aria-label="Offcanvas navbar large">
+<nav class="navbar navbar-expand-lg py-0" aria-label="Offcanvas navbar large"
+    data-bp-edit-url="/wp-admin/post.php?post=123&action=edit">
     <div class="<%= container_class %> border-bottom py-3 mb-3">
         <div class="col-md-3 mb-2 mb-md-0">
-                    <%- site_name_anchor %>
-                </div>
+            <%- site_name_anchor %>
+        </div>
                 
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar2" aria-controls="offcanvasNavbar2" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -69,18 +74,16 @@
             </div>
             <div class="offcanvas-body d-flex flex-wrap align-items-center text-center">
                 
-                <ul class="nav list-group list-group-sm col-12 col-md-auto mb-2 mb-md-0 flex-grow-1 pe-3 "> <!-- align-items-center justify-content-center justify-content-md-between -->
+                <ul class="nav list-group list-group-sm col-12 col-md-auto mb-2 mb-md-0 flex-grow-1 pe-3 "
+    data-bp-edit-url="/wp-admin/post.php?post=123&action=edit"> <!-- align-items-center justify-content-center justify-content-md-between -->
                     <li class="nav-item">
-                        <a class="nav-link" href="<%= base_url %>/about/">About</a>
+                        <a class="nav-link" href="<%= base_url %>/manifesto/">Manifesto</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="<%= base_url %>/features/">Features</a>
+                        <a class="nav-link active" aria-current="page" href="<%= base_url %>/showcase/">Showcase</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="<%= base_url %>/blog/">Blog</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<%= base_url %>/docs">Docs</a>
                     </li>
                     <!-- <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Dropdown </a>
@@ -107,6 +110,5 @@
             </div>
         </div>
     </div>
-
 </nav>
 

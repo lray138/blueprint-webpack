@@ -1,4 +1,5 @@
 <% 
+    var current_path = typeof current_path !== 'undefined' ? current_path : '';
 
 var base_url = base_url || '';
 
@@ -136,6 +137,7 @@ var content_static = `<!-- Section Heading -->
             `;
 
     var sections = require('/blueprint/partials/docs/sidebar/section.ejs')({
+        current_path,
         section_href: "/docs/",
         section_title: "Welcome",
         list_items: [
@@ -155,6 +157,7 @@ var content_static = `<!-- Section Heading -->
     })
     + 
     require("/blueprint/partials/docs/sidebar/section.ejs")({
+        current_path,
         section_href: "/docs/components/",
         section_title: "Components",
         list_items: [
@@ -173,24 +176,34 @@ var content_static = `<!-- Section Heading -->
             {
                 text: "Card",
                 href: "/docs/components/card.html"
+            },
+            {
+                text: "Quote",
+                href: "/docs/components/quote/"
             }
         ]
     })
     + 
     // PATTERNS
     require("/blueprint/partials/docs/sidebar/section.ejs")({
-        section_href: "/docs/components/",
+        current_path,
+        section_href: "/docs/patterns/",
         section_title: "Patterns",
         list_items: [
             {
                 text: "Hero",
                 href: "/docs/patterns/hero.html"
+            },
+            {
+                text: "Masonry",
+                href: "/docs/patterns/masonry/index.html"
             }
         ]
     })
     + 
     // PATTERNS
     require("/blueprint/partials/docs/sidebar/section.ejs")({
+        current_path,
         section_href: "/docs/wraps/",
         section_title: "Wraps",
         list_items: []
@@ -198,6 +211,7 @@ var content_static = `<!-- Section Heading -->
     + 
     // PATTERNS
     require("/blueprint/partials/docs/sidebar/section.ejs")({
+        current_path,
         section_href: base_url + "/docs/github/",
         section_title: "GITHUB",
         list_items: [
@@ -210,6 +224,104 @@ var content_static = `<!-- Section Heading -->
                 href: base_url + '/docs/github/wordpress.html'
             }
         ]
+    })
+    +
+    require("/blueprint/partials/docs/sidebar/section.ejs")({
+        current_path,
+        section_href: base_url + "/docs/lray138fp/",
+        section_title: "lray138fp",
+        list_items: [
+            {
+                text: 'Overview',
+                href: base_url + '/docs/lray138fp/index.html'
+            },
+            {
+                text: 'Usage',
+                href: base_url + '/docs/lray138fp/usage/index.html'
+            },
+            {
+                text: 'Tests',
+                href: base_url + '/docs/lray138fp/tests/index.html'
+            },
+            {
+                text: 'Types',
+                href: base_url + '/docs/lray138fp/types/index.html',
+                children_mode: 'active',
+                children: [
+                    {
+                        text: 'Kvm',
+                        href: base_url + '/docs/lray138fp/types/kvm/index.html'
+                    },
+                    {
+                        text: 'Lst',
+                        href: base_url + '/docs/lray138fp/types/lst/index.html'
+                    },
+                    {
+                        text: 'Maybe',
+                        href: base_url + '/docs/lray138fp/types/maybe/index.html'
+                    },
+                    {
+                        text: 'Result',
+                        href: base_url + '/docs/lray138fp/types/result/index.html'
+                    },
+                    {
+                        text: 'Str',
+                        href: base_url + '/docs/lray138fp/types/str/index.html'
+                    }
+                ]
+            }
+        ]
+    })
+    +
+    require("/blueprint/partials/docs/sidebar/section.ejs")({
+        current_path,
+        section_href: base_url + "/docs/lray138g2/",
+        section_title: "lray138/g2",
+        list_items: [
+            {
+                text: 'Overview',
+                href: base_url + '/docs/lray138g2/index.html'
+            },
+            {
+                text: 'Usage',
+                href: base_url + '/docs/lray138g2/usage/index.html'
+            },
+            {
+                text: 'Tests',
+                href: base_url + '/docs/lray138g2/tests/index.html'
+            },
+            {
+                text: 'Types',
+                href: base_url + '/docs/lray138g2/types/index.html',
+                children_mode: 'active',
+                children: [
+                    {
+                        text: 'Lst',
+                        href: base_url + '/docs/lray138g2/types/lst/index.html'
+                    },
+                    {
+                        text: 'Kvm',
+                        href: base_url + '/docs/lray138g2/types/kvm/index.html'
+                    },
+                    {
+                        text: 'Either',
+                        href: base_url + '/docs/lray138g2/types/either/index.html'
+                    },
+                    {
+                        text: 'Maybe',
+                        href: base_url + '/docs/lray138g2/types/maybe/index.html'
+                    },
+                    {
+                        text: 'Result',
+                        href: base_url + '/docs/lray138g2/types/result/index.html'
+                    },
+                    {
+                        text: 'Str',
+                        href: base_url + '/docs/lray138g2/types/str/index.html'
+                    }
+                ]
+            }
+        ]
     });
 %>
 <div class="col-12 col-lg-3 col-xl-2 px-lg-0 border-end-lg border-secondary">
@@ -217,12 +329,12 @@ var content_static = `<!-- Section Heading -->
         <div class="py-7 py-lg-9 px-3">
 
             <style>
-                me a.section-heading {
+                me .section-heading {
                     text-decoration: none;
                     color: inherit;
                 }
 
-                me a.section-heading:hover {
+                me .section-heading:hover {
                     text-decoration: underline;
                 }
 
@@ -232,6 +344,61 @@ var content_static = `<!-- Section Heading -->
             </style>
             
             <%- sections %>
+
+            <script>
+                (function () {
+                    const KEY_PREFIX = 'blueprint:docs-nav:';
+
+                    function getKey(collapseId) {
+                        return KEY_PREFIX + collapseId;
+                    }
+
+                    function setExpanded(btn, expanded) {
+                        btn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+                    }
+
+                    function setCollapseVisible(el, visible) {
+                        el.classList.toggle('show', !!visible);
+                    }
+
+                    window.addEventListener('DOMContentLoaded', function () {
+                        const toggles = Array.from(document.querySelectorAll('.section-toggle[aria-controls]'));
+                        if (!toggles.length) return;
+
+                        // 1) Restore saved state (if present). If no saved state, keep server-rendered defaults.
+                        toggles.forEach((btn) => {
+                            const collapseId = btn.getAttribute('aria-controls');
+                            if (!collapseId) return;
+                            const el = document.getElementById(collapseId);
+                            if (!el) return;
+
+                            const saved = localStorage.getItem(getKey(collapseId));
+                            if (saved == null) return;
+
+                            const visible = saved === 'open';
+                            setExpanded(btn, visible);
+                            setCollapseVisible(el, visible);
+                        });
+
+                        // 2) Track future opens/closes.
+                        toggles.forEach((btn) => {
+                            const collapseId = btn.getAttribute('aria-controls');
+                            if (!collapseId) return;
+                            const el = document.getElementById(collapseId);
+                            if (!el) return;
+
+                            el.addEventListener('shown.bs.collapse', function () {
+                                localStorage.setItem(getKey(collapseId), 'open');
+                                setExpanded(btn, true);
+                            });
+                            el.addEventListener('hidden.bs.collapse', function () {
+                                localStorage.setItem(getKey(collapseId), 'closed');
+                                setExpanded(btn, false);
+                            });
+                        });
+                    });
+                })();
+            </script>
         </div>
     </div>
 </div>

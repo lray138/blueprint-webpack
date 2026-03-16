@@ -21,12 +21,12 @@
                 <div class="row">
                     
                     <!-- Left Sidebar Navigation -->
-                    <%- require("/blueprint/partials/docs/sidebar.ejs")() %>
+          <%- require("/blueprint/partials/docs/sidebar.ejs")({ base_url, current_path }) %>
                     
                     <!-- Main Content -->
                     <div class="col-12 col-lg-6 col-xl-8 py-7 py-lg-9 px-lg-7" id="doc-content">
                         <!-- Page Title -->
-                        <h1 class="mb-2">Github</h1>
+                        <h1 class="mb-2">Components</h1>
                         <p class="fs-lg text-muted mb-3">Reference for local dev.</p>
                         
                         <!-- Github Scenarios -->

@@ -1,8 +1,19 @@
 <%
+<<<<<<< HEAD
     handleLocals = typeof utils !== "undefined" && typeof utils.handleLocals !== "undefined" 
         ? utils.handleLocals 
         : function(x) { return x; };
 
     __attributes__ = handleLocals(locals);
+=======
+    // this is what it would be like passing utilities in... 
+    // getAttributes = typeof utils !== "undefined" && typeof utils.getAttributes !== "undefined" 
+    //     ? utils.getAttributes 
+    //     : function(x) { return x; };
+    // __attributes__ = getAttributes(locals);
+
+    const getAttributes = require('/utils/html.js');
+    __attributes__ = getAttributes(locals);
+>>>>>>> 7d0ab57ef01fc9fb9aee78afef0bffc6ac1365b7
 %>
 <li<%- __attributes__ %>><%- content %></li>
