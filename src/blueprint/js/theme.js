@@ -139,10 +139,42 @@ const post = (endpoint, acceptHeader = 'json', data, success_callback) => {
 window.post = post;
 window.get = get;
 
-
+// put code here:
 (function () {
+    const STORAGE_KEY = 'bpEditEnabled';
 
-    if (!document.body.classList.contains('bp-edit')) return;
+    // Floating toggle (when no WP admin bar)
+    function initBpEditToggle() {
+        if (document.getElementById('wpadminbar')) return;
+
+        const body = document.body;
+        let enabled = localStorage.getItem(STORAGE_KEY);
+        if (enabled === null) {
+            enabled = body.classList.contains('bp-edit') ? '1' : '0';
+            localStorage.setItem(STORAGE_KEY, enabled);
+        } else if (enabled === '1') {
+            body.classList.add('bp-edit');
+        } else {
+            body.classList.remove('bp-edit');
+        }
+
+        let toggle = document.getElementById('bp-edit-floating-toggle');
+        if (!toggle) {
+            toggle = document.createElement('button');
+            toggle.id = 'bp-edit-floating-toggle';
+            toggle.type = 'button';
+            toggle.className = 'bp-edit-floating-toggle';
+            toggle.textContent = body.classList.contains('bp-edit') ? 'Edit: On' : 'Edit: Off';
+            toggle.setAttribute('aria-label', 'Toggle Blueprint edit mode');
+            toggle.addEventListener('click', function () {
+                body.classList.toggle('bp-edit');
+                localStorage.setItem(STORAGE_KEY, body.classList.contains('bp-edit') ? '1' : '0');
+                toggle.textContent = body.classList.contains('bp-edit') ? 'Edit: On' : 'Edit: Off';
+            });
+            document.body.appendChild(toggle);
+        }
+    }
+    initBpEditToggle();
 
     function getPostId() {
         return document.body?.dataset?.postId || null;
@@ -193,15 +225,17 @@ window.get = get;
         let btn = el.querySelector(':scope > .bp-edit-button');
         if (btn) return btn;
 
-        const url = el.dataset.bpEditUrl;
-        if (!url) return null;
+        const path = el.dataset.bpEditPath?.trim();
+        const url = el.dataset.bpEditUrl?.trim();
+        const href = path || url;
+        if (!href) return null;
 
         btn = document.createElement('a');
         btn.className = 'bp-edit-button';
-        btn.href = url;
+        btn.href = href;
         btn.target = '_blank';
         btn.rel = 'noopener';
-        btn.textContent = 'Edit';
+        btn.textContent = path ? 'Open file' : 'Edit';
         btn.style.display = 'none';
 
         const position = el.dataset.bpEditPosition === 'left' ? 'left' : 'right';
@@ -238,21 +272,23 @@ window.get = get;
         if (btn) btn.style.display = 'none';
     }
 
+    const editSelector = '[data-bp-edit-url], [data-bp-edit-path]';
+
     document.addEventListener('mouseover', function (e) {
-        const el = e.target.closest('[data-bp-edit-url]');
+        const el = e.target.closest(editSelector);
         if (!el) return;
 
-        const fromEl = e.relatedTarget?.closest?.('[data-bp-edit-url]');
+        const fromEl = e.relatedTarget?.closest?.(editSelector);
         if (fromEl === el) return;
 
         activate(el);
     });
 
     document.addEventListener('mouseout', function (e) {
-        const el = e.target.closest('[data-bp-edit-url]');
+        const el = e.target.closest(editSelector);
         if (!el) return;
 
-        const toEl = e.relatedTarget?.closest?.('[data-bp-edit-url]');
+        const toEl = e.relatedTarget?.closest?.(editSelector);
         if (toEl === el) return;
 
         deactivate(el);

@@ -2,9 +2,14 @@
     const { Kvm } = require("/blueprint/js/lray138fp.min.js");
     const L = Kvm.of(locals);
 
+    var globals = typeof globals !== "undefined" ? globals : {};
+
     var content = typeof content !== "undefined" ? content : "";
-    var header = require("/blueprint/partials/header.ejs")();
+    var header = require("/blueprint/partials/header.ejs")({
+        globals,
+    });
     var footer = require("/blueprint/partials/footer.ejs")();
+    
     content = header + content + footer;
 
     var head = typeof head !== "undefined" ? head : {};
@@ -34,7 +39,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title><%- meta_title %></title>
         <script src="https://cdn.jsdelivr.net/gh/gnat/surreal@main/surreal.js"></script>
-
 
         <% if (meta_description) { %>
             <meta name="description" content="<%- meta_description %>">
@@ -76,7 +80,7 @@
             <meta name="twitter:image" content="<%- meta_image %>">
         <% } %>
         </head>
-    <body class="d-flex flex-column min-vh-100">
+    <body class="d-flex flex-column min-vh-100 bp-edit">
         <%- content %>
         <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" class="astro-vvvwv3sm"></script>
     </body>

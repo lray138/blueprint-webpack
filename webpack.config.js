@@ -7,6 +7,15 @@ const escapeHtml = require('./src/blueprint/utils/escape-html');
 const curryRequire = require('./src/utils/require-curried');
 const getAttributes = require('./src/utils/html');
 const CopyPlugin = require('copy-webpack-plugin');
+
+const __dir__ = __dirname;
+const srcRoot = path.resolve(__dir__, 'src');
+const globals = {
+  src_root: srcRoot,
+  getBpEditPath: (relPath) =>
+    `cursor://file${path.resolve(srcRoot, relPath.replace(/^\//, ''))}`,
+};
+
 const fp = require("./src/blueprint/js/lray138fp.min.js");
 
 // const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
@@ -67,13 +76,10 @@ module.exports = {
             readMarkdown,
             curryRequire,
             utils: {
-<<<<<<< HEAD
-                getAttributes
-=======
                 getAttributes,
                 fp
->>>>>>> 7d0ab57ef01fc9fb9aee78afef0bffc6ac1365b7
             },
+            globals,
             base_url: IS_FRAMEWORK ? '' : '/blueprint'
             ,
             current_path
@@ -103,6 +109,7 @@ module.exports = {
                 getAttributes,
                 fp
             },
+            globals,
             curryRequire,
             escapeHtml,
             base_url: '',

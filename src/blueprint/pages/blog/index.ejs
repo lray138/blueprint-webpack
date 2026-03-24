@@ -1,8 +1,10 @@
 <%- require("/blueprint/templates/default.ejs")({
+    globals,
     head: {
         title: "Blog",
     },
     content: require("/blueprint/partials/wraps/section-one-col.ejs")({
+            path: "/blueprint/partials/wraps/section-one-col.ejs",
             attrs: {
                 section: {
                     class_add: "mt-5",
@@ -16,14 +18,8 @@
             require("/blueprint/partials/components/list/ul.ejs")({
                 list_items: [
                     {
-<<<<<<< HEAD
-                        class_names: "this-is-how-it-should-work",
-                        content: "test",
-                        utils
-=======
                         class_names: "test-again",
                         content: "test",
->>>>>>> 7d0ab57ef01fc9fb9aee78afef0bffc6ac1365b7
                     }
                 ]
             })

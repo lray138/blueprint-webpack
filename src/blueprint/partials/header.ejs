@@ -3,6 +3,8 @@
     const { Kvm } = require("/blueprint/js/lray138fp.min.js");
     const data = Kvm.of(locals);
 
+    var globals = typeof globals !== "undefined" ? globals : {};
+
     var nav_links = require('/blueprint/partials/components/list/index.ejs')({
         list_type: 'ul',
         class_names: 'nav col-12 col-md-auto mb-2 justify-content-center mb-md-0',
@@ -55,9 +57,13 @@
     var container_class = typeof fluid !== 'undefined' && fluid ? 'container-fluid' : 'container';
     container_class = data.tryProp('fluid')
         .fork(() => 'container', (y) => y.isTrue() ? 'container-fluid' : 'container');
+
+    
+    bpEditPath = globals.getBpEditPath ?  globals.getBpEditPath('/blueprint/partials/header.ejs') : '';
+
 %>
 <nav class="navbar navbar-expand-lg py-0" aria-label="Offcanvas navbar large"
-    data-bp-edit-url="/wp-admin/post.php?post=123&action=edit">
+    data-bp-edit-path="<%= bpEditPath %>">
     <div class="<%= container_class %> border-bottom py-3 mb-3">
         <div class="col-md-3 mb-2 mb-md-0">
             <%- site_name_anchor %>
@@ -66,7 +72,7 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar2" aria-controls="offcanvasNavbar2" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar2" aria-labelledby="offcanvasNavbar2Label">
+        <div class="offcanvas offcanvas-end" bp-edit-url="/wp-admin/post.php?post=123&action=edit" tabindex="-1" id="offcanvasNavbar2" aria-labelledby="offcanvasNavbar2Label">
             <div class="offcanvas-header">
                 <%- site_name_anchor %>
                 <!-- <h5 class="offcanvas-title" id="offcanvasNavbar2Label">Blueprint</h5> -->
@@ -75,15 +81,15 @@
             <div class="offcanvas-body d-flex flex-wrap align-items-center text-center">
                 
                 <ul class="nav list-group list-group-sm col-12 col-md-auto mb-2 mb-md-0 flex-grow-1 pe-3 "
-    data-bp-edit-url="/wp-admin/post.php?post=123&action=edit"> <!-- align-items-center justify-content-center justify-content-md-between -->
+    data-bp-edit-path="<%= bpEditPath %>"> <!-- align-items-center justify-content-center justify-content-md-between -->
                     <li class="nav-item">
-                        <a class="nav-link" href="<%= base_url %>/manifesto/">Manifesto</a>
+                        <a class="nav-link" href="<%= base_url %>/about/">About</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="<%= base_url %>/showcase/">Showcase</a>
+                        <a class="nav-link active" aria-current="page" href="<%= base_url %>/blog/">Blog</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<%= base_url %>/blog/">Blog</a>
+                        <a class="nav-link" href="<%= base_url %>/docs/">Docs</a>
                     </li>
                     <!-- <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Dropdown </a>

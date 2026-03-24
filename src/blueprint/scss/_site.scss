@@ -252,7 +252,8 @@ ul.nav.list-group.list-group-sm > .nav-item > .nav-link {
 
 /* Only enable Blueprint editing UI when edit mode is on */
 /* Only activate edit system when body has .bp-edit */
-.bp-edit [data-bp-edit-url] {
+.bp-edit [data-bp-edit-url],
+.bp-edit [data-bp-edit-path] {
     position: relative;
 }
 
@@ -300,4 +301,28 @@ ul.nav.list-group.list-group-sm > .nav-item > .nav-link {
 
 .bp-edit .bp-edit-button.is-right {
     right: 0.5rem;
+}
+
+/* Floating toggle (when no WP admin bar) */
+.bp-edit-floating-toggle {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    z-index: 9999;
+    padding: 0.4rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1;
+    border: 1px solid currentColor;
+    background: #fff;
+    cursor: pointer;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+.bp-edit-floating-toggle:hover {
+    background: #f8f9fa;
+}
+.bp-edit .bp-edit-floating-toggle {
+    border-color: var(--bs-primary);
+    color: var(--bs-primary);
 }
