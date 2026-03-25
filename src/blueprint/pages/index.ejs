@@ -1,5 +1,9 @@
 <%
 
+var { loadWpPageFromCache } = require("/utils/filesystem.js");
+
+var page = loadWpPageFromCache("home");
+
 var content = require("/blueprint/partials/components/wrap/section-one-col.ejs")({
         utils,
     content: require("/blueprint/partials/components/image/index.ejs")({
@@ -41,10 +45,10 @@ and designed for the long game.
 `})
 
 %>
-<!-- call template -->
 <%- require("/blueprint/templates/default.ejs")({
+    globals,
     head: {
-        title: "Blueprint",
+        title: page ? page.title : "Blueprint",
     },
     content,
 })

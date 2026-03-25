@@ -2,6 +2,22 @@ const fs = require('fs');
 const path = require('path');
 const { marked } = require('marked');
 
+/** Same filename rules as getPage.js (keep in sync). */
+function wpCacheFilePath(slug, cacheDir) {
+    const safe = String(slug).replace(/[^a-zA-Z0-9-_]/g, '_') || 'page';
+    return path.join(cacheDir, `${safe}.json`);
+}
+
+/** Try several roots: HtmlWebpackPlugin cwd is usually `webpack/`, but not always. */
+function wpCacheDirCandidates() {
+    const fromThisFile = path.resolve(__dirname, '../../.cache/blueprint-wp');
+    return [
+        fromThisFile,
+        path.join(process.cwd(), '.cache', 'blueprint-wp'),
+        path.join(process.cwd(), 'webpack', '.cache', 'blueprint-wp'),
+    ];
+}
+
 // Function to recursively get all .ejs files (site pages)
 const getSitePages = (dir) => {
     let results = [];
@@ -46,7 +62,33 @@ const readMarkdown = (filePath, callerDir = null) => {
     }
 };
 
+/**
+ * Sync-read a Blueprint page JSON from the same cache `getPage` / `npm run sync:wp` uses
+ * (webpack/.cache/blueprint-wp/{slug}.json). Use in EJS during build.
+ *
+ * @param {string} slug - WordPress slug (e.g. "home")
+ * @returns {object|null} Parsed payload or null if missing / unreadable
+ */
+function loadWpPageFromCache(slug) {
+    const seen = new Set();
+    for (const dir of wpCacheDirCandidates()) {
+        if (seen.has(dir)) continue;
+        seen.add(dir);
+        const filePath = wpCacheFilePath(slug, dir);
+        if (!fs.existsSync(filePath)) {
+            continue;
+        }
+        try {
+            return JSON.parse(fs.readFileSync(filePath, 'utf8'));
+        } catch {
+            /* try next candidate */
+        }
+    }
+    return null;
+}
+
 module.exports = {
     getSitePages,
-    readMarkdown
+    readMarkdown,
+    loadWpPageFromCache,
 };

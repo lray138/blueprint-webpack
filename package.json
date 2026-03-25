@@ -7,7 +7,8 @@
     "build": "webpack --mode=production",
     "build:portfolio": "SITE_DIR=portfolio webpack --mode=production",
     "server": "webpack serve --mode=development --open",
-    "server:portfolio": "SITE_DIR=portfolio webpack serve --mode=development --open"
+    "server:portfolio": "SITE_DIR=portfolio webpack serve --mode=development --open",
+    "sync:wp": "node scripts/fetch-wp-pages.js"
   },
   "keywords": [],
   "author": "",
