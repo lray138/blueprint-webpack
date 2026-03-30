@@ -1,0 +1,95 @@
+<%
+/**
+ * Docs: component / partial parameter reference (Bootstrap table).
+ *
+ * Locals:
+ *   title (string, optional)
+ *       Optional <h3> above the table.
+ *   intro (string, optional)
+ *       Short paragraph under the title (plain text, escaped).
+ *   properties (array, required)
+ *       Each row object:
+ *         name (string)        — parameter name
+ *         type (string)        — type label; rendered inside <code>
+ *         description (string) — plain text (HTML-escaped). For inline
+ *                                markup, pass descriptionHtml instead.
+ *         descriptionHtml (string, optional)
+ *                                Raw HTML for the description cell; only use
+ *                                for trusted docs content. Ignored if empty.
+ *         required (boolean|string)
+ *                                true → "Yes", false → "No"; or any string
+ *                                (e.g. "Conditional") shown as-is.
+ *         default (string, optional)
+ *                                Omitted or empty → "-". Otherwise shown;
+ *                                wrapDefaultInCode (default true) wraps in <code>.
+ *         wrapDefaultInCode (boolean, optional)
+ *                                Set false for prose defaults.
+ *   tableClass (string, optional)
+ *       Extra classes on <table> (default: "table").
+ *   caption (string, optional)
+ *       Muted note below the table.
+ */
+    var properties = properties || [];
+    var title = typeof title !== 'undefined' ? title : null;
+    var intro = typeof intro !== 'undefined' ? intro : null;
+    var caption = typeof caption !== 'undefined' ? caption : null;
+    var tableClass = typeof tableClass !== 'undefined' ? tableClass : 'table';
+
+    function requiredCell(req) {
+        if (req === true) return 'Yes';
+        if (req === false) return 'No';
+        if (req === undefined || req === null || req === '') return '-';
+        return String(req);
+    }
+
+    function defaultCell(prop) {
+        var d = prop.default;
+        var empty = d === undefined || d === null || d === '';
+        if (empty) return { dash: true };
+        var wrap = prop.wrapDefaultInCode !== false;
+        return { dash: false, value: String(d), wrap: wrap };
+    }
+%>
+<% if (title) { %>
+<h3 class="mb-2"><%= title %></h3>
+<% } %>
+<% if (intro) { %>
+<p class="text-muted mb-3"><%= intro %></p>
+<% } %>
+<div class="table-responsive mb-4">
+    <table class="<%= tableClass %>">
+        <thead>
+            <tr>
+                <th scope="col">Property</th>
+                <th scope="col">Type</th>
+                <th scope="col">Description</th>
+                <th scope="col">Required</th>
+                <th scope="col">Default</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% properties.forEach(function (prop) {
+                var def = defaultCell(prop);
+            %>
+            <tr>
+                <td><strong><%= prop.name %></strong></td>
+                <td><code><%= prop.type %></code></td>
+                <td>
+                    <% if (prop.descriptionHtml) { %>
+                        <%- prop.descriptionHtml %>
+                    <% } else { %>
+                        <%= prop.description != null ? prop.description : '' %>
+                    <% } %>
+                </td>
+                <td><%= requiredCell(prop.required) %></td>
+                <td>
+                    <% if (def.dash) { %>-<% } else if (def.wrap) { %><code><%= def.value %></code><% } else { %><%= def.value %><% } %>
+                </td>
+            </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</div>
+<% if (caption) { %>
+<p class="small text-muted mb-0"><%= caption %></p>
+<% } %>

@@ -340,63 +340,14 @@
                         </div></div></section>
 
 
-                        <table class="table">
-    <thead>
-        <tr>
-            <th>Property</th>
-            <th>Type</th>
-            <th>Description</th>
-            <th>Required</th>
-            <th>Default</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>
-                <strong>content</strong>
-            </td>
-            <td>
-                <code>string</code>
-            </td>
-            <td> Inner HTML markup</td>
-            <td>Yes</td>
-            <td>-</td>
-        </tr>
-        <tr>
-            <td>
-                <strong>attribution</strong>
-            </td>
-            <td>
-                <code>string</code>
-            </td>
-            <td> quote attribution</td>
-            <td>No</td>
-            <td>-</td>
-        </tr>
-        <tr>
-            <td>
-                <strong>image</strong>
-            </td>
-            <td>
-                <code>integer</code>
-            </td>
-            <td> WordPress image ID</td>
-            <td>No</td>
-            <td>-</td>
-        </tr>
-        <tr>
-            <td>
-                <strong>class</strong>
-            </td>
-            <td>
-                <code>string</code>
-            </td>
-            <td> list of additional classes to apply to main element.</td>
-            <td>No</td>
-            <td>-</td>
-        </tr>
-    </tbody>
-</table>
+                        <%- require("/blueprint/partials/docs/component-props-table.ejs")({
+                            properties: [
+                                { name: 'content', type: 'string', description: 'Inner HTML markup', required: true },
+                                { name: 'attribution', type: 'string', description: 'Quote attribution', required: false },
+                                { name: 'image', type: 'integer', description: 'WordPress image ID', required: false },
+                                { name: 'class', type: 'string', description: 'Additional classes for the root element', required: false },
+                            ],
+                        }) %>
 
                     </div>
 

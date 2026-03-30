@@ -16,6 +16,143 @@
             };
 
             var carouselMarkup = require("/blueprint/partials/components/carousel/index.ejs")();
+
+            // Build EJS open/close tokens with string concat so the compiler does not treat example source as real tags.
+            var _eo = '<' + '%';
+            var _ec = '%' + '>';
+            var _ee = _eo + '=';
+            var _en = _eo + '-';
+
+            var carouselEjs = _eo + `
+    var items = [
+        {
+            active: true,
+            src: '/img/blueprint/covers/outkast-is-everlasting.jpg',
+            alt: 'Image 2',
+        },
+        {
+            active: false,
+            src: '/img/blueprint/covers/get-in-loser.jpg',
+            alt: 'Image 1',
+        },
+    ]
+    .map(item => require("./item.ejs")(item))
+    .join('');
+
+    var carousel_id = "carouselExample";
+    var ride = "carousel";
+    var controls = require("./controls.ejs")({
+        carousel_id
+    });
+    var indicators = require("./indicators.ejs")({
+        carousel_id
+    });
+` + _ec + `
+<div id="` + _ee + ` carousel_id ` + _ec + `" class="carousel slide carousel-fade" data-bs-interval="7000" data-bs-ride="` + _ee + ` ride ` + _ec + `">
+    ` + _en + ` indicators ` + _ec + `
+    <div class="carousel-inner">
+        ` + _en + ` items ` + _ec + `
+    </div>
+    ` + _en + ` controls ` + _ec + `
+</div>`;
+
+            var carouselItemEjs = _eo + `
+    // var src = '/img/carousel/1.jpg';
+    var alt = '';
+    
+    var item_class = 'carousel-item';
+    if(active) {
+        item_class += ' active';
+    }
+` + _ec + `
+<div class="` + _ee + ` item_class ` + _ec + `">
+    <img class="d-block w-100" src="` + _ee + ` src ` + _ec + `" alt="` + _ee + ` alt ` + _ec + `">
+</div>`;
+
+            var carouselControlsEjs = `<button class="carousel-control-prev" type="button" data-bs-target="#` + _ee + ` carousel_id ` + _ec + `" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+<button class="carousel-control-next" type="button" data-bs-target="#` + _ee + ` carousel_id ` + _ec + `" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+</button>`;
+
+            var carouselIndicatorsEjs = _eo + `
+    var buttons = require("./indicator-button.ejs")({
+        active: true,
+        index: 0,
+        label: "Slide 1",
+        carousel_id,
+    })
+    + require("./indicator-button.ejs")({
+        active: false,
+        index: 1,
+        label: "Slide 2",
+        carousel_id,
+    })
+` + _ec + `
+<div class="carousel-indicators">
+   ` + _en + ` buttons ` + _ec + `
+</div>`;
+
+            var carouselPhp = `<?php
+# start use
+# end use
+
+return function($data = []) { 
+	# start data processing
+    extract($data);
+    # end data processing
+	return "<div id=\\"{$carousel_id}\\" class=\\"carousel slide carousel-fade\\" data-bs-interval=\\"7000\\" data-bs-ride=\\"{$ride}\\">{$indicators}<div class=\\"carousel-inner\\">{$items}</div>{$controls}</div><style>
+/* default slow fade */
+.carousel.carousel-fade .carousel-item {
+  opacity: 0;
+  transition: opacity 3s ease-in-out;
+}
+
+.carousel.carousel-fade .carousel-item.active,
+.carousel.carousel-fade .carousel-item-next.carousel-item-start,
+.carousel.carousel-fade .carousel-item-prev.carousel-item-end {
+  opacity: 1;
+}
+
+.carousel.carousel-fade .active.carousel-item-start,
+.carousel.carousel-fade .active.carousel-item-end {
+  opacity: 0;
+}
+
+/* fast fade when user clicks */
+.carousel.carousel-fade.fast-fade .carousel-item {
+  transition: opacity 0.75s ease-in-out;
+}
+
+</style><script>
+document.querySelectorAll(\\".carousel\\").forEach(carousel => {
+
+const setFast = () => carousel.classList.add(\\"fast-fade\\");
+const setSlow = () => carousel.classList.remove(\\"fast-fade\\");
+
+// when user clicks next/prev
+carousel.querySelectorAll(\\"[data-bs-slide]\\").forEach(btn => {
+  btn.addEventListener(\\"pointerdown\\", () => {
+    console.log(\\"fast fade\\");
+    setFast();
+  });
+});
+
+// after slide completes, revert to slow
+carousel.addEventListener(\\"slid.bs.carousel\\", () => {
+  setSlow();
+});
+
+});
+
+
+</script>";
+};
+
+# src: webpack/src/blueprint/partials/components/carousel/index.ejs`;
         %>
         <!-- Header -->
         <div class="container-fluid">
@@ -93,6 +230,40 @@
                                     id: 'carousel-html',
                                     text: 'HTML',
                                     content: codeBlock('html', carouselMarkup)
+                                }
+                            ]
+                        }) %>
+
+                        <h3 class="mt-4 mb-2">Implementation breakdown</h3>
+                        <p>Here is how the carousel is split into EJS partials and compiled into PHP.</p>
+
+                        <%- require("/blueprint/partials/components/tabs/index.ejs")({
+                            items: [
+                                {
+                                    id: 'carousel-ejs-index',
+                                    text: 'EJS: index.ejs',
+                                    selected: true,
+                                    content: codeBlock('ejs', carouselEjs)
+                                },
+                                {
+                                    id: 'carousel-ejs-item',
+                                    text: 'EJS: item.ejs',
+                                    content: codeBlock('ejs', carouselItemEjs)
+                                },
+                                {
+                                    id: 'carousel-ejs-controls',
+                                    text: 'EJS: controls.ejs',
+                                    content: codeBlock('ejs', carouselControlsEjs)
+                                },
+                                {
+                                    id: 'carousel-ejs-indicators',
+                                    text: 'EJS: indicators.ejs',
+                                    content: codeBlock('ejs', carouselIndicatorsEjs)
+                                },
+                                {
+                                    id: 'carousel-php-compiled',
+                                    text: 'PHP: compiled',
+                                    content: codeBlock('php', carouselPhp)
                                 }
                             ]
                         }) %>
