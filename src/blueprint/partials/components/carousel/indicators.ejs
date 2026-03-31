@@ -1,16 +1,28 @@
 <% 
-    var buttons = require("./indicator-button.ejs")({
-        active: true,
-        index: 0,
-        label: "Slide 1",
-        carousel_id,
-    })
-    + require("./indicator-button.ejs")({
-        active: false,
-        index: 1,
-        label: "Slide 2",
-        carousel_id,
-    })
+    var indicator_items = items || [];
+    if (!indicator_items.length) {
+        indicator_items = [
+            {
+                active: true,
+                index: 0,
+                label: "Slide 1",
+            },
+            {
+                active: false,
+                index: 1,
+                label: "Slide 2",
+            }
+        ];
+    }
+
+    var buttons = indicator_items
+        .map((item, idx) => require("./indicator-button.ejs")({
+            active: typeof item.active !== 'undefined' ? item.active : idx === 0,
+            index: typeof item.index !== 'undefined' ? item.index : idx,
+            label: item.label,
+            carousel_id,
+        }))
+        .join('');
 %>
 <div class="carousel-indicators">
    <%- buttons %>

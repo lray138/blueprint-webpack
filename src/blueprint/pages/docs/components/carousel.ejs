@@ -8,6 +8,16 @@
     </head>
     <body class="d-flex flex-column min-vh-100">
         <%
+            var path = require('path');
+            function vscodeFileHref(relFromWebpackRoot) {
+                var abs = path.resolve(process.cwd(), relFromWebpackRoot).replace(/\\/g, '/');
+                if (/^[a-zA-Z]:/.test(abs)) {
+                    return 'vscode://file/' + abs;
+                }
+                return 'vscode://file//' + abs.replace(/^\/+/, '');
+            }
+            var carouselIndexEditHref = vscodeFileHref('src/blueprint/partials/components/carousel/index.ejs');
+
             var codeBlock = function(language, content) {
                 return require("/blueprint/partials/components/code-block/index.ejs")({
                     content: content,
@@ -31,7 +41,7 @@
                 <div class="row">
                     
                     <!-- Left Sidebar Navigation -->
-          <%- require("/blueprint/partials/docs/sidebar.ejs")({ base_url, current_path }) %>
+                    <%- require("/blueprint/partials/docs/sidebar.ejs")({ base_url, current_path }) %>
                     
                     <!-- Main Content -->
                     <div class="col-12 col-lg-6 col-xl-8 py-7 py-lg-9 px-lg-7" id="doc-content">
@@ -40,8 +50,30 @@
                         <p class="fs-lg text-muted mb-3">Showcase a set of images or content in a rotating slideshow. See full documentation
                              <a href="https://getbootstrap.com/docs/5.3/components/carousel/" target="_blank">https://getbootstrap.com/docs/5.3/components/carousel/</a>.</p>
 
+                        <h3 class="mb-2">Standard</h3>
+                        <p>A standard carousel using the Blueprint component partial.</p>
+
+                        <%- require("/blueprint/partials/components/tabs/index.ejs")({
+                            items: [
+                                {
+                                    id: 'carousel-preview',
+                                    text: 'Preview',
+                                    selected: true,
+                                    content: carouselMarkup
+                                },
+                                {
+                                    id: 'carousel-html',
+                                    text: 'HTML',
+                                    content: codeBlock('html', carouselMarkup)
+                                }
+                            ]
+                        }) %>
+
+                        <hr class="my-4"/>
+
                         <%- require("/blueprint/partials/docs/component-props-table.ejs")({
                             title: 'Carousel partial (index.ejs)',
+                            edit: carouselIndexEditHref,
                             intro: 'Include with no arguments. Slides and options are set inside the partial file.',
                             properties: [
                                 { name: 'carousel_id', type: 'string', description: 'Root element id; must match data-bs-target on controls and indicators.', required: false, default: 'carouselExample' },
@@ -77,28 +109,7 @@
                                 { name: 'carousel_id', type: 'string', description: 'Target carousel id for data-bs-target.', required: true },
                             ],
                         }) %>
-                        
-                        <h3 class="mb-2">Standard</h3>
-                        <p>A standard carousel using the Blueprint component partial.</p>
 
-                        <%- require("/blueprint/partials/components/tabs/index.ejs")({
-                            items: [
-                                {
-                                    id: 'carousel-preview',
-                                    text: 'Preview',
-                                    selected: true,
-                                    content: carouselMarkup
-                                },
-                                {
-                                    id: 'carousel-html',
-                                    text: 'HTML',
-                                    content: codeBlock('html', carouselMarkup)
-                                }
-                            ]
-                        }) %>
-
-                        <hr class="my-4"/>
-                        
                         <%- require("/blueprint/partials/components/nav-pager/index.ejs")({
                             next: "<a href='/tutorials/webpack-html/project-setup/index.html' class='nav-pager-item'><div class='text-uppercase small text-muted'>Next</div><p class='mb-0'>Welcome (to the Jungle)</p></a>"
                         }) %>

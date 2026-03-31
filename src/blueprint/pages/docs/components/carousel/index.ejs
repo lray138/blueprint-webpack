@@ -8,6 +8,16 @@
     </head>
     <body class="d-flex flex-column min-vh-100">
         <%
+            var path = require('path');
+            function vscodeFileHref(relFromWebpackRoot) {
+                var abs = path.resolve(process.cwd(), relFromWebpackRoot).replace(/\\/g, '/');
+                if (/^[a-zA-Z]:/.test(abs)) {
+                    return 'vscode://file/' + abs;
+                }
+                return 'vscode://file//' + abs.replace(/^\/+/, '');
+            }
+            var carouselIndexEditHref = vscodeFileHref('src/blueprint/partials/components/carousel/index.ejs');
+
             var codeBlock = function(language, content) {
                 return require("/blueprint/partials/components/code-block/index.ejs")({
                     content: content,
@@ -24,28 +34,28 @@
             var _en = _eo + '-';
 
             var carouselEjs = _eo + `
-    var items = [
-        {
-            active: true,
-            src: '/img/blueprint/covers/outkast-is-everlasting.jpg',
-            alt: 'Image 2',
-        },
-        {
-            active: false,
-            src: '/img/blueprint/covers/get-in-loser.jpg',
-            alt: 'Image 1',
-        },
-    ]
-    .map(item => require("./item.ejs")(item))
-    .join('');
+    var { Lst } = require("/blueprint/js/lray138fp.min.js");
+    var defaultSlides = require("/blueprint/data/static/carousel.json").slides || [];
+    var slides = typeof slides !== 'undefined' && slides ? slides : defaultSlides;
+    var items = Lst.of(slides)
+        .map(item => require("./item.ejs")(item))
+        .join('');
 
     var carousel_id = "carouselExample";
     var ride = "carousel";
     var controls = require("./controls.ejs")({
         carousel_id
     });
+    var indicator_items = typeof indicator_items !== 'undefined' && indicator_items
+        ? indicator_items
+        : slides.map((slide, index) => ({
+            active: !!slide.active,
+            index,
+            label: slide.label || slide.alt || ("Slide " + (index + 1)),
+        }));
     var indicators = require("./indicators.ejs")({
-        carousel_id
+        carousel_id,
+        items: indicator_items
     });
 ` + _ec + `
 <div id="` + _ee + ` carousel_id ` + _ec + `" class="carousel slide carousel-fade" data-bs-interval="7000" data-bs-ride="` + _ee + ` ride ` + _ec + `">
@@ -79,18 +89,30 @@
 </button>`;
 
             var carouselIndicatorsEjs = _eo + `
-    var buttons = require("./indicator-button.ejs")({
-        active: true,
-        index: 0,
-        label: "Slide 1",
-        carousel_id,
-    })
-    + require("./indicator-button.ejs")({
-        active: false,
-        index: 1,
-        label: "Slide 2",
-        carousel_id,
-    })
+    var indicator_items = items || [];
+    if (!indicator_items.length) {
+        indicator_items = [
+            {
+                active: true,
+                index: 0,
+                label: "Slide 1",
+            },
+            {
+                active: false,
+                index: 1,
+                label: "Slide 2",
+            }
+        ];
+    }
+
+    var buttons = indicator_items
+        .map((item, idx) => require("./indicator-button.ejs")({
+            active: typeof item.active !== 'undefined' ? item.active : idx === 0,
+            index: typeof item.index !== 'undefined' ? item.index : idx,
+            label: item.label,
+            carousel_id,
+        }))
+        .join('');
 ` + _ec + `
 <div class="carousel-indicators">
    ` + _en + ` buttons ` + _ec + `
@@ -179,6 +201,7 @@ carousel.addEventListener(\\"slid.bs.carousel\\", () => {
 
                         <%- require("/blueprint/partials/docs/component-props-table.ejs")({
                             title: 'Carousel partial (index.ejs)',
+                            edit: carouselIndexEditHref,
                             intro: 'Include with no arguments. Slides and options are set inside the partial file.',
                             properties: [
                                 { name: 'carousel_id', type: 'string', description: 'Root element id; must match data-bs-target on controls and indicators.', required: false, default: 'carouselExample' },
@@ -228,7 +251,7 @@ carousel.addEventListener(\\"slid.bs.carousel\\", () => {
                                 },
                                 {
                                     id: 'carousel-html',
-                                    text: 'HTML',
+                                    text: 'Source HTML',
                                     content: codeBlock('html', carouselMarkup)
                                 }
                             ]
@@ -241,7 +264,7 @@ carousel.addEventListener(\\"slid.bs.carousel\\", () => {
                             items: [
                                 {
                                     id: 'carousel-ejs-index',
-                                    text: 'EJS: index.ejs',
+                                    text: 'Entry EJS (index.ejs)',
                                     selected: true,
                                     content: codeBlock('ejs', carouselEjs)
                                 },

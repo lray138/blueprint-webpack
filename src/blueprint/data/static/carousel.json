@@ -1,0 +1,16 @@
+{
+  "slides": [
+    {
+      "active": true,
+      "src": "/img/blueprint/covers/outkast-is-everlasting.jpg",
+      "alt": "Image 2",
+      "label": "Outkast: Everlasting"
+    },
+    {
+      "active": false,
+      "src": "/img/blueprint/covers/get-in-loser.jpg",
+      "alt": "Image 1",
+      "label": "Get in, Loser"
+    }
+  ]
+}

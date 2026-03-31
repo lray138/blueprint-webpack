@@ -1,8 +1,13 @@
 <% 
     // var src = '/img/carousel/1.jpg';
-    var alt = '';
+
+    const { Kvm } = require("/blueprint/js/lray138fp.min.js");
+
+    var data = Kvm.of(locals);
+    var alt = data.tryProp('alt').getOrElse('');
     
     var item_class = 'carousel-item';
+    
     if(active) {
         item_class += ' active';
     }

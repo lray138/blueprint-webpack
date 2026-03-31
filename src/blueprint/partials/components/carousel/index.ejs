@@ -1,26 +1,30 @@
 <% 
-    var items = [
-        {
-            active: true,
-            src: '/img/blueprint/covers/outkast-is-everlasting.jpg',
-            alt: 'Image 2',
-        },
-        {
-            active: false,
-            src: '/img/blueprint/covers/get-in-loser.jpg',
-            alt: 'Image 1',
-        },
-    ]
-    .map(item => require("./item.ejs")(item))
-    .join('');
+    var { Lst } = require("/blueprint/js/lray138fp.min.js");
+    var defaultSlides = require("/blueprint/data/static/carousel.json").slides || [];
+    var slides = typeof slides !== 'undefined' && slides ? slides : defaultSlides;
 
-    var carousel_id = "carouselExample";
+    var items = Lst.of(slides)
+        .map(item => require("./item.ejs")(item))
+        .join('');
+
+    var carousel_id = "carousel";
     var ride = "carousel";
+    
     var controls = require("./controls.ejs")({
         carousel_id
     });
+    
+    var indicator_items = typeof indicator_items !== 'undefined' && indicator_items
+        ? indicator_items
+        : slides.map((slide, index) => ({
+            active: !!slide.active,
+            index,
+            label: slide.label || slide.alt || ("Slide " + (index + 1)),
+        }));
+
     var indicators = require("./indicators.ejs")({
-        carousel_id
+        carousel_id,
+        items: indicator_items
     });
 %>
 <div id="<%= carousel_id %>" class="carousel slide carousel-fade" data-bs-interval="7000" data-bs-ride="<%= ride %>">
@@ -74,6 +78,4 @@ carousel.addEventListener("slid.bs.carousel", () => {
 });
 
 });
-
-
 </script>

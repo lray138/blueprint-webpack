@@ -7,6 +7,10 @@
  *       Optional <h3> above the table.
  *   intro (string, optional)
  *       Short paragraph under the title (plain text, escaped).
+ *   edit (string, optional)
+ *       URL to open the source (e.g. vscode://file/...). Renders the word
+ *       "edit" as a link directly under the title when both title and edit
+ *       are set.
  *   properties (array, required)
  *       Each row object:
  *         name (string)        — parameter name
@@ -31,6 +35,8 @@
  */
     var properties = properties || [];
     var title = typeof title !== 'undefined' ? title : null;
+    // Do not `var edit = …edit…`: hoisting would shadow the passed-in `edit` local and always yield null.
+    var editUrl = (typeof edit !== 'undefined' && edit !== null && edit !== '') ? edit : null;
     var intro = typeof intro !== 'undefined' ? intro : null;
     var caption = typeof caption !== 'undefined' ? caption : null;
     var tableClass = typeof tableClass !== 'undefined' ? tableClass : 'table';
@@ -52,6 +58,9 @@
 %>
 <% if (title) { %>
 <h3 class="mb-2"><%= title %></h3>
+<% if (editUrl) { %>
+<p class="small mb-2"><a href="<%= editUrl %>">edit</a></p>
+<% } %>
 <% } %>
 <% if (intro) { %>
 <p class="text-muted mb-3"><%= intro %></p>
