@@ -1,0 +1,18 @@
+<%- require("/blueprint/templates/universal.ejs")({
+    content: require("/blueprint/partials/wraps/section-one-col.ejs")({
+        path: "/blueprint/partials/wraps/section-one-col.ejs",
+        attrs: {
+            section: {
+                class_add: "mt-5",
+            }
+        },
+        content:
+            require("/blueprint/partials/patterns/page-header/index.ejs")({
+                heading: "Gallery",
+                text: "A collection of images.",
+            }) +
+            require("/blueprint/partials/components/muuri/grid.ejs")({
+                attrs: { class: "mt-4 mb-4", id: "gallery-demo" },
+            })
+    })
+}) %>

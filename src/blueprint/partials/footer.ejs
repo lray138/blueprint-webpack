@@ -70,15 +70,14 @@
         footer_class_add += " ";
     }
 
-
     var footer_class = Lst.of(["mt-auto mt-1"]);
 
-    var container_class = ls.try("fluid")
-        .fork(
+    var container_class = ls.tryProp("fluid")
+        .fold(
             () => 'container',
-            (x) => x.isTrue() ? "container-fluid" : "container"
+            (x) => x.extract() === "true" ? "container-fluid" : "container"
         );
-    
+
 %>
 <footer class="mt-auto mt-1 px-2 <%= footer_class_add %>">
     <div class="<%= container_class %>">

@@ -1,0 +1,14 @@
+<%- require("/blueprint/templates/default.ejs")({
+    content: require("/blueprint/partials/wraps/section-one-col.ejs")({
+        path: "/blueprint/partials/wraps/section-one-col.ejs",
+        attrs: {
+            section: {
+                class_add: "mt-5",
+            }
+        },
+        content: require("/blueprint/partials/patterns/page-header/index.ejs")({
+            heading: "Pages",
+            text: "A collection of pages."
+        })
+    })
+}) %>

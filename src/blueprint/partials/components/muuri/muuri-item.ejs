@@ -1,0 +1,34 @@
+<%
+    /**
+     * Single Muuri tile + BigPicture trigger.
+     * Locals: item ({ id, src, alt, caption?, fullSrc? }), bpGalleryOpts (JSON string for data-bigpicture)
+     */
+    var item = typeof item !== "undefined" ? item : {};
+    var bpGalleryOpts = typeof bpGalleryOpts !== "undefined" ? bpGalleryOpts : "{}";
+    var thumbSrc = item.src || "";
+    var fullSrc = item.fullSrc || item.src || "";
+%>
+<div class="muuri-item" data-item-id="<%= item.id %>">
+    <div class="muuri-item-content">
+        <figure class="position-relative mb-0 muuri-item-figure">
+            <a
+                href="<%= fullSrc %>"
+                class="muuri-item-lightbox d-block text-decoration-none"
+                data-bp="<%= fullSrc %>"
+                data-bigpicture='<%- bpGalleryOpts %>'
+                <% if (item.caption) { %>data-caption="<%= item.caption %>"<% } %>
+            >
+                <img
+                    class="muuri-item-img w-100 rounded"
+                    src="<%- thumbSrc %>"
+                    alt="<%- item.alt %>"
+                    loading="lazy"
+                    decoding="async"
+                />
+            </a>
+            <% if (item.caption) { %>
+            <figcaption class="small text-secondary mt-1 px-1"><%- item.caption %></figcaption>
+            <% } %>
+        </figure>
+    </div>
+</div>

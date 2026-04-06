@@ -1,0 +1,53 @@
+<%
+    /**
+     * Muuri masonry grid + BigPicture gallery (prev/next in lightbox).
+     *
+     * BigPicture: elements with [data-bp] inside #{gallery root} form one gallery.
+     * See webpack/src/blueprint/js/vendor/bigpicture.js
+     *
+     * Locals:
+     *   items     – { id, src, alt, caption?, fullSrc? } — fullSrc defaults to src (use larger URLs for lightbox)
+     *   attrs     – optional root attrs ({ class, id, ... }) — id used as gallery root if set
+     *   galleryId – optional explicit DOM id for the grid (else attrs.id or generated id)
+     */
+    var items = typeof items !== "undefined" && items && items.length
+        ? items
+        : [
+            { id: "1", src: "https://picsum.photos/id/1011/600/800", fullSrc: "https://picsum.photos/id/1011/1600/1200", alt: "Sample tall" },
+            { id: "2", src: "https://picsum.photos/id/1015/800/500", fullSrc: "https://picsum.photos/id/1015/1920/1200", alt: "Sample wide" },
+            { id: "3", src: "https://picsum.photos/id/1036/600/600", fullSrc: "https://picsum.photos/id/1036/1600/1600", alt: "Sample square" },
+            { id: "4", src: "https://picsum.photos/id/1043/500/700", fullSrc: "https://picsum.photos/id/1043/1400/1800", alt: "Sample portrait" },
+            { id: "5", src: "https://picsum.photos/id/1062/900/520", fullSrc: "https://picsum.photos/id/1062/1920/1080", alt: "Sample landscape" },
+            { id: "6", src: "https://picsum.photos/id/1074/640/640", fullSrc: "https://picsum.photos/id/1074/1800/1800", alt: "Sample square 2" },
+        ];
+
+    var attrs = typeof attrs !== "undefined" && attrs ? attrs : {};
+
+    var galleryDomId = typeof galleryId !== "undefined" && galleryId
+        ? galleryId
+        : (attrs.id ? attrs.id : 'bp-muuri-gallery-' + Math.random().toString(36).slice(2, 10));
+    var gridClass = attrs.class ? "muuri-grid " + attrs.class : "muuri-grid";
+    var attrsFlat = Object.assign({}, attrs);
+    delete attrsFlat.class;
+    delete attrsFlat.id;
+    var attrsString = Object.entries(attrsFlat)
+        .map(function (pair) { return pair[0] + '="' + pair[1] + '"'; })
+        .join(" ");
+
+    var bpGalleryOpts = JSON.stringify({ gallery: '#' + galleryDomId, loop: true });
+
+    var itemPartial = require("/blueprint/partials/components/muuri/muuri-item.ejs");
+    var itemsHtml = items
+        .map(function (item) {
+            return itemPartial({ item: item, bpGalleryOpts: bpGalleryOpts });
+        })
+        .join("");
+%>
+<div
+    id="<%= galleryDomId %>"
+    class="<%= gridClass %>"
+    data-muuri-grid="true"
+    <%- attrsString %>
+>
+    <%- itemsHtml %>
+</div>

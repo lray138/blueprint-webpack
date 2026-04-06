@@ -1,0 +1,60 @@
+// Muuri base layout (see node_modules/muuri/README.md — grid positioned, items absolute).
+// Do not set overflow: auto|scroll on .muuri-grid; use a wrapper if you need scrolling.
+
+.muuri-grid {
+  position: relative;
+}
+
+.muuri-item {
+  display: block;
+  position: absolute;
+  width: calc(100% - 0.625rem);
+  margin: 0.3125rem;
+  z-index: 1;
+
+  @include media-breakpoint-up(sm) {
+    width: calc(50% - 0.625rem);
+  }
+
+  @include media-breakpoint-up(md) {
+    width: calc(33.333333% - 0.625rem);
+  }
+
+  @include media-breakpoint-up(lg) {
+    width: calc(25% - 0.625rem);
+  }
+}
+
+.muuri-item.muuri-item-dragging {
+  z-index: 3;
+}
+
+.muuri-item.muuri-item-releasing {
+  z-index: 2;
+}
+
+.muuri-item.muuri-item-hidden {
+  z-index: 0;
+}
+
+// Inner shell: no transitions here (Muuri animates the outer item).
+.muuri-item-content {
+  position: relative;
+  width: 100%;
+  height: auto;
+}
+
+.muuri-item-img {
+  display: block;
+  height: auto;
+}
+
+// BigPicture trigger (see js/vendor/bigpicture.js — [data-bigpicture] + [data-bp] for gallery)
+.muuri-item-figure .muuri-item-lightbox {
+  cursor: zoom-in;
+
+  &:focus-visible {
+    outline: 2px solid var(--bs-primary, #0d6efd);
+    outline-offset: 2px;
+  }
+}

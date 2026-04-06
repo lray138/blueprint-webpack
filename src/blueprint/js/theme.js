@@ -5,6 +5,7 @@ import "./components/jump-to.js";
 import "./components/accordion-docs.js";
 
 import "./vendor/bigpicture";
+import "./vendor/muuri";
 import * as jfp from "./lray138fp.min.js";
 
 //import 'bootstrap';
