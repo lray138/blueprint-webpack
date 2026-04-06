@@ -13,13 +13,16 @@
     var col_1_class_add = typeof wrap_attrs !== "undefined" && typeof wrap_attrs.col_1 !== "undefined" && typeof wrap_attrs.col_1.class_add !== "undefined"
         ? wrap_attrs.col_1.class_add : "";
 
-    __section_attributes__ = L.tryProp('attrs.section')
+    __section_attributes__ = L.tryProp('attrs')
         .map(a => a.reduce(attrsReducer, ''))
         .getOrElse(Str.of(''));
 
+    container_class = L.tryPath('container.fluid')
+        .fold(() => 'container', (y) => y.extract() == 'true' || y.extract() == true ? 'container-fluid' : 'container');
+
 %>
 <section <%- __section_attributes__ %>>
-    <div class="container">
+    <div class="<%= container_class %>">
         <div class="row">
             <div class="col-12 <%= col_1_class_add %>">
                 <%- content %>

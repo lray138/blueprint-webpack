@@ -1,3 +1,6 @@
+// Blueprint defaults: nav, carousels, HTMX, bp-edit UI.
+// Kept under blueprint so `src/site/scss/_site.scss` can stay an empty override layer.
+
 .pin-top {
     position: absolute; top: 0; left: 0; width: 100%; z-index: 100; z-index: 1030;
 }
@@ -36,6 +39,7 @@ header.text-dark ul li a {
 }
 
 @import 'menu';
+@import 'muuri';
 
 @import 'muuri';
 

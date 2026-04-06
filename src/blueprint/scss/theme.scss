@@ -2,15 +2,16 @@
  * Theme Stylesheet - Main Entry Point
  * 
  * This file imports everything in the correct order:
- * 1. User variables (can override defaults)
+ * 1. Site variables (`src/site/scss/_site-variables.scss`)
  * 2. Theme variables (your theme's defaults)
  * 3. Bootstrap (functions, variables, components)
  * 4. Theme components (your customizations)
- * 5. User styles (final overrides)
+ * 5. Blueprint defaults (menu, Flickity, bp-edit, etc.)
+ * 6. Site styles (`src/site/scss/_site.scss`, optional overrides)
  */
 
-// 1. User variables (first - highest priority)
-@import "site-variables";
+// 1. Site variables (first — see `src/site/scss/_site-variables.scss`)
+@import "../../site/scss/site-variables";
 
 // 2. Theme configuration
 @import "variables";
@@ -66,8 +67,11 @@
 @import "reboot";      // Uncomment when you add content
 @import "components";  // Uncomment when you add content
 
-// 7. User styles (last - final override)
-@import "site";
+// 7. Blueprint defaults (before site so you can override)
+@import "blueprint-extras";
+
+// 8. Site styles (last — see `src/site/scss/_site.scss`)
+@import "../../site/scss/site";
 
 @import "bootstrap-icons/font/bootstrap-icons.css";
 
