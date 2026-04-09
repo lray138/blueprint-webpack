@@ -11,6 +11,7 @@ toggles.forEach(function (toggle) {
     const defaultOptions = {
       el: toggle,
       noLoader: true,
+      overlayColor: 'rgb(14, 14, 16)',
     };
 
     const options = {
