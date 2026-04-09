@@ -1,34 +1,42 @@
 <%
     /**
      * Single Muuri tile + BigPicture trigger.
-     * Locals: item ({ id, src, alt, caption?, fullSrc? }), bpGalleryOpts (JSON string for data-bigpicture)
+     * Locals: item ({ id, src, alt, caption?, fullSrc? }), bpGalleryOpts (JSON string for data-bigpicture).
+     * Derived: thumbSrc, fullSrc, caption, captionDataAttr, figcaptionHtml, itemId, altText.
      */
     var item = typeof item !== "undefined" ? item : {};
     var bpGalleryOpts = typeof bpGalleryOpts !== "undefined" ? bpGalleryOpts : "{}";
     var thumbSrc = item.src || "";
     var fullSrc = item.fullSrc || item.src || "";
+    var caption = item.caption != null && item.caption !== "" ? String(item.caption) : "";
+    var itemId = item.id != null ? item.id : "";
+    var altText = item.alt != null ? String(item.alt) : "";
+
+    var captionDataAttr = caption
+        ? ' data-caption="' + caption.replace(/"/g, "&quot;") + '"'
+        : "";
+    var figcaptionHtml = caption
+        ? '<figcaption class="small text-secondary mt-1 px-1">' + caption + "</figcaption>"
+        : "";
 %>
-<div class="muuri-item" data-item-id="<%= item.id %>">
+<div class="muuri-item" data-item-id="<%= itemId %>">
     <div class="muuri-item-content">
         <figure class="position-relative mb-0 muuri-item-figure">
             <a
                 href="<%= fullSrc %>"
                 class="muuri-item-lightbox d-block text-decoration-none"
                 data-bp="<%= fullSrc %>"
-                data-bigpicture='<%- bpGalleryOpts %>'
-                <% if (item.caption) { %>data-caption="<%= item.caption %>"<% } %>
+                data-bigpicture='<%- bpGalleryOpts %>'<%- captionDataAttr %>
             >
                 <img
                     class="muuri-item-img w-100 rounded"
                     src="<%- thumbSrc %>"
-                    alt="<%- item.alt %>"
+                    alt="<%- altText %>"
                     loading="lazy"
                     decoding="async"
                 />
             </a>
-            <% if (item.caption) { %>
-            <figcaption class="small text-secondary mt-1 px-1"><%- item.caption %></figcaption>
-            <% } %>
+            <%- figcaptionHtml %>
         </figure>
     </div>
 </div>

@@ -1,69 +1,73 @@
-import { 
-    Left, Right, Future, Arr, Num, Just,
-    getElementById, addEventListener, querySelectorWithin
+import {
+    Left,
+    Right,
+    Task,
+    Just,
+    getElementById,
+    addEventListener,
+    querySelectorWithin,
 } from './lray138fp.min.js';
 
-document.addEventListener('DOMContentLoaded', function() {
-    
-    getElementById('contact-form')
-        .map(addEventListener('submit', handleSubmit));
+const SUBMIT_FEEDBACK_MS = 600;
+
+document.addEventListener('DOMContentLoaded', function () {
+    getElementById('contact-form').map(addEventListener('submit', handleSubmit));
 });
 
-document.addEventListener('up:fragment:loaded', function(event) {
-    console.log("fragment loaded for asdasdf");
-    getElementById('contact-form')
-        .map(addEventListener('submit', handleSubmit));
+document.addEventListener('up:fragment:loaded', function () {
+    getElementById('contact-form').map(addEventListener('submit', handleSubmit));
 });
 
-document.addEventListener('up:fragment:inserted', function(event) {
-    console.log("fragment inserted for asdasdf");
-    getElementById('contact-form')
-        .map(addEventListener('submit', handleSubmit));
+document.addEventListener('up:fragment:inserted', function () {
+    getElementById('contact-form').map(addEventListener('submit', handleSubmit));
 });
 
 const handleSubmit = (e) => {
     e.preventDefault();
 
     Right(e.target)
-        .bind(form => form.checkValidity() ? Right(form) : Left(form))
+        .bind((form) => (form.checkValidity() ? Right(form) : Left(form)))
         .fork(
-            form => {
+            (form) => {
                 form.classList.add('was-validated');
-                return Left("invalid form elements");
+                return Left('invalid form elements');
             },
-            form => {
+            (form) => {
                 disableFormElements(form);
-                getElementById('alerts-bottom')
-                    .tap(x => x.style.display = "none");
-                    
+                getElementById('alerts-bottom').tap((x) => (x.style.display = 'none'));
+
                 toggleButtonText(form);
 
-                submitForm(form)
-                    .sleep(600)
-                    .fork(
-                        (rej) => onFailure(Arr({form, rej})), 
-                        (res) => onSuccess(Arr({form, res}))
-                    )
-            }
+                submitForm(form).fork(
+                    (rej) => {
+                        setTimeout(
+                            () => onFailure({ form, rej }),
+                            SUBMIT_FEEDBACK_MS,
+                        );
+                    },
+                    (res) => {
+                        setTimeout(
+                            () => onSuccess({ form, res }),
+                            SUBMIT_FEEDBACK_MS,
+                        );
+                    },
+                );
+            },
         );
-}
+};
 
 const disableFormElements = (form) => {
     for (const element of form.elements) {
         element.disabled = true;
     }
     return form;
-}
+};
 
 const enableFormElements = (form) => {
     for (const element of form.elements) {
         element.disabled = false;
     }
-}
-
-const hideElement = (e) => {
-    e.style.display = 'none';
-}
+};
 
 const hideFormElements = (form) => {
     for (const element of form.elements) {
@@ -74,16 +78,10 @@ const hideFormElements = (form) => {
             label.style.display = 'none';
         }
     }
-}
+};
 
-const submitForm = (form) => {
-
-    // querySelector('button[type="submit"]', form).map(activateSubmitButton);
-    // disableFormElements(form);
-
-    return Future(() => {
-
-        // Alternative method to collect form values
+const submitForm = (form) =>
+    new Task((rej, res) => {
         const formData = {};
         for (const element of form.elements) {
             if (element.name) {
@@ -92,94 +90,113 @@ const submitForm = (form) => {
         }
 
         try {
-            return fetch(form.action, {
+            fetch(form.action, {
                 method: form.method,
-                headers: { 
+                headers: {
                     'Content-Type': 'application/json',
-                    'Accept': 'application/json'
+                    Accept: 'application/json',
                 },
-                body: JSON.stringify(formData)
-            });
-        } catch (Error) {
-            return Promise.reject();
+                body: JSON.stringify(formData),
+            })
+                .then(res)
+                .catch(rej);
+        } catch (err) {
+            rej(err);
         }
-
     });
 
-}
-
 const onFailure = (data) => {
+    const form = data.form;
 
     getElementById('alerts-bottom')
-        .map(x => {
-            x.style.display = "block";
+        .map((x) => {
+            x.style.display = 'block';
             return x;
         })
-        .either(
-            x => console.log(x),
-            x => x.innerHTML = `<div class="alert alert-danger" role="alert">There was a problem submitting your information.  Please try again.</div>`
+        .fork(
+            () => {},
+            (x) => {
+                x.innerHTML =
+                    '<div class="alert alert-danger" role="alert">There was a problem submitting your information.  Please try again.</div>';
+            },
         );
-    
-    data.prop('form')
-        .tap(enableFormElements)
-        .tap(toggleButtonText);
 
+    if (form) {
+        enableFormElements(form);
+        toggleButtonText(form);
+    }
 };
 
 const toggleButtonText = (form) => {
-    querySelectorWithin('button[type=submit]', form)
-        .tap(x => {
-            x.innerHTML = (x.innerHTML.trim() == "Send message") ? "Sending..." : "Send message";
-        });
-}
-
-const alertBottom = (x) => getElementById('alerts-bottom').map(el => el.innerHTML = x);
-
-const switchCode = (code, message) => {
-    switch(code) {
-        case 200: // success
-            return Just(`<div class="alert alert-success" role="alert">${message}</div>`);
-        case 404: // not found
-            return Just(`<div class="alert alert-warning" role="alert">The requested resource was not found.</div>`);
-        case 409: // conflict
-            return Just(`<div class="alert alert-warning" role="alert">${message}</div>`);
-        case 500: // server error
-            return Just(`<div class="alert alert-danger" role="alert">There was an error processing your request.  Please try again later.</div>`);
-        default:  // everything else
-            return Just(`<div class="alert alert-info" role="alert">An unexpected status code was received: ${message}</div>`);
-    }
-}
-
-const onSuccess = (x) => {
-    try {
-        const res = x.res();
-
-        res.json().then(data => {
-
-            if (res.status().eq(200) || res.status().eq(409)) {
-                hideFormElements(x.form().get());
-            } else {
-                x.form().map(enableFormElements);
-            }
-
-            getElementById('alerts-bottom')
-                .map(x => {
-                    x.style.display = "block";
-                    return x;
-                })
-                .map(x => x.innerHTML = 'wtf');
-            
-            switchCode(data.status, data.message).map(alertBottom);
-        }).catch(error => {
-            console.error('Error parsing JSON:', error);
-            onFailure(x);
-        });
-
-    } catch (error) {
-        console.error('Error in onSuccess:', error);
-        onFailure(x);
-    }
-
+    querySelectorWithin('button[type=submit]', form).tap((x) => {
+        x.innerHTML =
+            x.innerHTML.trim() === 'Send message' ? 'Sending...' : 'Send message';
+    });
 };
 
-// src/pages/contact.ejs
+const alertBottom = (html) =>
+    getElementById('alerts-bottom').map((el) => (el.innerHTML = html));
+
+const switchCode = (code, message) => {
+    switch (code) {
+        case 200:
+            return Just(
+                `<div class="alert alert-success" role="alert">${message}</div>`,
+            );
+        case 404:
+            return Just(
+                '<div class="alert alert-warning" role="alert">The requested resource was not found.</div>',
+            );
+        case 409:
+            return Just(
+                `<div class="alert alert-warning" role="alert">${message}</div>`,
+            );
+        case 500:
+            return Just(
+                '<div class="alert alert-danger" role="alert">There was an error processing your request.  Please try again later.</div>',
+            );
+        default:
+            return Just(
+                `<div class="alert alert-info" role="alert">An unexpected status code was received: ${message}</div>`,
+            );
+    }
+};
+
+const onSuccess = (data) => {
+    const form = data.form;
+    const res = data.res;
+
+    if (!res || typeof res.json !== 'function') {
+        onFailure({ form, rej: new Error('Invalid response') });
+        return;
+    }
+
+    const bodyPromise =
+        res.status === 204 ? Promise.resolve({}) : res.json();
+
+    bodyPromise
+        .then((body) => {
+            const httpOk = res.status === 200 || res.status === 204;
+            const httpConflict = res.status === 409;
+
+            if (httpOk || httpConflict) {
+                hideFormElements(form);
+            } else {
+                enableFormElements(form);
+            }
+
+            getElementById('alerts-bottom').tap((el) => {
+                el.style.display = 'block';
+            });
+
+            const appStatus = body && typeof body.status === 'number' ? body.status : res.status;
+            const message =
+                body && body.message != null ? String(body.message) : res.statusText || '';
+
+            switchCode(appStatus, message).map(alertBottom);
+        })
+        .catch((error) => {
+            console.error('Error parsing JSON:', error);
+            onFailure({ form, rej: error });
+        });
+};

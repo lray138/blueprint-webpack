@@ -25,6 +25,13 @@
   }
 }
 
+// Cap masonry at 3 columns at lg+ (default is 4); use on e.g. /galleries/example/
+.muuri-grid--max-cols-3 .muuri-item {
+  @include media-breakpoint-up(lg) {
+    width: calc(33.333333% - 0.625rem);
+  }
+}
+
 .muuri-item.muuri-item-dragging {
   z-index: 3;
 }
