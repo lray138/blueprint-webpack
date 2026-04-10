@@ -6,7 +6,8 @@
      * See webpack/src/blueprint/js/vendor/bigpicture.js
      *
      * Locals:
-     *   items     – { id, src, alt, caption?, fullSrc? } — fullSrc defaults to src (use larger URLs for lightbox)
+     *   items     – { id, src, alt, caption?, fullSrc?, pageHref?, pageLinkLabel? }
+     *   defaultPageHref, defaultPageLinkLabel – optional defaults for BigPicture “open page” icon (see bigpicture.js)
      *   attrs     – optional root attrs ({ class, id, ... }) — id used as gallery root if set
      *   galleryId – optional explicit DOM id for the grid (else attrs.id or generated id)
      */
@@ -20,6 +21,15 @@
             { id: "5", src: "https://picsum.photos/id/1062/900/520", fullSrc: "https://picsum.photos/id/1062/1920/1080", alt: "Sample landscape" },
             { id: "6", src: "https://picsum.photos/id/1074/640/640", fullSrc: "https://picsum.photos/id/1074/1800/1800", alt: "Sample square 2" },
         ];
+
+    var _defaultPageHref =
+        typeof defaultPageHref !== "undefined" && defaultPageHref
+            ? String(defaultPageHref).trim()
+            : "";
+    var _defaultPageLinkLabel =
+        typeof defaultPageLinkLabel !== "undefined" && defaultPageLinkLabel
+            ? String(defaultPageLinkLabel).trim()
+            : "";
 
     var attrs = typeof attrs !== "undefined" && attrs ? attrs : {};
 
@@ -39,7 +49,14 @@
     var itemPartial = require("/blueprint/partials/components/muuri/muuri-item.ejs");
     var itemsHtml = items
         .map(function (item) {
-            return itemPartial({ item: item, bpGalleryOpts: bpGalleryOpts });
+            var merged = Object.assign({}, item);
+            if (_defaultPageHref && (!merged.pageHref || String(merged.pageHref).trim() === "")) {
+                merged.pageHref = _defaultPageHref;
+            }
+            if (_defaultPageLinkLabel && (!merged.pageLinkLabel || merged.pageLinkLabel === "")) {
+                merged.pageLinkLabel = _defaultPageLinkLabel;
+            }
+            return itemPartial({ item: merged, bpGalleryOpts: bpGalleryOpts });
         })
         .join("");
 %>

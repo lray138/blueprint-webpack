@@ -1,8 +1,8 @@
 <%
     /**
      * Single Muuri tile + BigPicture trigger.
-     * Locals: item ({ id, src, alt, caption?, fullSrc? }), bpGalleryOpts (JSON string for data-bigpicture).
-     * Derived: thumbSrc, fullSrc, caption, captionDataAttr, figcaptionHtml, itemId, altText.
+     * Locals: item ({ id, src, alt, caption?, fullSrc?, pageHref?, pageLinkLabel? }), bpGalleryOpts.
+     * pageHref: optional URL; desktop lightbox icon in vendor/bigpicture.js.
      */
     var item = typeof item !== "undefined" ? item : {};
     var bpGalleryOpts = typeof bpGalleryOpts !== "undefined" ? bpGalleryOpts : "{}";
@@ -11,12 +11,24 @@
     var caption = item.caption != null && item.caption !== "" ? String(item.caption) : "";
     var itemId = item.id != null ? item.id : "";
     var altText = item.alt != null ? String(item.alt) : "";
+    var pageHref = item.pageHref != null && String(item.pageHref).trim() !== "" ? String(item.pageHref) : "";
+    var pageLinkLabel =
+        item.pageLinkLabel != null && String(item.pageLinkLabel).trim() !== ""
+            ? String(item.pageLinkLabel)
+            : "Open full page";
 
     var captionDataAttr = caption
         ? ' data-caption="' + caption.replace(/"/g, "&quot;") + '"'
         : "";
     var figcaptionHtml = caption
         ? '<figcaption class="small text-secondary mt-1 px-1">' + caption + "</figcaption>"
+        : "";
+    var pageDataAttrs = pageHref
+        ? " data-page-href=\"" +
+          pageHref.replace(/"/g, "&quot;") +
+          "\" data-page-link-label=\"" +
+          pageLinkLabel.replace(/"/g, "&quot;") +
+          "\""
         : "";
 %>
 <div class="muuri-item" data-item-id="<%= itemId %>">
@@ -26,7 +38,7 @@
                 href="<%= fullSrc %>"
                 class="muuri-item-lightbox d-block text-decoration-none"
                 data-bp="<%= fullSrc %>"
-                data-bigpicture='<%- bpGalleryOpts %>'<%- captionDataAttr %>
+                data-bigpicture='<%- bpGalleryOpts %>'<%- captionDataAttr %><%- pageDataAttrs %>
             >
                 <img
                     class="muuri-item-img w-100 rounded"

@@ -63,6 +63,59 @@
   }
 }
 
+// “Open full page” control — desktop only, bottom-right, inset past BigPicture’s ~6% side arrows.
+@media (min-width: 601px) {
+  #bp_container a.bp-page-icon {
+    position: absolute;
+    left: auto !important;
+    // Match close button rhythm (~14px for .bp-x); you asked for ~10px from the right + safe area.
+    right: calc(10px + env(safe-area-inset-right, 0px));
+    top: auto;
+    bottom: max(8px, env(safe-area-inset-bottom, 0px));
+    z-index: 30;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: auto;
+    min-width: 44px;
+    min-height: 44px;
+    margin: 0;
+    padding: 6px;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    color: rgba(255, 255, 255, 0.58);
+    text-decoration: none;
+    pointer-events: auto;
+    opacity: 1;
+    transition: opacity 0.12s ease, color 0.12s ease;
+
+    svg {
+      display: block;
+      width: 1.75rem;
+      height: 1.75rem;
+    }
+
+    &:hover,
+    &:focus-visible {
+      color: rgba(255, 255, 255, 0.88);
+    }
+
+    &:focus-visible {
+      outline: 2px solid rgba(255, 255, 255, 0.45);
+      outline-offset: 2px;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  #bp_container a.bp-page-icon {
+    display: none !important;
+  }
+}
+
 // Gallery prev/next: bottom bar on small screens (BigPicture defaults to side-centered .bp-lr)
 @media (max-width: 600px) {
   #bp_container .bp-lr {
