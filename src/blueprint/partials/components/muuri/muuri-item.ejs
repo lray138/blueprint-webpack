@@ -30,6 +30,8 @@
           pageLinkLabel.replace(/"/g, "&quot;") +
           "\""
         : "";
+
+    var pageDataAttrs = " data-page-href=\"#\"";
 %>
 <div class="muuri-item" data-item-id="<%= itemId %>">
     <div class="muuri-item-content">
@@ -38,7 +40,7 @@
                 href="<%= fullSrc %>"
                 class="muuri-item-lightbox d-block text-decoration-none"
                 data-bp="<%= fullSrc %>"
-                data-bigpicture='<%- bpGalleryOpts %>'<%- captionDataAttr %><%- pageDataAttrs %>
+                data-bigpicture='<%- bpGalleryOpts %>' <%- pageDataAttrs %> <%- captionDataAttr %>
             >
                 <img
                     class="muuri-item-img w-100 rounded"
