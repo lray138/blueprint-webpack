@@ -31,7 +31,7 @@
           "\""
         : "";
 
-    var pageDataAttrs = " data-page-href=\"#\"";
+    var __page_data_attrs__ = " data-page-href=\"http://localhost:8080/galleries/example/photo.html\"";
 %>
 <div class="muuri-item" data-item-id="<%= itemId %>">
     <div class="muuri-item-content">
@@ -40,7 +40,7 @@
                 href="<%= fullSrc %>"
                 class="muuri-item-lightbox d-block text-decoration-none"
                 data-bp="<%= fullSrc %>"
-                data-bigpicture='<%- bpGalleryOpts %>' <%- pageDataAttrs %> <%- captionDataAttr %>
+                data-bigpicture='<%- bpGalleryOpts %>' <%- __page_data_attrs__ %> <%- captionDataAttr %>
             >
                 <img
                     class="muuri-item-img w-100 rounded"
