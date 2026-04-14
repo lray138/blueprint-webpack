@@ -1,6 +1,8 @@
 /*
- * Theme Stylesheet - Main Entry Point
- * 
+ * Reference / kitchen-sink stack (not imported by JS).
+ * The build loads `src/site/scss/_theme.scss` via `blueprint/js/theme.js` → `@site/scss/_theme.scss`.
+ * Keep this file in sync when changing Bootstrap import order or blueprint layers.
+ *
  * This file imports everything in the correct order:
  * 1. Site variables (`src/site/scss/_site-variables.scss`)
  * 2. Theme variables (your theme's defaults)

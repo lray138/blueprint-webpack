@@ -46,6 +46,21 @@ const HAS_SITE_PAGES = (() => {
   }
 })();
 
+const SITE_DIR_ABS = path.resolve(__dirname, 'src/site');
+const SITE_THEME_SCSS = path.resolve(SITE_DIR_ABS, 'scss/_theme.scss');
+
+/** CSS entry always lives in the site package; blueprint `scss/theme.scss` is reference / docs only. */
+if (!fs.existsSync(SITE_THEME_SCSS)) {
+  throw new Error(
+    'Missing src/site/scss/_theme.scss. Add or init the site repo (theme composer must live under site/scss).'
+  );
+}
+
+const sassLoadPaths = [
+  path.resolve(__dirname, 'src/blueprint/scss'),
+  path.resolve(__dirname, 'node_modules'),
+];
+
 module.exports = {
     output: {
   path: path.resolve(__dirname, 'dist'),
@@ -182,6 +197,7 @@ module.exports = {
             loader: 'sass-loader',
             options: {
               sassOptions: {
+                loadPaths: sassLoadPaths,
                 silenceDeprecations: ['color-functions', 'global-builtin', 'import'],
                 quietDeps: true,
               }
@@ -196,10 +212,8 @@ module.exports = {
     alias: {
       '@blueprint': path.resolve(__dirname, 'src/blueprint'),
 
-      // ✅ Hide @site if framework mode OR site folder/entry doesn't exist
-      '@site': (!IS_FRAMEWORK && (HAS_SITE_ENTRY || HAS_SITE_PAGES))
-        ? path.resolve(__dirname, 'src/site')
-        : false,
+      // ✅ Site package (required); `theme.js` imports `@site/scss/_theme.scss`
+      '@site': SITE_DIR_ABS,
     },
     roots: [
       path.resolve(__dirname, 'src'),
@@ -208,10 +222,7 @@ module.exports = {
   },
 
   devServer: {
-    // ✅ Watch only what's actually present
-    watchFiles: IS_FRAMEWORK
-      ? 'src/blueprint/**/*'
-      : ((HAS_SITE_ENTRY || HAS_SITE_PAGES) ? 'src/**/*' : 'src/blueprint/**/*'),
+    watchFiles: 'src/**/*',
     // hot: true
   },
 };

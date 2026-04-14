@@ -1,4 +1,4 @@
-import "../scss/theme.scss";
+import "@site/scss/_theme.scss";
 
 //import "./components/theme-switcher.js";
 import "./components/jump-to.js";
