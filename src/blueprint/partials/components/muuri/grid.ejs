@@ -10,7 +10,9 @@
      *   defaultPageHref, defaultPageLinkLabel – optional defaults for BigPicture “open page” icon (see bigpicture.js)
      *   attrs     – optional root attrs ({ class, id, ... }) — id used as gallery root if set
      *   galleryId – optional explicit DOM id for the grid (else attrs.id or generated id)
+     *   desktopLgCols – optional 3 | 4 for lg+ column count (overrides default below)
      */
+    var desktopLgColsDefault = 4;
     var items = typeof items !== "undefined" && items && items.length
         ? items
         : [
@@ -36,7 +38,17 @@
     var galleryDomId = typeof galleryId !== "undefined" && galleryId
         ? galleryId
         : (attrs.id ? attrs.id : 'bp-muuri-gallery-' + Math.random().toString(36).slice(2, 10));
+
+    var _desktopLgCols = typeof desktopLgCols !== "undefined" ? Number(desktopLgCols) : desktopLgColsDefault;
+    if (_desktopLgCols !== 3 && _desktopLgCols !== 4) {
+        _desktopLgCols = desktopLgColsDefault;
+    }
+
     var gridClass = attrs.class ? "muuri-grid " + attrs.class : "muuri-grid";
+    if (_desktopLgCols === 3) {
+        gridClass += " muuri-grid--max-cols-3";
+    }
+    
     var attrsFlat = Object.assign({}, attrs);
     delete attrsFlat.class;
     delete attrsFlat.id;
