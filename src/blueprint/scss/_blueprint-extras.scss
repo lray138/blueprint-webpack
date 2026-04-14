@@ -208,6 +208,7 @@ ul.nav.list-group.list-group-flush > .nav-item:last-child {
 ul.nav.list-group > .nav-item > .nav-link {
   display: block;
   width: 100%;
+  font-size: 1.3rem;
   padding: var(--bs-list-group-item-padding-y)
            var(--bs-list-group-item-padding-x);
 }
@@ -215,6 +216,13 @@ ul.nav.list-group > .nav-item > .nav-link {
 /* Smaller feel for list-group-sm */
 ul.nav.list-group.list-group-sm > .nav-item > .nav-link {
   padding: .375rem .75rem;
+}
+
+// Extra room below nav + CTA in the slide-out menu (mobile / narrow)
+@media (max-width: 767.98px) {
+  .navbar .offcanvas-body {
+    padding-bottom: calc(1.75rem + env(safe-area-inset-bottom, 0px));
+  }
 }
 
 /* ---------- DESKTOP (md+) = classic nav ---------- */
@@ -234,7 +242,12 @@ ul.nav.list-group.list-group-sm > .nav-item > .nav-link {
 
   ul.nav.list-group > .nav-item > .nav-link {
     width: auto;
+    font-size: 1rem;
     padding: .5rem .75rem;
+  }
+
+  .navbar .offcanvas-body {
+    padding-bottom: var(--bs-offcanvas-padding-y);
   }
 
 }

@@ -1,0 +1,58 @@
+diff --git a/node_modules/bigpicture/index.js b/node_modules/bigpicture/index.js
+index d06d9b8..635be94 100644
+--- a/node_modules/bigpicture/index.js
++++ b/node_modules/bigpicture/index.js
+@@ -414,11 +414,8 @@ function makeGallery(gallery, position) {
+ 		// if length is greater than one, add gallery stuff
+ 		container[appendEl](galleryCounter);
+ 		galleryCounter.innerHTML = (galleryPosition + 1) + "/" + (galleryEls.length);
+-		if (!supportsTouch) {
+-			// add arrows if device doesn't support touch
+-			container[appendEl](rightArrowBtn);
+-			container[appendEl](leftArrowBtn);
+-		}
++		container[appendEl](rightArrowBtn);
++		container[appendEl](leftArrowBtn);
+ 	} else {
+ 		// gallery is one, just show without clutter
+ 		galleryEls = false;
+@@ -733,8 +730,8 @@ function removeContainer() {
+ 		container[removeEl](galleryCounter);
+ 		galleryOpen = galleryEls = false;
+ 		preloadedImages = {};
+-		supportsTouch || container[removeEl](rightArrowBtn);
+-		supportsTouch || container[removeEl](leftArrowBtn);
++		rightArrowBtn.parentNode === container && container[removeEl](rightArrowBtn);
++		leftArrowBtn.parentNode === container && container[removeEl](leftArrowBtn);
+ 		// in case displayimage changed, we need to update event listeners
+ 		displayImage.onload = open;
+ 		displayImage.onerror = open.bind(null, 'image');
+diff --git a/node_modules/bigpicture/src/BigPicture.js b/node_modules/bigpicture/src/BigPicture.js
+index 2db78c4..e72bba2 100644
+--- a/node_modules/bigpicture/src/BigPicture.js
++++ b/node_modules/bigpicture/src/BigPicture.js
+@@ -403,11 +403,8 @@ function makeGallery(gallery, position) {
+ 		// if length is greater than one, add gallery stuff
+ 		container[appendEl](galleryCounter)
+ 		galleryCounter.innerHTML = `${galleryPosition + 1}/${galleryEls.length}`
+-		if (!supportsTouch) {
+-			// add arrows if device doesn't support touch
+-			container[appendEl](rightArrowBtn)
+-			container[appendEl](leftArrowBtn)
+-		}
++		container[appendEl](rightArrowBtn)
++		container[appendEl](leftArrowBtn)
+ 	} else {
+ 		// gallery is one, just show without clutter
+ 		galleryEls = false
+@@ -727,8 +724,8 @@ function removeContainer() {
+ 		container[removeEl](galleryCounter)
+ 		galleryOpen = galleryEls = false
+ 		preloadedImages = {}
+-		supportsTouch || container[removeEl](rightArrowBtn)
+-		supportsTouch || container[removeEl](leftArrowBtn)
++		rightArrowBtn.parentNode === container && container[removeEl](rightArrowBtn)
++		leftArrowBtn.parentNode === container && container[removeEl](leftArrowBtn)
+ 		// in case displayimage changed, we need to update event listeners
+ 		displayImage.onload = open
+ 		displayImage.onerror = open.bind(null, 'image')

@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "postinstall": "patch-package",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --mode=production",
     "build:portfolio": "SITE_DIR=portfolio webpack --mode=production",
@@ -23,6 +24,7 @@
     "marked": "^17.0.1",
     "mini-css-extract-plugin": "^2.9.4",
     "monaco-editor-webpack-plugin": "^7.1.1",
+    "patch-package": "^8.0.1",
     "postcss-loader": "^8.2.0",
     "sass": "^1.97.1",
     "sass-loader": "^16.0.6",

@@ -8,13 +8,10 @@
 .muuri-item {
   display: block;
   position: absolute;
-  width: calc(100% - 0.625rem);
+  // 2 columns from the smallest screens up; md/lg add columns
+  width: calc(50% - 0.625rem);
   margin: 0.3125rem;
   z-index: 1;
-
-  @include media-breakpoint-up(sm) {
-    width: calc(50% - 0.625rem);
-  }
 
   @include media-breakpoint-up(md) {
     width: calc(33.333333% - 0.625rem);
@@ -22,6 +19,13 @@
 
   @include media-breakpoint-up(lg) {
     width: calc(25% - 0.625rem);
+  }
+}
+
+// Cap masonry at 3 columns at lg+ (default is 4); use on e.g. /galleries/example/
+.muuri-grid--max-cols-3 .muuri-item {
+  @include media-breakpoint-up(lg) {
+    width: calc(33.333333% - 0.625rem);
   }
 }
 
@@ -56,5 +60,138 @@
   &:focus-visible {
     outline: 2px solid var(--bs-primary, #0d6efd);
     outline-offset: 2px;
+  }
+}
+
+// “Open full page” link: desktop = bottom-right; ≤600px = centered between bottom arrows.
+@media (min-width: 601px) {
+  // !important beats BigPicture’s injected `#bp_container>*` and late <style> order in some builds.
+  #bp_container a.bp-page-icon {
+    position: absolute !important;
+    top: auto !important;
+    left: auto !important;
+    right: calc(10px + env(safe-area-inset-right, 0px)) !important;
+    bottom: max(8px, env(safe-area-inset-bottom, 0px)) !important;
+    transform: translate3d(0, 0, 0) !important;
+    isolation: isolate;
+    backface-visibility: hidden;
+    z-index: 100 !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    visibility: visible !important;
+    width: auto;
+    height: auto;
+    min-width: 44px;
+    min-height: 44px;
+    margin: 0;
+    padding: 6px;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.85));
+    color: rgba(255, 255, 255, 0.72);
+    text-decoration: none;
+    pointer-events: auto !important;
+    opacity: 1 !important;
+    transition: opacity 0.12s ease, color 0.12s ease;
+
+    svg {
+      display: block;
+      width: 1.75rem;
+      height: 1.75rem;
+      overflow: visible;
+      pointer-events: auto !important;
+      cursor: pointer;
+      filter: none;
+    }
+
+    &:hover,
+    &:focus-visible {
+      color: rgba(255, 255, 255, 0.92);
+    }
+
+    &:focus-visible {
+      outline: 2px solid rgba(255, 255, 255, 0.45);
+      outline-offset: 2px;
+    }
+  }
+}
+
+// Gallery arrows + page link on small screens
+@media (max-width: 600px) {
+  #bp_container .bp-lr {
+    top: auto;
+    bottom: max(0.5rem, env(safe-area-inset-bottom, 0px));
+    padding: 0.65rem 1rem;
+    width: auto;
+    min-width: 44px;
+    height: auto;
+    opacity: 0.65;
+    font-size: 1rem;
+    line-height: 1;
+
+    svg {
+      height: 2.25rem;
+      width: auto;
+    }
+
+    &:active,
+    &:focus-visible {
+      opacity: 0.95;
+    }
+  }
+
+  #bp_container a.bp-page-icon {
+    position: absolute;
+    top: auto;
+    left: 50% !important;
+    right: auto !important;
+    transform: translate3d(-50%, 0, 0);
+    bottom: max(0.5rem, env(safe-area-inset-bottom, 0px));
+    isolation: isolate;
+    backface-visibility: hidden;
+    z-index: 100;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: auto;
+    min-width: 44px;
+    min-height: 44px;
+    margin: 0;
+    padding: 6px;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.85));
+    color: rgba(255, 255, 255, 0.58);
+    text-decoration: none;
+    pointer-events: auto !important;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.12s ease, color 0.12s ease;
+
+    svg {
+      display: block;
+      width: 1.75rem;
+      height: 1.75rem;
+      overflow: visible;
+      pointer-events: auto !important;
+      cursor: pointer;
+      filter: none;
+    }
+
+    &:hover,
+    &:focus-visible {
+      color: rgba(255, 255, 255, 0.88);
+    }
+
+    &:focus-visible {
+      outline: 2px solid rgba(255, 255, 255, 0.45);
+      outline-offset: 2px;
+    }
   }
 }
