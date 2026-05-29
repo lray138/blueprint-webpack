@@ -8,7 +8,7 @@
     "build": "webpack --mode=production",
     "build:site-wp": "webpack --mode=production && node scripts/copy-site-build.js",
     "build:portfolio": "SITE_DIR=portfolio webpack --mode=production",
-    "server": "webpack serve --mode=development --open",
+    "server": "webpack serve --mode=development",
     "server:portfolio": "SITE_DIR=portfolio webpack serve --mode=development --open",
     "sync:wp": "node scripts/fetch-wp-pages.js"
   },

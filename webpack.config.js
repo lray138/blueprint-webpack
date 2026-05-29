@@ -222,7 +222,14 @@ module.exports = {
   },
 
   devServer: {
-    watchFiles: 'src/**/*',
-    // hot: true
+    host: '127.0.0.1',
+    port: Number(process.env.WEBPACK_DEV_PORT ?? 8080),
+    hot: true,
+    liveReload: true,
+    open: false,
+    watchFiles: ['src/**/*'],
+    devMiddleware: {
+      publicPath: '/',
+    },
   },
 };
