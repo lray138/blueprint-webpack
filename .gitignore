@@ -5,6 +5,8 @@ yarn.lock
 
 # Build output
 dist/
+dist-blueprint/
+dist-site/
 build/
 *.log
 

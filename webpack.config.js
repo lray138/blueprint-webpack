@@ -18,30 +18,38 @@ const globals = {
 
 const fp = require("./src/blueprint/js/lray138fp.min.js");
 
-// const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
-
-// ✅ Detect “framework mode” when this config is running from /blueprint/webpack
 const ROOT = __dirname;
 const IS_FRAMEWORK = ROOT.includes(path.join('blueprint', 'webpack'));
+
+/**
+ * `blueprint` | `site` | `all` (production / legacy combined output in `dist/`).
+ * Dev runs two servers: `WEBPACK_BUILD=blueprint` (:8081) and `WEBPACK_BUILD=site` (:8080).
+ */
+const BUILD = (() => {
+  const raw = process.env.WEBPACK_BUILD;
+  if (raw === 'blueprint' || raw === 'site' || raw === 'all') return raw;
+  return IS_FRAMEWORK ? 'blueprint' : 'all';
+})();
+
+const BUILD_BLUEPRINT = BUILD === 'blueprint' || BUILD === 'all';
+const BUILD_SITE = BUILD === 'site' || BUILD === 'all';
 
 const SITE_ENTRY_ABS = path.resolve(__dirname, 'src/site/js/theme.js');
 const BLUEPRINT_ENTRY = './src/blueprint/js/theme.js';
 
-// ✅ Does src/site/js/theme.js exist?
 const HAS_SITE_ENTRY = (() => {
   try {
     return fs.statSync(SITE_ENTRY_ABS).isFile();
-  } catch (err) {
+  } catch {
     return false;
   }
 })();
 
-// ✅ Does src/site/pages exist?
 const SITE_PAGES_DIR_ABS = path.resolve(__dirname, 'src/site/pages');
 const HAS_SITE_PAGES = (() => {
   try {
     return fs.statSync(SITE_PAGES_DIR_ABS).isDirectory();
-  } catch (err) {
+  } catch {
     return false;
   }
 })();
@@ -49,10 +57,15 @@ const HAS_SITE_PAGES = (() => {
 const SITE_DIR_ABS = path.resolve(__dirname, 'src/site');
 const SITE_THEME_SCSS = path.resolve(SITE_DIR_ABS, 'scss/_theme.scss');
 
-/** CSS entry always lives in the site package; blueprint `scss/theme.scss` is reference / docs only. */
-if (!fs.existsSync(SITE_THEME_SCSS)) {
+if (BUILD_SITE && !fs.existsSync(SITE_THEME_SCSS)) {
   throw new Error(
     'Missing src/site/scss/_theme.scss. Add or init the site repo (theme composer must live under site/scss).'
+  );
+}
+
+if (BUILD_BLUEPRINT && !fs.existsSync(SITE_THEME_SCSS)) {
+  throw new Error(
+    'Missing src/site/scss/_theme.scss. Blueprint theme.js imports @site/scss/_theme.scss — add the site theme layer first.'
   );
 }
 
@@ -61,104 +74,152 @@ const sassLoadPaths = [
   path.resolve(__dirname, 'node_modules'),
 ];
 
+/** Separate output dirs so two dev servers can run without `clean` wiping each other. */
+const outputDir =
+  BUILD === 'blueprint'
+    ? path.resolve(__dirname, 'dist-blueprint')
+    : BUILD === 'site'
+      ? path.resolve(__dirname, 'dist-site')
+      : path.resolve(__dirname, 'dist');
+
+/**
+ * Blueprint-only dev: HTML at `/blueprint/index.html` (publicPath + `./index.html` on disk).
+ * Combined `all` build: HTML under `dist/blueprint/*.html`, assets at `/css` (site entry).
+ */
+const blueprintPublicPath = BUILD === 'blueprint' ? '/blueprint/' : '/';
+const sitePublicPath = '/';
+
+function blueprintHtmlFilename(pageName) {
+  if (BUILD === 'blueprint' || IS_FRAMEWORK) return `./${pageName}.html`;
+  return `./blueprint/${pageName}.html`;
+}
+
+const htmlChunkTags = { chunks: ['theme'], inject: 'head' };
+
+function blueprintPagePlugins() {
+  const blueprintBase = path.resolve(__dirname, 'src/blueprint/pages');
+  const blueprintBaseUrl = BUILD === 'blueprint' || (BUILD === 'all' && !IS_FRAMEWORK) ? '/blueprint' : '';
+
+  return getSitePages('./src/blueprint/pages').map((page) => {
+    const rel = path.relative(blueprintBase, page).replace(/\\/g, '/');
+    const pageName = rel.replace(/\.ejs$/i, '');
+    const current_path = blueprintBaseUrl
+      ? `${blueprintBaseUrl}/${pageName}.html`
+      : `/${pageName}.html`;
+
+    return new HtmlWebpackPlugin({
+      template: page,
+      templateParameters: {
+        escapeHtml,
+        readMarkdown,
+        curryRequire,
+        utils: {
+          getAttributes,
+          fp,
+        },
+        globals,
+        base_url: blueprintBaseUrl,
+        current_path,
+      },
+      filename: blueprintHtmlFilename(pageName),
+      ...htmlChunkTags,
+    });
+  });
+}
+
+function sitePagePlugins() {
+  if (!BUILD_SITE || !HAS_SITE_PAGES) return [];
+
+  const appBase = SITE_PAGES_DIR_ABS;
+
+  return getSitePages('./src/site/pages').map((page) => {
+    const rel = path.relative(appBase, page).replace(/\\/g, '/');
+    const pageName = rel.replace(/\.ejs$/i, '');
+    const current_path = `/${pageName}.html`;
+
+    return new HtmlWebpackPlugin({
+      template: page,
+      filename: `./${pageName}.html`,
+      templateParameters: {
+        readMarkdown,
+        utils: {
+          getAttributes,
+          fp,
+        },
+        globals,
+        curryRequire,
+        escapeHtml,
+        base_url: '',
+        current_path,
+        dir_path: path.dirname(page),
+      },
+      ...htmlChunkTags,
+    });
+  });
+}
+
+function themeEntry() {
+  if (BUILD === 'blueprint') return { theme: BLUEPRINT_ENTRY };
+  if (BUILD === 'site') {
+    return { theme: HAS_SITE_ENTRY ? './src/site/js/theme.js' : BLUEPRINT_ENTRY };
+  }
+  return { theme: HAS_SITE_ENTRY ? './src/site/js/theme.js' : BLUEPRINT_ENTRY };
+}
+
+const defaultDevPort =
+  BUILD === 'blueprint' ? 8081 : BUILD === 'site' ? 8080 : Number(process.env.WEBPACK_DEV_PORT ?? 8080);
+
 module.exports = {
-    output: {
-  path: path.resolve(__dirname, 'dist'),
-  filename: 'js/[name].js',
-  assetModuleFilename: 'assets/[name][ext]',
-  clean: true
-},
-  // ✅ In framework mode, build only blueprint.
-  // ✅ Otherwise build site if present, fallback to blueprint.
-  entry: IS_FRAMEWORK
-  ? { theme: BLUEPRINT_ENTRY }
-  : { theme: (HAS_SITE_ENTRY ? './src/site/js/theme.js' : BLUEPRINT_ENTRY) },
+  output: {
+    path: outputDir,
+    filename: 'js/[name].js',
+    assetModuleFilename: 'assets/[name][ext]',
+    clean: true,
+    publicPath: BUILD === 'blueprint' ? blueprintPublicPath : sitePublicPath,
+  },
+  entry: themeEntry(),
   plugins: [
-    // ✅ Always generate Blueprint pages
-    ...(() => {
-      const blueprintBase = path.resolve(__dirname, 'src/blueprint/pages');
-
-      return getSitePages('./src/blueprint/pages').map(page => {
-        const rel = path.relative(blueprintBase, page).replace(/\\/g, '/');
-        const pageName = rel.replace(/\.ejs$/i, '');
-        const blueprintBaseUrl = IS_FRAMEWORK ? '' : '/blueprint';
-        const current_path = IS_FRAMEWORK ? `/${pageName}.html` : `${blueprintBaseUrl}/${pageName}.html`;
-
-        return new HtmlWebpackPlugin({
-          template: page,
-          templateParameters: {
-            escapeHtml,
-            readMarkdown,
-            curryRequire,
-            utils: {
-                getAttributes,
-                fp
-            },
-            globals,
-            base_url: IS_FRAMEWORK ? '' : '/blueprint'
-            ,
-            current_path
-          },
-          filename: IS_FRAMEWORK
-            ? `./${pageName}.html`            // ✅ framework: blueprint is root
-            : `./blueprint/${pageName}.html`  // ✅ normal: blueprint is namespaced
-        });
-      });
-    })(),
-
-    // ✅ Only generate Site pages when NOT in framework mode AND the folder exists
-    ...((!IS_FRAMEWORK && HAS_SITE_PAGES) ? (() => {
-      const appBase = SITE_PAGES_DIR_ABS;
-
-      return getSitePages('./src/site/pages').map(page => {
-        const rel = path.relative(appBase, page).replace(/\\/g, '/');
-        const pageName = rel.replace(/\.ejs$/i, '');
-        const current_path = `/${pageName}.html`;
-
-        return new HtmlWebpackPlugin({
-          template: page,
-          filename: `./${pageName}.html`,
-          templateParameters: {
-            readMarkdown,
-            utils: {
-                getAttributes,
-                fp
-            },
-            globals,
-            curryRequire,
-            escapeHtml,
-            base_url: '',
-            current_path,
-            dir_path: path.dirname(page)
-          }
-        });
-      });
-    })() : []),
-
+    ...(BUILD_BLUEPRINT ? blueprintPagePlugins() : []),
+    ...sitePagePlugins(),
     new MiniCssExtractPlugin({
-      filename: 'css/[name].css'
+      filename: 'css/[name].css',
     }),
-
     new CopyPlugin({
       patterns: [
         {
           from: './src/blueprint/img',
           to: './img/blueprint',
         },
-        {
-          from: './src/blueprint/img',
-          to: './blueprint/img',
-        },
+        ...(BUILD_BLUEPRINT
+          ? [
+              {
+                from: './src/blueprint/img',
+                to: './blueprint/img',
+              },
+            ]
+          : []),
+        ...(BUILD === 'all'
+          ? [
+              {
+                from: './src/blueprint/img',
+                to: './blueprint/img',
+              },
+            ]
+          : []),
         {
           from: './src/site/img',
           to: './img/site',
           noErrorOnMissing: true,
         },
-        {
-          from: './src/site/img',
-          to: './site/img',
-          noErrorOnMissing: true,
-        }
+        ...(BUILD_SITE
+          ? [
+              {
+                from: './src/site/img',
+                to: './site/img',
+                noErrorOnMissing: true,
+              },
+            ]
+          : []),
       ],
     }),
   ],
@@ -167,16 +228,16 @@ module.exports = {
     rules: [
       { test: /\.ejs$/i, use: [{ loader: 'ejs-easy-loader' }] },
       {
-      test: /\.(woff2?|eot|ttf|otf)$/i,
-      type: 'asset/resource',
-      generator: { filename: 'fonts/[name][ext]' },
-    },
+        test: /\.(woff2?|eot|ttf|otf)$/i,
+        type: 'asset/resource',
+        generator: { filename: 'fonts/[name][ext]' },
+      },
       {
         test: /\.(png|svg|jpg|jpeg|gif|JPG)$/i,
         type: 'asset/resource',
         generator: {
           emit: false,
-        }
+        },
       },
       {
         test: /\.(scss)$/,
@@ -189,9 +250,9 @@ module.exports = {
               postcssOptions: {
                 plugins: function () {
                   return [require('autoprefixer')];
-                }
-              }
-            }
+                },
+              },
+            },
           },
           {
             loader: 'sass-loader',
@@ -200,36 +261,31 @@ module.exports = {
                 loadPaths: sassLoadPaths,
                 silenceDeprecations: ['color-functions', 'global-builtin', 'import'],
                 quietDeps: true,
-              }
-            }
-          }
-        ]
+              },
+            },
+          },
+        ],
       },
-    ]
+    ],
   },
 
   resolve: {
     alias: {
       '@blueprint': path.resolve(__dirname, 'src/blueprint'),
-
-      // ✅ Site package (required); `theme.js` imports `@site/scss/_theme.scss`
       '@site': SITE_DIR_ABS,
     },
-    roots: [
-      path.resolve(__dirname, 'src'),
-      path.resolve(__dirname, 'node_modules')
-    ]
+    roots: [path.resolve(__dirname, 'src'), path.resolve(__dirname, 'node_modules')],
   },
 
   devServer: {
     host: '127.0.0.1',
-    port: Number(process.env.WEBPACK_DEV_PORT ?? 8080),
+    port: Number(process.env.WEBPACK_DEV_PORT ?? defaultDevPort),
     hot: true,
     liveReload: true,
     open: false,
     watchFiles: ['src/**/*'],
     devMiddleware: {
-      publicPath: '/',
+      publicPath: BUILD === 'blueprint' ? blueprintPublicPath : sitePublicPath,
     },
   },
 };
