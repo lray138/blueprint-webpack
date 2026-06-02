@@ -66,7 +66,7 @@
 <nav class="navbar navbar-expand-lg py-0" aria-label="Offcanvas navbar large"
     data-bp-edit-path="<%= bpEditPath %>">
     <div class="<%= container_class %> border-bottom py-3 mb-3">
-        <div class="col-md-3 mb-2 mb-md-0">
+        <div class="col-md-3 mb-2 mb-md-0" data-slot="siteName">
             <%- site_name_anchor %>
         </div>
                 
@@ -82,7 +82,8 @@
             <div class="offcanvas-body d-flex flex-wrap align-items-center text-center">
                 
                 <ul class="nav list-group list-group-sm col-12 col-md-auto mb-2 mb-md-0 flex-grow-1 pe-3 "
-    data-bp-edit-path="<%= bpEditPath %>"> <!-- align-items-center justify-content-center justify-content-md-between -->
+    data-slot="nav"
+    data-bp-edit-path="<%= bpEditPath %>">
                     <li class="nav-item">
                         <a class="nav-link" href="<%= base_url %>/about/index.html">About</a>
                     </li>
@@ -111,7 +112,7 @@
                     </li> -->
                 </ul>
 
-                <div class="col-md-3 text-end mx-auto">
+                <div class="col-md-3 text-end mx-auto" data-slot="actions">
                     <%- flex_end_content %>
                 </div>
             </div>

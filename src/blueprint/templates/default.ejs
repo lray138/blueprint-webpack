@@ -5,9 +5,11 @@
     var globals = typeof globals !== "undefined" ? globals : {};
 
     var content = typeof content !== "undefined" ? content : "";
+    
     var header = require("/blueprint/partials/header.ejs")({
         globals,
     });
+
     var footer = require("/blueprint/partials/footer.ejs")();
     
     content = header + content + footer;
