@@ -1,16 +1,15 @@
 <section class="header <%= section_extra_classes %>" <%- __section_attrs__ %>>
     <div class="container">
-        <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-3 border-bottom <%= header_class_extras %>">
-            <div class="col-md-3 mb-2 mb-md-0">
+        <header class="d-flex flex-wrap align-items-center justify-content-between gap-2 gap-md-3 border-bottom <%= header_class_extras %>">
+            <div class="d-flex align-items-center flex-shrink-0">
                 <%- site_name_anchor %>
             </div>
-            <%- nav_links %>
-            <div class="col-md-3 text-end d-flex align-items-center justify-content-end gap-2">
+            <div class="d-flex flex-grow-1 justify-content-center order-3 order-md-2 w-100 w-md-auto">
+                <%- nav_links %>
+            </div>
+            <div class="d-flex align-items-center justify-content-end flex-shrink-0 order-2 order-md-3 gap-2">
                 <%- flex_end_content %>
             </div>
         </header>
     </div>
 </section>
-<!-- dist:
-/Users/lray/Sites/howdyfromatlanta/wp-content/themes/blueprint/partials//header/original.php
--->
