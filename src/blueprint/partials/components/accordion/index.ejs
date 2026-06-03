@@ -8,6 +8,7 @@
 
     var classNames = base_class + " " + modifiers;
     var id = typeof id !== 'undefined' && id ? id : "accordionExample";
+    var __attributes__ = typeof __attributes__ !== "undefined" ? __attributes__ : "";
 %>
 <div class="<%= classNames %>" id="<%= id %>" <%- __attributes__ %>>
     <%- items %>    
