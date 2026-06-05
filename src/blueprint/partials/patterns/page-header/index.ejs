@@ -1,6 +1,8 @@
 <%
-    var heading = typeof heading !== "undefined" ? heading : "Heading Missing";
-    var text = typeof text !== "undefined" ? text : "Add a short lead line.";
+    var cms_page = (typeof cms !== "undefined" && cms && cms.page) ? cms.page : {};
+    var cms_meta = (cms_page && cms_page.meta) ? cms_page.meta : {};
+    var heading = typeof heading !== "undefined" ? heading : (cms_page.title || "Heading Missing");
+    var text = typeof text !== "undefined" ? text : (cms_meta.description || cms_meta.meta_description || "Add a short lead line.");
     var class_names = typeof class_names !== "undefined" ? class_names : "";
 %>
 
