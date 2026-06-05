@@ -1,0 +1,108 @@
+<%
+    var class_names = typeof class_names !== "undefined" ? class_names : "";
+    var heading = typeof heading !== "undefined" ? heading : "Pricing";
+    var lead = typeof lead !== "undefined" ? lead : "Choose the plan that's right for you.";
+
+    var plans = typeof plans !== "undefined" ? plans : [
+        {
+            badge_text: "Free",
+            badge_type: "warning",
+            price: "0",
+            price_suffix: "mo",
+            button_text: "Sign up for free",
+            button_type: "outline-primary",
+            features: [
+                { icon_name: "check", text: "10 users included" },
+                { icon_name: "check", text: "2 GB of storage" },
+                { icon_name: "check", text: "Email support" },
+            ],
+        },
+        {
+            badge_text: "Pro",
+            badge_type: "primary",
+            price: "48",
+            price_suffix: "mo",
+            button_text: "Take advantage",
+            button_type: "primary",
+            features: [
+                { icon_name: "check", text: "10 users included" },
+                { icon_name: "check", text: "2 GB of storage" },
+                { icon_name: "check", text: "Email support" },
+            ],
+        },
+        {
+            badge_text: "Standard",
+            badge_type: "success",
+            price: "23",
+            price_suffix: "mo",
+            button_text: "Get started",
+            button_type: "outline-primary",
+            features: [
+                { icon_name: "check", text: "10 users included" },
+                { icon_name: "check", text: "2 GB of storage" },
+                { icon_name: "check", text: "Email support" },
+            ],
+        },
+    ];
+%>
+
+<section data-cbn-pattern="price-guide" class="pricing <%= class_names %>">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 mb-4 text-center">
+                <h1 class="text-center" data-slot="heading"><%- heading %></h1>
+                <p class="fs-5 text-body-secondary" data-slot="text"><%- lead %></p>
+            </div>
+        </div>
+        <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+            <div class="col">
+                <div data-slot="component" data-slot-id="component-1" data-components="price-card">
+                    <%- require("/blueprint/partials/components/card/price.ejs")({
+                        badge_text: (plans[0] && plans[0].badge_text) || "Free",
+                        badge_type: (plans[0] && plans[0].badge_type) || "warning",
+                        price: (plans[0] && plans[0].price) || "0",
+                        price_suffix: (plans[0] && plans[0].price_suffix) || "mo",
+                        features: ((plans[0] && plans[0].features) || []).map(function(feature) {
+                            return require("/blueprint/partials/components/icon-text/index.ejs")(feature);
+                        }).join(""),
+                        button_text: (plans[0] && plans[0].button_text) || "Sign up for free",
+                        button_type: (plans[0] && plans[0].button_type) || "outline-primary",
+                    }) %>
+                </div>
+            </div>
+            <div class="col">
+                <div data-slot="component" data-slot-id="component-2" data-components="price-card">
+                    <%- require("/blueprint/partials/components/card/price.ejs")({
+                        badge_text: (plans[1] && plans[1].badge_text) || "Pro",
+                        badge_type: (plans[1] && plans[1].badge_type) || "primary",
+                        price: (plans[1] && plans[1].price) || "48",
+                        price_suffix: (plans[1] && plans[1].price_suffix) || "mo",
+                        features: ((plans[1] && plans[1].features) || []).map(function(feature) {
+                            return require("/blueprint/partials/components/icon-text/index.ejs")(feature);
+                        }).join(""),
+                        button_text: (plans[1] && plans[1].button_text) || "Take advantage",
+                        button_type: (plans[1] && plans[1].button_type) || "primary",
+                    }) %>
+                </div>
+            </div>
+            <div class="col">
+                <div data-slot="component" data-slot-id="component-3" data-components="price-card">
+                    <%- require("/blueprint/partials/components/card/price.ejs")({
+                        badge_text: (plans[2] && plans[2].badge_text) || "Standard",
+                        badge_type: (plans[2] && plans[2].badge_type) || "success",
+                        price: (plans[2] && plans[2].price) || "23",
+                        price_suffix: (plans[2] && plans[2].price_suffix) || "mo",
+                        features: ((plans[2] && plans[2].features) || []).map(function(feature) {
+                            return require("/blueprint/partials/components/icon-text/index.ejs")(feature);
+                        }).join(""),
+                        button_text: (plans[2] && plans[2].button_text) || "Get started",
+                        button_type: (plans[2] && plans[2].button_type) || "outline-primary",
+                    }) %>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- dist:
+/Users/lray/Sites/howdyfromatlanta/wp-content/themes/blueprint/partials//patterns/price-guide/index.php
+-->
