@@ -1,0 +1,9 @@
+// Blueprint component partials (imported after Bootstrap in theme.scss)
+
+.quote-body::before {
+  content: "\201C";
+}
+
+.quote-body::after {
+  content: "\201D";
+}
