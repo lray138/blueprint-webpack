@@ -1,6 +1,5 @@
 const fs = require('fs');
 const path = require('path');
-const { marked } = require('marked');
 
 /** Same filename rules as getPage.js (keep in sync). */
 function wpCacheFilePath(slug, cacheDir) {
@@ -37,7 +36,7 @@ const getSitePages = (dir) => {
     return results;
 };
 
-const readMarkdown = (filePath, callerDir = null) => {
+const createReadMarkdown = (marked) => (filePath, callerDir = null) => {
     const srcRoot = path.resolve(__dirname, '..');
 
     let resolvedPath;
@@ -89,6 +88,6 @@ function loadWpPageFromCache(slug) {
 
 module.exports = {
     getSitePages,
-    readMarkdown,
+    createReadMarkdown,
     loadWpPageFromCache,
 };

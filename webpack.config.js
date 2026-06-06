@@ -2,7 +2,7 @@ const path = require('path');
 const fs = require('fs');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const { getSitePages, readMarkdown } = require('./src/utils/filesystem');
+const { getSitePages, createReadMarkdown } = require('./src/utils/filesystem');
 const escapeHtml = require('./src/blueprint/utils/escape-html');
 const curryRequire = require('./src/utils/require-curried');
 const getAttributes = require('./src/utils/html');
@@ -96,7 +96,7 @@ function blueprintHtmlFilename(pageName) {
 
 const htmlChunkTags = { chunks: ['theme'], inject: 'head' };
 
-function blueprintPagePlugins() {
+function blueprintPagePlugins(readMarkdown) {
   const blueprintBase = path.resolve(__dirname, 'src/blueprint/pages');
   const blueprintBaseUrl = BUILD === 'blueprint' || (BUILD === 'all' && !IS_FRAMEWORK) ? '/blueprint' : '';
 
@@ -127,7 +127,7 @@ function blueprintPagePlugins() {
   });
 }
 
-function sitePagePlugins() {
+function sitePagePlugins(readMarkdown) {
   if (!BUILD_SITE || !HAS_SITE_PAGES) return [];
 
   const appBase = SITE_PAGES_DIR_ABS;
@@ -169,7 +169,11 @@ function themeEntry() {
 const defaultDevPort =
   BUILD === 'blueprint' ? 8081 : BUILD === 'site' ? 8080 : Number(process.env.WEBPACK_DEV_PORT ?? 8080);
 
-module.exports = {
+module.exports = async () => {
+  const { marked } = await import('marked');
+  const readMarkdown = createReadMarkdown(marked);
+
+  return {
   output: {
     path: outputDir,
     filename: 'js/[name].js',
@@ -179,8 +183,8 @@ module.exports = {
   },
   entry: themeEntry(),
   plugins: [
-    ...(BUILD_BLUEPRINT ? blueprintPagePlugins() : []),
-    ...sitePagePlugins(),
+    ...(BUILD_BLUEPRINT ? blueprintPagePlugins(readMarkdown) : []),
+    ...sitePagePlugins(readMarkdown),
     new MiniCssExtractPlugin({
       filename: 'css/[name].css',
     }),
@@ -288,4 +292,5 @@ module.exports = {
       publicPath: BUILD === 'blueprint' ? blueprintPublicPath : sitePublicPath,
     },
   },
+  };
 };
