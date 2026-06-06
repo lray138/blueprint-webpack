@@ -5,6 +5,26 @@
     position: absolute; top: 0; left: 0; width: 100%; z-index: 100; z-index: 1030;
 }
 
+// Full-viewport hero height — live/preview use 100vh; CMS edit overrides in app CSS
+.carbon-viewport-height {
+    height: 100vh;
+    height: 100dvh;
+}
+
+// Section width presets — slim & prose constrain max inline size (mirrors CMS index.css)
+.carbon-section.carbon-section--width-slim {
+    width: 100%;
+    max-width: 52rem;
+    box-sizing: border-box;
+}
+
+.carbon-section.carbon-section--width-prose,
+.carbon-section.carbon-section--width-blog {
+    width: 100%;
+    max-width: 38rem;
+    box-sizing: border-box;
+}
+
 .admin-bar .pin-top {
     position: absolute; top: 32px; left: 0; width: 100%; z-index: 100; z-index: 1030;
 }
