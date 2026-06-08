@@ -1,42 +1,43 @@
 /**
- * Islands: lazy-load JS only when matching markup exists (webpack code-split chunks).
+ * Experimental reference: lazy-load JS only when matching markup exists.
  *
- * - [data-muuri-grid] → chunk `island-gallery` → theme-gallery.js (Muuri + BigPicture)
- * - [data-flickity] → chunk `island-flickity` → theme-flickity.js
- * - #jump-to or .jump-to-col → chunk `island-docs` → theme-docs.js (jump-to + accordion-docs)
+ * The active theme entries currently use direct imports for reliability in CMS/live
+ * previews. Keep this file around as a reference if we revisit islands later.
  *
- * When you add an island, document it here and add a matching import() below.
+ * - [data-muuri-grid] -> chunk `island-gallery` -> theme-gallery.js (Muuri + BigPicture)
+ * - [data-flickity] -> chunk `island-flickity` -> theme-flickity.js
+ * - #jump-to or .jump-to-col -> chunk `island-docs` -> theme-docs.js (jump-to + accordion-docs)
  */
 export function bootIslands() {
-  const loaders = [];
+  const loaders = []
 
   if (document.querySelector('[data-muuri-grid]')) {
     loaders.push(
-      import(/* webpackChunkName: "island-gallery" */ './theme-gallery.js')
-    );
+      import(/* webpackChunkName: "island-gallery" */ './theme-gallery.js'),
+    )
   }
 
   if (document.querySelector('[data-flickity]')) {
     loaders.push(
-      import(/* webpackChunkName: "island-flickity" */ './theme-flickity.js')
-    );
+      import(/* webpackChunkName: "island-flickity" */ './theme-flickity.js'),
+    )
   }
 
   if (document.querySelector('#jump-to') || document.querySelector('.jump-to-col')) {
     loaders.push(
-      import(/* webpackChunkName: "island-docs" */ './theme-docs.js')
-    );
+      import(/* webpackChunkName: "island-docs" */ './theme-docs.js'),
+    )
   }
 
-  return Promise.all(loaders);
+  return Promise.all(loaders)
 }
 
 export function bootIslandsWhenReady() {
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function () {
-      void bootIslands();
-    });
+      void bootIslands()
+    })
   } else {
-    void bootIslands();
+    void bootIslands()
   }
 }
