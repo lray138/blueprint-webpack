@@ -10,16 +10,28 @@ const CopyPlugin = require('copy-webpack-plugin');
 
 const __dir__ = __dirname;
 const srcRoot = path.resolve(__dir__, 'src');
+const ROOT = __dirname;
+const IS_FRAMEWORK = ROOT.includes(path.join('blueprint', 'webpack'));
+const SITE_DIR = (() => {
+  const value = String(process.env.SITE_DIR || 'site').trim();
+  if (!/^[a-zA-Z0-9][a-zA-Z0-9._-]{0,119}$/.test(value) || value.toLowerCase() === 'blueprint') {
+    throw new Error(`Invalid SITE_DIR: ${value}`);
+  }
+  return value;
+})();
+const SITE_DIR_ABS = path.resolve(__dirname, 'src', SITE_DIR);
 const globals = {
   src_root: srcRoot,
-  getBpEditPath: (relPath) =>
-    `cursor://file${path.resolve(srcRoot, relPath.replace(/^\//, ''))}`,
+  getBpEditPath: (relPath) => {
+    const rel = String(relPath || '').replace(/^\//, '');
+    const abs = rel.startsWith('site/')
+      ? path.resolve(SITE_DIR_ABS, rel.slice('site/'.length))
+      : path.resolve(srcRoot, rel);
+    return `cursor://file${abs}`;
+  },
 };
 
 const fp = require("./src/blueprint/js/lray138fp.min.js");
-
-const ROOT = __dirname;
-const IS_FRAMEWORK = ROOT.includes(path.join('blueprint', 'webpack'));
 
 /**
  * `blueprint` | `site` | `all` (production / legacy combined output in `dist/`).
@@ -34,7 +46,7 @@ const BUILD = (() => {
 const BUILD_BLUEPRINT = BUILD === 'blueprint' || BUILD === 'all';
 const BUILD_SITE = BUILD === 'site' || BUILD === 'all';
 
-const SITE_ENTRY_ABS = path.resolve(__dirname, 'src/site/js/theme.js');
+const SITE_ENTRY_ABS = path.join(SITE_DIR_ABS, 'js/theme.js');
 const BLUEPRINT_ENTRY = './src/blueprint/js/theme.js';
 
 const HAS_SITE_ENTRY = (() => {
@@ -45,7 +57,7 @@ const HAS_SITE_ENTRY = (() => {
   }
 })();
 
-const SITE_PAGES_DIR_ABS = path.resolve(__dirname, 'src/site/pages');
+const SITE_PAGES_DIR_ABS = path.join(SITE_DIR_ABS, 'pages');
 const HAS_SITE_PAGES = (() => {
   try {
     return fs.statSync(SITE_PAGES_DIR_ABS).isDirectory();
@@ -54,18 +66,17 @@ const HAS_SITE_PAGES = (() => {
   }
 })();
 
-const SITE_DIR_ABS = path.resolve(__dirname, 'src/site');
 const SITE_THEME_SCSS = path.resolve(SITE_DIR_ABS, 'scss/_theme.scss');
 
 if (BUILD_SITE && !fs.existsSync(SITE_THEME_SCSS)) {
   throw new Error(
-    'Missing src/site/scss/_theme.scss. Add or init the site repo (theme composer must live under site/scss).'
+    `Missing src/${SITE_DIR}/scss/_theme.scss. Add or select the site theme layer first.`
   );
 }
 
 if (BUILD_BLUEPRINT && !fs.existsSync(SITE_THEME_SCSS)) {
   throw new Error(
-    'Missing src/site/scss/_theme.scss. Blueprint theme.js imports @site/scss/_theme.scss — add the site theme layer first.'
+    `Missing src/${SITE_DIR}/scss/_theme.scss. Blueprint theme.js imports @site/scss/_theme.scss.`
   );
 }
 
@@ -132,7 +143,7 @@ function sitePagePlugins(readMarkdown) {
 
   const appBase = SITE_PAGES_DIR_ABS;
 
-  return getSitePages('./src/site/pages').map((page) => {
+  return getSitePages(SITE_PAGES_DIR_ABS).map((page) => {
     const rel = path.relative(appBase, page).replace(/\\/g, '/');
     const pageName = rel.replace(/\.ejs$/i, '');
     const current_path = `/${pageName}.html`;
@@ -161,9 +172,9 @@ function sitePagePlugins(readMarkdown) {
 function themeEntry() {
   if (BUILD === 'blueprint') return { theme: BLUEPRINT_ENTRY };
   if (BUILD === 'site') {
-    return { theme: HAS_SITE_ENTRY ? './src/site/js/theme.js' : BLUEPRINT_ENTRY };
+    return { theme: HAS_SITE_ENTRY ? SITE_ENTRY_ABS : BLUEPRINT_ENTRY };
   }
-  return { theme: HAS_SITE_ENTRY ? './src/site/js/theme.js' : BLUEPRINT_ENTRY };
+  return { theme: HAS_SITE_ENTRY ? SITE_ENTRY_ABS : BLUEPRINT_ENTRY };
 }
 
 const defaultDevPort =
@@ -211,14 +222,14 @@ module.exports = async () => {
             ]
           : []),
         {
-          from: './src/site/img',
+          from: path.join(SITE_DIR_ABS, 'img'),
           to: './img/site',
           noErrorOnMissing: true,
         },
         ...(BUILD_SITE
           ? [
               {
-                from: './src/site/img',
+                from: path.join(SITE_DIR_ABS, 'img'),
                 to: './site/img',
                 noErrorOnMissing: true,
               },
@@ -277,6 +288,7 @@ module.exports = async () => {
     alias: {
       '@blueprint': path.resolve(__dirname, 'src/blueprint'),
       '@site': SITE_DIR_ABS,
+      '/site': SITE_DIR_ABS,
     },
     roots: [path.resolve(__dirname, 'src'), path.resolve(__dirname, 'node_modules')],
   },
