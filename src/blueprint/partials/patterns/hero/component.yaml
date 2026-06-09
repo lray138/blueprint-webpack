@@ -1,0 +1,34 @@
+id: blueprint/patterns/hero
+slashTitle: Hero
+slashSubtitle: Bootstrap hero with heading, lead, and optional body HTML
+category: Patterns
+search: hero banner heading lead bootstrap pattern
+icon: "▤"
+
+template:
+  requirePath: /blueprint/partials/patterns/hero/index.ejs
+
+props:
+  class_names:
+    type: text
+    label: Extra CSS classes
+    default: ""
+    mapsToLocal: class_names
+
+slots:
+  heading:
+    type: text
+    label: Heading
+    default: Heading
+    required: true
+    mapsToLocal: heading
+  lead:
+    type: text
+    label: Lead
+    default: ""
+    mapsToLocal: lead
+  content:
+    type: html
+    label: Additional content
+    default: ""
+    mapsToLocal: content

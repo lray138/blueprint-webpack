@@ -1,0 +1,52 @@
+<%
+    var __title = typeof title !== "undefined" ? title : "Stay in the loop";
+    var __text = typeof text !== "undefined"
+        ? text
+        : "Get occasional updates delivered directly to your inbox.";
+    var __action = typeof action !== "undefined" ? action : "#";
+    var __method = typeof method !== "undefined" ? method : "post";
+    var __input_name = typeof input_name !== "undefined" ? input_name : "email";
+    var __input_id = typeof input_id !== "undefined" ? input_id : "email-signup";
+    var __placeholder = typeof placeholder !== "undefined" ? placeholder : "Email address";
+    var __button_label = typeof button_label !== "undefined" ? button_label : "Sign up";
+    var __class_names = typeof class_names !== "undefined" ? class_names : "";
+    var __form_class_names = typeof form_class_names !== "undefined" ? form_class_names : "";
+%>
+<section
+    class="email-signup bg-body-tertiary border rounded-3 p-4 p-md-5 <%= __class_names %>"
+    data-slot="component"
+    data-components="email-signup"
+>
+    <div class="row align-items-center g-4">
+        <div class="col-lg">
+            <h2 class="h3 mb-2"><%= __title %></h2>
+            <% if (__text) { %>
+                <p class="mb-0 text-body-secondary"><%= __text %></p>
+            <% } %>
+        </div>
+
+        <div class="col-lg-6">
+            <form
+                action="<%= __action %>"
+                method="<%= __method %>"
+                class="<%= __form_class_names %>"
+            >
+                <div class="d-flex flex-column flex-sm-row gap-2">
+                    <label for="<%= __input_id %>" class="visually-hidden">Email address</label>
+                    <input
+                        id="<%= __input_id %>"
+                        name="<%= __input_name %>"
+                        type="email"
+                        class="form-control"
+                        placeholder="<%= __placeholder %>"
+                        autocomplete="email"
+                        required
+                    >
+                    <button class="btn btn-primary text-nowrap" type="submit">
+                        <%= __button_label %>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

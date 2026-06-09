@@ -1,0 +1,68 @@
+id: blueprint/components/email-signup
+slashTitle: Email Signup
+slashSubtitle: Email signup call to action with configurable form settings
+category: Components
+search: email signup newsletter subscribe form call to action
+icon: "@"
+
+template:
+  requirePath: /blueprint/partials/components/email-signup/index.ejs
+
+props:
+  action:
+    type: text
+    label: Form action
+    default: "#"
+    mapsToLocal: action
+  method:
+    type: select
+    label: Method
+    default: post
+    options:
+      - post
+      - get
+    mapsToLocal: method
+  input_name:
+    type: text
+    label: Email field name
+    default: email
+    mapsToLocal: input_name
+  input_id:
+    type: text
+    label: Input ID
+    default: email-signup
+    mapsToLocal: input_id
+  class_names:
+    type: text
+    label: Extra CSS classes
+    default: ""
+    mapsToLocal: class_names
+  form_class_names:
+    type: text
+    label: Form CSS classes
+    default: ""
+    mapsToLocal: form_class_names
+
+slots:
+  title:
+    type: text
+    label: Heading
+    default: Stay in the loop
+    required: true
+    mapsToLocal: title
+  text:
+    type: textarea
+    label: Supporting text
+    default: Get occasional updates delivered directly to your inbox.
+    mapsToLocal: text
+  placeholder:
+    type: text
+    label: Placeholder
+    default: Email address
+    mapsToLocal: placeholder
+  button_label:
+    type: text
+    label: Button label
+    default: Sign up
+    required: true
+    mapsToLocal: button_label

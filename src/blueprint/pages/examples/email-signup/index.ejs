@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Email Signup Example | Blueprint</title>
+    </head>
+    <body class="d-flex flex-column min-vh-100">
+        <%- require("/blueprint/partials/header.ejs")({
+            base_url: typeof base_url !== "undefined" ? base_url : ""
+        }) %>
+
+        <main class="flex-grow-1 py-5">
+            <div class="container">
+                <div class="mb-5">
+                    <h1 class="display-5">Email signup</h1>
+                    <p class="lead mb-0">
+                        Examples of the Blueprint email signup call to action.
+                    </p>
+                </div>
+
+                <div class="mb-5">
+                    <%- require("/blueprint/partials/components/email-signup/index.ejs")({
+                        title: "Get new stories in your inbox",
+                        text: "Sign up for occasional updates, featured galleries, and new work.",
+                        action: "/subscribe",
+                        input_id: "example-email-signup",
+                        input_name: "email",
+                        placeholder: "you@example.com",
+                        button_label: "Subscribe"
+                    }) %>
+                </div>
+
+                <h2 class="h4 mb-3">Default</h2>
+                <%- require("/blueprint/partials/components/email-signup/index.ejs")({
+                    input_id: "default-email-signup"
+                }) %>
+            </div>
+        </main>
+
+        <%- require("/blueprint/partials/footer.ejs")({
+            border_top: true
+        }) %>
+        <%- require("/blueprint/partials/svg-icons.ejs")() %>
+    </body>
+</html>

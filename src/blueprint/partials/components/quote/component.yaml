@@ -1,0 +1,23 @@
+id: blueprint/components/quote
+slashTitle: Quote
+slashSubtitle: Centered blockquote with attribution
+category: Components
+search: quote blockquote testimonial citation source attribution
+icon: "“"
+
+template:
+  requirePath: /blueprint/partials/components/quote/index.ejs
+
+slots:
+  text:
+    type: textarea
+    label: Quote
+    default: Lorum ipsum dolor sit amet
+    required: true
+    mapsToLocal: text
+  source:
+    type: text
+    label: Attribution
+    default: John Doe
+    required: true
+    mapsToLocal: source
