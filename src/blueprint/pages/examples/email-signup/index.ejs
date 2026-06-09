@@ -32,8 +32,17 @@
                 </div>
 
                 <h2 class="h4 mb-3">Default</h2>
-                <%- require("/blueprint/partials/components/email-signup/index.ejs")({
-                    input_id: "default-email-signup"
+                <div class="mb-5">
+                    <%- require("/blueprint/partials/components/email-signup/index.ejs")({
+                        input_id: "default-email-signup"
+                    }) %>
+                </div>
+
+                <h2 class="h4 mb-3">Demo version</h2>
+                <%- require("/blueprint/partials/patterns/email-signup-demo/index.ejs")({
+                    heading: "See what we are building",
+                    text: "Get occasional product notes and new demo releases.",
+                    button_label: "Join the list"
                 }) %>
             </div>
         </main>

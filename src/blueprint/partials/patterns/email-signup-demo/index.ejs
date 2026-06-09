@@ -1,0 +1,39 @@
+<%
+    var heading = typeof heading !== "undefined" ? heading : "Stay in the loop";
+    var text = typeof text !== "undefined"
+        ? text
+        : "Get occasional updates delivered directly to your inbox.";
+    var button_label = typeof button_label !== "undefined" ? button_label : "Sign up";
+%>
+<section
+    class="email-signup-demo bg-body-tertiary border rounded-3 p-4 p-md-5"
+    data-components="email-signup-demo"
+>
+    <div class="row align-items-center g-4">
+        <div class="col-lg">
+            <h2 class="h3 mb-2" data-slot="heading"><%= heading %></h2>
+            <p class="mb-0 text-body-secondary" data-slot="text"><%= text %></p>
+        </div>
+
+        <div class="col-lg-6">
+            <form action="/subscribe" method="post">
+                <div class="d-flex flex-column flex-sm-row gap-2">
+                    <input
+                        name="email"
+                        type="email"
+                        class="form-control"
+                        placeholder="Email address"
+                        aria-label="Email address"
+                        autocomplete="email"
+                        required
+                    >
+                    <button
+                        class="btn btn-primary text-nowrap"
+                        type="submit"
+                        data-slot="button_label"
+                    ><%= button_label %></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
