@@ -52,11 +52,11 @@
 
     var flex_end_content = `<a href="${base_url}/contact/" class="btn btn-primary btn-lg lift">Contact</a>`;
         var header_class_extras = 'mb-4 border-bottom';
-        var partial_attrs = typeof cms !== 'undefined' && cms && cms.partial && cms.partial.attrs
-            ? cms.partial.attrs
+        var partial_data = typeof cms !== 'undefined' && cms && cms.partial && cms.partial.data
+            ? cms.partial.data
             : {};
-        var pin_top_enabled = Object.prototype.hasOwnProperty.call(partial_attrs, 'pin_top')
-            ? partial_attrs.pin_top
+        var pin_top_enabled = Object.prototype.hasOwnProperty.call(partial_data, 'pin_top')
+            ? partial_data.pin_top
             : (typeof pin_top !== 'undefined' && pin_top);
         var section_extra_classes = pin_top_enabled ? 'pin-top' : '';
 
