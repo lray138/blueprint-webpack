@@ -1,0 +1,67 @@
+<%
+/**
+ * Site home — example page composed from Blueprint partials, patterns, and wraps.
+ * Blueprint (`webpack/src/blueprint`) is the component library; site pages assemble it
+ * for your project. Edit copy and sections here; customize look in `src/site/scss/`.
+ */
+var content =
+  require("/blueprint/partials/components/wrap/section-one-col.ejs")({
+    utils,
+    content: require("/blueprint/partials/components/image/index.ejs")({
+      attrs: {
+        src: "/img/blueprint/covers/get-in-loser.jpg",
+        alt: "Site hero",
+        class: "img-fluid rounded",
+      },
+    }),
+    class_names: "pb-3",
+  })
+  + require("/blueprint/partials/wraps/section-one-col.ejs")({
+    wrap_attrs: {
+      col_1: {
+        class_add: "col-lg-8 mx-auto text-center",
+      },
+    },
+    content: require("/blueprint/partials/patterns/hero/index.ejs")({
+      heading: "Your site, built on Blueprint",
+      lead: "This page lives under <code>webpack/src/site/pages/</code> and uses the same EJS components as the Blueprint reference.",
+      content: `<p class="mb-0">
+          <a class="btn btn-primary" href="/blueprint/index.html">Browse Blueprint docs</a>
+        </p>`,
+    }),
+  })
+  + require("/blueprint/partials/wraps/section-one-col-md-6-center.ejs")({
+    class_names: "py-4",
+    content: `<p class="lead">
+          Blueprint defines layouts, patterns, and partials. The site package wires them
+          together with your theme (<code>src/site/scss/_theme.scss</code>) and optional
+          overrides in <code>_site.scss</code>.
+        </p>
+        <p>
+          Start by editing this file in the CMS under <strong>Manage site → Theme</strong>,
+          or open <code>webpack/src/site/pages/index.ejs</code> in your editor. Add pages
+          as <code>.ejs</code> files under <code>pages/</code> — webpack emits
+          <code>/pagename.html</code> at the site root.
+        </p>`,
+  })
+  + require("/blueprint/partials/components/wrap/section-one-col.ejs")({
+    class_names: "text-center w-75 mx-auto pb-5",
+    content: require("/blueprint/partials/patterns/page-header/index.ejs")({
+      heading: "What to try next",
+      text: "Explore patterns in the Blueprint browser, then copy sections into your site pages.",
+    }),
+  });
+%>
+
+<%- require("/site/templates/default.ejs")({
+  globals,
+  base_url: typeof base_url !== "undefined" ? base_url : "",
+  head: {
+    title: "Home",
+    site_name: "Carbon",
+    meta: {
+      description: "Example Carbon site page composed from Blueprint components.",
+    },
+  },
+  content,
+}) %>

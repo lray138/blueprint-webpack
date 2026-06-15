@@ -1,0 +1,93 @@
+<% 
+    let { Kvm, Lst } = require("/blueprint/js/lray138fp.min.js");
+    let ls = Kvm.of(locals);
+
+    var section_1 = require("/blueprint/partials/footer/section.ejs")({
+        heading: "Features",
+        list_items: [
+            {
+                text: "Components",
+                href: "/features/components"
+            },
+            {
+                text: "Patterns",
+                href: "/features/patterns/"
+            },
+            {
+                text: "Layouts",
+                href: "/features/layouts/"
+            },
+        ].map(item => require("/blueprint/partials/footer/nav-item.ejs")(item)).join("")
+    });
+
+    var section_2 = require("/blueprint/partials/footer/section.ejs")({
+        heading: "Pricing",
+        list_items: [
+            {
+                text: "Free",
+                href: "/features/components"
+            },
+            {
+                text: "Standard",
+                href: "/features/patterns/"
+            },
+            {
+                text: "Premium",
+                href: "/features/patterns/"
+            },
+        ].map(item => require("/blueprint/partials/footer/nav-item.ejs")(item)).join("")
+    });
+
+    var section_3 = "";
+
+    var section_4 = `<form>
+				<h5>Subscribe to our newsletter</h5>
+				<p>Monthly digest of what's new and exciting from us.</p>
+				<div class="d-flex flex-column flex-sm-row w-100 gap-2">
+					<label for="newsletter1" class="visually-hidden">Email address</label>
+					<input id="newsletter1" type="email" class="form-control" placeholder="Email address">
+						<button class="btn btn-primary" type="button">Subscribe</button>
+					</div>
+				</form>
+			</div>`;
+
+    var section_5 = `<p>Made with 🔥 in Atlanta, GA.</p>
+			<ul class="list-unstyled d-flex social-icon-links">
+                <li class="ms-3">
+                    <a class="link-body-emphasis" href="/docs">
+                        Docs
+                    </a>
+                </li>
+			</ul>`;
+
+    var footer_class_add = "";
+    if (typeof border_top === 'undefined' || border_top !== false) {
+        footer_class_add += " ";
+    }
+
+    var footer_class = Lst.of(["mt-auto mt-1"]);
+
+    var container_class = ls.tryProp("fluid")
+        .fold(
+            () => 'container',
+            (x) => x.extract() === "true" ? "container-fluid" : "container"
+        );
+
+%>
+<footer class="mt-auto mt-1 px-2 <%= footer_class_add %>">
+    <div class="<%= container_class %>">
+        <div class="row">
+            <div class="d-flex flex-column flex-sm-row justify-content-between pt-4 pb-2 border-top">
+                <%- section_5 %>
+            </div>
+            <style>
+                me a { text-decoration: none; }
+                me a:hover { text-decoration: underline; }
+                me a:fire {
+                    display: inline-block;
+                }
+                me a.fire:hover { text-decoration: none; display:inline-block;}
+            </style>
+        </div>
+    </div>
+</footer>

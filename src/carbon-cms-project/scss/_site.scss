@@ -1,0 +1,19 @@
+// Document shell: `default.ejs` uses `body.d-flex.flex-column.min-vh-100`.
+// Page-type layout bands (partials, page content slot, sections) are direct children of `body`
+// after TipTap `carbonWrap` is stripped at publish/preview time.
+
+body.d-flex.flex-column.min-vh-100 > :last-child {
+  margin-top: auto !important;
+}
+
+body.d-flex.flex-column.min-vh-100 > [data-type='carbon-page-content-slot'],
+body.d-flex.flex-column.min-vh-100 > .carbon-page-content-slot {
+  flex-grow: 1;
+}
+
+// Blueprint section wraps sometimes ship with `min-vh-100` — on non-footer bands that steals the
+// viewport and leaves the footer below the fold instead of pinned to the bottom.
+body.d-flex.flex-column.min-vh-100 > :not(:last-child)[class*='min-vh-'],
+body.d-flex.flex-column.min-vh-100 > :not(:last-child) section[class*='min-vh-'] {
+  min-height: auto !important;
+}
