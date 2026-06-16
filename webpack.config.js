@@ -85,12 +85,14 @@ const sassLoadPaths = [
   path.resolve(__dirname, 'node_modules'),
 ];
 
+const siteOutputDirName = SITE_DIR === 'site' ? 'dist-site' : `dist-${SITE_DIR}`;
+
 /** Separate output dirs so two dev servers can run without `clean` wiping each other. */
 const outputDir =
   BUILD === 'blueprint'
     ? path.resolve(__dirname, 'dist-blueprint')
     : BUILD === 'site'
-      ? path.resolve(__dirname, 'dist-site')
+      ? path.resolve(__dirname, siteOutputDirName)
       : path.resolve(__dirname, 'dist');
 
 /**

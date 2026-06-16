@@ -8,8 +8,10 @@
     "build": "webpack --mode=production",
     "build:site-wp": "webpack --mode=production && node scripts/copy-site-build.js",
     "build:portfolio": "SITE_DIR=portfolio webpack --mode=production",
+    "build:site-blueprint": "SITE_DIR=site-blueprint WEBPACK_BUILD=site webpack --mode=production",
     "server": "webpack serve --mode=development",
     "server:portfolio": "SITE_DIR=portfolio webpack serve --mode=development --open",
+    "server:site-blueprint": "SITE_DIR=site-blueprint WEBPACK_BUILD=site webpack serve --mode=development",
     "sync:wp": "node scripts/fetch-wp-pages.js"
   },
   "keywords": [],
