@@ -1,0 +1,24 @@
+id: blueprint/patterns/muuri-gallery
+slashTitle: Muuri Gallery
+slashSubtitle: Masonry photo grid with BigPicture lightbox
+category: Patterns
+search: muuri gallery masonry photos grid lightbox bigpicture
+icon: "▦"
+
+island:
+  boot: gallery
+
+template:
+  requirePath: /blueprint/partials/components/muuri/grid.ejs
+
+props:
+  desktopLgCols:
+    type: select
+    label: Desktop columns
+    default: "4"
+    options:
+      - "3"
+      - "4"
+    mapsToLocal: desktopLgCols
+
+slots: {}

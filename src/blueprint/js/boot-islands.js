@@ -1,34 +1,41 @@
 /**
- * Experimental reference: lazy-load JS only when matching markup exists.
- *
- * The active theme entries currently use direct imports for reliability in CMS/live
- * previews. Keep this file around as a reference if we revisit islands later.
+ * Lazy-load interactive chunks only when matching markup exists on the page.
  *
  * - [data-muuri-grid] -> chunk `island-gallery` -> theme-gallery.js (Muuri + BigPicture)
  * - [data-flickity] -> chunk `island-flickity` -> theme-flickity.js
  * - #jump-to or .jump-to-col -> chunk `island-docs` -> theme-docs.js (jump-to + accordion-docs)
+ *
+ * CMS may also set `window.__CARBON_ISLAND_BOOT` (string[]) from component manifest `island.boot`.
  */
+
+const BOOT_LOADERS = {
+  gallery: () => import(/* webpackChunkName: "island-gallery" */ './theme-gallery.js'),
+  flickity: () => import(/* webpackChunkName: "island-flickity" */ './theme-flickity.js'),
+  docs: () => import(/* webpackChunkName: "island-docs" */ './theme-docs.js'),
+}
+
+function bootsRequested() {
+  /** @type {Set<string>} */
+  const boots = new Set()
+  const fromWindow = globalThis.__CARBON_ISLAND_BOOT
+  if (Array.isArray(fromWindow)) {
+    for (const entry of fromWindow) {
+      const id = String(entry ?? '').trim()
+      if (id) boots.add(id)
+    }
+  }
+  if (document.querySelector('[data-muuri-grid]')) boots.add('gallery')
+  if (document.querySelector('[data-flickity]')) boots.add('flickity')
+  if (document.querySelector('#jump-to') || document.querySelector('.jump-to-col')) boots.add('docs')
+  return boots
+}
+
 export function bootIslands() {
   const loaders = []
-
-  if (document.querySelector('[data-muuri-grid]')) {
-    loaders.push(
-      import(/* webpackChunkName: "island-gallery" */ './theme-gallery.js'),
-    )
+  for (const boot of bootsRequested()) {
+    const load = BOOT_LOADERS[boot]
+    if (load) loaders.push(load())
   }
-
-  if (document.querySelector('[data-flickity]')) {
-    loaders.push(
-      import(/* webpackChunkName: "island-flickity" */ './theme-flickity.js'),
-    )
-  }
-
-  if (document.querySelector('#jump-to') || document.querySelector('.jump-to-col')) {
-    loaders.push(
-      import(/* webpackChunkName: "island-docs" */ './theme-docs.js'),
-    )
-  }
-
   return Promise.all(loaders)
 }
 

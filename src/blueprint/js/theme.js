@@ -16,6 +16,6 @@ import 'bootstrap/js/dist/tab';
 import 'bootstrap/js/dist/toast';
 import 'bootstrap/js/dist/tooltip';
 
-import './theme-gallery';
-import './theme-flickity';
-import './theme-docs';
+import { bootIslandsWhenReady } from './boot-islands';
+
+bootIslandsWhenReady();
