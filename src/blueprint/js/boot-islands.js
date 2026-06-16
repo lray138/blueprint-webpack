@@ -4,7 +4,9 @@
  * - [data-muuri-grid] -> chunk `island-gallery` -> theme-gallery.js (Muuri + BigPicture)
  * - [data-flickity] -> chunk `island-flickity` -> theme-flickity.js
  * - #jump-to or .jump-to-col -> chunk `island-docs` -> theme-docs.js (jump-to + accordion-docs)
- * - [hx-post] etc. -> chunk `island-htmx` -> theme-htmx.js (contact form)
+ *
+ * HTMX and Turnstile are third-party scripts — see document template `include_htmx_js` /
+ * `include_turnstile_js` (content-detected in `pageDocumentVendorScripts`).
  *
  * CMS may also set `window.__CARBON_ISLAND_BOOT` (string[]) from component manifest `island.boot`.
  */
@@ -13,7 +15,6 @@ const BOOT_LOADERS = {
   gallery: () => import(/* webpackChunkName: "island-gallery" */ './theme-gallery.js'),
   flickity: () => import(/* webpackChunkName: "island-flickity" */ './theme-flickity.js'),
   docs: () => import(/* webpackChunkName: "island-docs" */ './theme-docs.js'),
-  htmx: () => import(/* webpackChunkName: "island-htmx" */ './theme-htmx.js'),
 }
 
 function bootsRequested() {
@@ -29,13 +30,6 @@ function bootsRequested() {
   if (document.querySelector('[data-muuri-grid]')) boots.add('gallery')
   if (document.querySelector('[data-flickity]')) boots.add('flickity')
   if (document.querySelector('#jump-to') || document.querySelector('.jump-to-col')) boots.add('docs')
-  if (
-    document.querySelector(
-      '[hx-post], [hx-get], [hx-put], [hx-patch], [hx-delete], [hx-boost]',
-    )
-  ) {
-    boots.add('htmx')
-  }
   return boots
 }
 
